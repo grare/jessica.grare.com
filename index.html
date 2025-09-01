@@ -1,16 +1,42 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Welcome to Jessica Grare's Webpage!</title>
-<style>
-    body {
-        width: 35em;
-        margin: 0 auto;
-        font-family: Tahoma, Verdana, Arial, sans-serif;
-    }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Portfolio</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <script src="js/menu.js" defer></script>
 </head>
 <body>
-<h1>Welcome to Jessica Grare's Webpage!</h1>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="logo">
+      <a href="home.html" target="content-frame">My Portfolio</a>
+    </div>
+    <nav>
+      <a href="about.html" target="content-frame">About</a>
+      <a href="services.html" target="content-frame">Services</a>
+      <a href="work.html" target="content-frame">Work</a>
+      <a href="contact.html" target="content-frame">Contact</a>
+    </nav>
+  </div>
+
+  <!-- Hamburger for mobile -->
+  <div id="hamburger" class="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <!-- Overlay -->
+  <div class="overlay"></div>
+
+  <!-- Content wrapper (includes iframe + footer) -->
+  <div class="content">
+    <iframe id="content-frame" name="content-frame" src="home.html"></iframe>
+    <div class="footer">© 2025 My Portfolio</div>
+  </div>
+
+  <script src="js/menu.js"></script>
 </body>
 </html>
