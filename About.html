@@ -1,15 +1,49 @@
 <!DOCTYPE html>
+<script>
+document.addEventListener('contextmenu', function(e) {
+  if (e.target.tagName === 'IMG') {
+    e.preventDefault();
+    // Optional: alert("Right-click disabled on images.");
+  }
+});
+</script>
+
+
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>About</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/subpages.css" />
 </head>
 <body>
-  <section class="page">
-    <h1>About Me</h1>
-    <p>Hello! I'm a photographer passionate about capturing unique moments and telling stories through images.</p>
+  <section class="about-page">
+    <div class="about-container">
+      <!-- Left: Portrait / Image -->
+      <div class="about-image">
+        <img src="images/JessPortrait2.jpg" alt="Portrait" />
+      </div>
+
+      <!-- Right: Heading + Text -->
+      <div class="about-text">
+        <h1>About Me</h1>
+        <p>
+        My work is rooted in the fine arts: drawing and painting. I apply my knowledge of fine art and art histroy into my photography. My joy is to blur the lines between a painting and a photograph. 
+        </p>
+        <p>
+          I cover a wide range of photography, including concerts, events, travel, and nature. My work has been exhibited in multiple art shows and galleries. With my concert work, I covered bands big and small, from Pittsburgh's treasured rock band Misaligned Mind to Grammy award winners such as A Great Big World and Bo Burnham. 
+        </p>
+        <p>
+          When I'm not behind the camera, I work as a professional graphic designer and event planner. Otherwise I'm trying international foods, crafting, and taking care of my two boys.
+        </p>
+        <p>
+          Want to say hello or chat? Drop a note in my Contact page.
+        </p>
+      </div>
+    </div>
   </section>
 </body>
 </html>

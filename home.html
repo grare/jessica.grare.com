@@ -1,14 +1,30 @@
 <!DOCTYPE html>
+<script>
+document.addEventListener('contextmenu', function(e) {
+  if (e.target.tagName === 'IMG') {
+    e.preventDefault();
+    // Optional: alert("Right-click disabled on images.");
+  }
+});
+</script>
+
+
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Services</title>
   <link rel="stylesheet" href="css/subpages.css" />
+	<link rel="icon" type="image/x-icon" href="favicon.ico">
+	<script src="js/slideshow.js" defer></script>
 </head>
 <body>
-  <section class="page">
-    <p>Capturing moments, telling stories..</p>
+  <section class="hero-slideshow">
+    <img src="images/Travel/GrareTravel_15.jpg" alt="Hero 1" class="slide">
+	  <img src="images/Travel/GrareTravel_16.jpg" alt="Hero 2" class="slide active">
+    <img src="images/Fine Art/GrareFineArt_11.jpg" alt="Hero 3" class="slide">
   </section>
 </body>
 </html>
+
+

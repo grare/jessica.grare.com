@@ -1,20 +1,46 @@
 <!DOCTYPE html>
+<script>
+document.addEventListener('contextmenu', function(e) {
+  if (e.target.tagName === 'IMG') {
+    e.preventDefault();
+    // Optional: alert("Right-click disabled on images.");
+  }
+});
+</script>
+
+
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contact</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/subpages.css" />
 </head>
 <body>
   <section class="page contact">
-    <h1>Contact Me</h1>
-    <form>
-      <input type="text" placeholder="Your Name" required />
-      <input type="email" placeholder="Your Email" required />
-      <textarea placeholder="Your Message" required></textarea>
-      <button type="submit">Send</button>
-    </form>
+    <div class="contact-content">
+      <!-- Left Column -->
+      <div class="contact-text">
+        <h1 class="contact-title">Contact Me</h1>
+        <p>
+          Feel free to reach out if you would like to work with me or just say hi.  
+          It would be a joy to share my love of photography with you.
+        </p>
+      </div>
+
+      <!-- Right Column -->
+      <div class="contact-form">
+        <form>
+          <input type="text" placeholder="Your Name" required />
+          <input type="email" placeholder="Your Email" required />
+          <textarea placeholder="Your Message" required></textarea>
+          <button type="submit">Send</button>
+        </form>
+      </div>
+    </div>
   </section>
 </body>
 </html>
