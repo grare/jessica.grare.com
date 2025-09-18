@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<script>
+document.addEventListener('contextmenu', function(e) {
+  if (e.target.tagName === 'IMG') {
+    e.preventDefault();
+    // Optional: alert("Right-click disabled on images.");
+  }
+});
+</script>
+
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Work</title>
+  <link rel="stylesheet" href="css/subpages.css" />
+  <script src="js/lightbox.js" defer></script>
+</head>
+<body>
+  <section class="page">
+    
+    <!-- Masonry gallery -->
+  <div class="gallery">
+    <!-- Wrap images consistently -->
+    <div class="gallery-item"><img src="images/JamieSmash.jpg" alt="Work 1"></div>
+    <div class="gallery-item"><img src="images/My Heaven.jpg" alt="Work 2"></div>
+    <div class="gallery-item"><img src="images/LebowskiBar.jpg" alt="Work 3"></div>
+    <div class="gallery-item"><img src="images/LoveLocks_Grare.jpg" alt="Work 4"></div>
+	  <div class="gallery-item"><img src="images/JamieSmash.jpg" alt="Work 5"></div>
+    <div class="gallery-item"><img src="images/My Heaven.jpg" alt="Work 6"></div>
+    <div class="gallery-item"><img src="images/LebowskiBar.jpg" alt="Work 7"></div>
+    <div class="gallery-item"><img src="images/LoveLocks_Grare.jpg" alt="Work 8"></div>
+  </div>
+</section>
+
+  </section>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox">
+    <span class="close">&times;</span>
+    <span class="prev">&#10094;</span>
+    <img class="lightbox-content" id="lightbox-img" />
+    <span class="next">&#10095;</span>
+  </div>
+</body>
+</html>
+
