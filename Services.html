@@ -1,4 +1,14 @@
 <!DOCTYPE html>
+<script>
+document.addEventListener('contextmenu', function(e) {
+  if (e.target.tagName === 'IMG') {
+    e.preventDefault();
+    // Optional: alert("Right-click disabled on images.");
+  }
+});
+</script>
+
+
 <html lang="en">
 <head>
   <meta charset="UTF-8" />

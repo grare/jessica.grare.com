@@ -1,258 +1,333 @@
-
-
+/* ================================
+   General Page Layout
+================================ */
 body {
   margin: 0;
-  font-family: "Poppins", Arial, sans-serif;
-  background: #000;
-  color: #eee;
-}
-
-
-/* Sidebar */
-.sidebar {
-  width: 260px;
-  background: #111;
-  padding: 20px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  overflow-y: auto;
-  z-index: 1000;
-}
-
-.sidebar .logo a {
-  color: #fff;
-  text-decoration: none;
-  font-size: 1.4rem;
-  font-weight: 600;
-}
-
-.sidebar nav {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-}
-
-.sidebar nav a {
-  color: #aaa;
-  padding: 10px 0;
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-.sidebar nav a:hover {
-  color: #fff;
-}
-
-/* Content */
-.content {
-  margin-left: 260px;
   padding: 0;
-  flex: 1;
-}
-
-iframe {
-  border: none;
-  width: 100%;
-  height: calc(100vh - 50px); /* account for footer */
-  transition: opacity 0.3s ease-in-out;
-}
-
-iframe.fade-out {
-  opacity: 0;
-}
-
-/* Footer */
-.footer {
-  position: fixed;
-  bottom: 0;
-  left: 260px;
-  right: 0;
-  background: #111;
-  color: #aaa;
-  text-align: center;
-  padding: 10px;
-  font-size: 0.9rem;
-}
-
-@media (max-width: 768px) {
-  .content {
-    margin-left: 0;
-  }
-  .footer {
-    left: 0;
-  }
-}
-
-/* Hamburger */
-.hamburger {
-  display: none;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 25px;
-  height: 20px;
-  cursor: pointer;
-  position: fixed;
-  top: 15px;
-  left: 15px;
-  z-index: 1100;
-}
-
-.hamburger span {
-  display: block;
-  height: 3px;
-  background: #fff;
-  border-radius: 2px;
-  transition: 0.3s;
-}
-
-.hamburger.active span:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
-}
-.hamburger.active span:nth-child(2) {
-  opacity: 0;
-}
-.hamburger.active span:nth-child(3) {
-  transform: rotate(-45deg) translate(6px, -6px);
-}
-
-/* Mobile Sidebar */
-@media (max-width: 768px) {
-  .sidebar {
-    left: -260px;
-    transition: left 0.4s ease-in-out;
-  }
-  .sidebar.active {
-    left: 0;
-  }
-  .hamburger {
-    display: flex;
-  }
-}
-
-/* Overlay for mobile */
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.4s ease-in-out, visibility 0.4s ease-in-out;
-  z-index: 900;
-}
-
-.overlay.active {
-  opacity: 1;
-  visibility: visible;
+  font-family: 'Poppins', Arial, sans-serif; /* ✅ Poppins applied */
+  background: #111;   /* ✅ dark background */
+  color: #eee;        /* ✅ light text */
 }
 
 .page {
-  max-width: 900px;
-  margin: 50px auto;
-  padding: 20px;
-  text-align: left;
+  padding: 0;
+  margin: 0;
 }
 
-/* Contact form */
-.contact form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.contact input,
-.contact textarea {
-  padding: 10px;
-  border: none;
-  background: #111;
-  color: #eee;
-}
-
-.contact button {
-  padding: 10px;
-  border: none;
-  background: #444;
-  color: #fff;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.contact button:hover {
-  background: #666;
-}
-
-/* Gallery */
+/* ================================
+   Masonry Gallery (true Pinterest-style)
+================================ */
 .gallery {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
+  column-count: 4;       /* number of columns on large screens */
+  column-gap: 16px;      /* spacing between columns */
+  max-width: 1600px;     /* keeps it centered on wide screens */
+  margin: 0 auto;
+  padding: 16px;
 }
 
-.gallery img {
+.gallery-item {
+  display: inline-block; /* required for column flow */
   width: 100%;
+  margin: 0 0 16px;      /* spacing between items */
+  break-inside: avoid;   /* prevents breaking across columns */
+  -webkit-column-break-inside: avoid;
+  -moz-column-break-inside: avoid;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: auto;          /* ✅ natural aspect ratio */
+  display: block;
   cursor: pointer;
-  border-radius: 0;
-  transition: transform 0.3s;
+  transition: transform 0.3s ease;
 }
 
-.gallery img:hover {
-  transform: scale(1.05);
+.gallery-item img:hover {
+  transform: scale(1.03);
 }
 
-/* Lightbox */
+/* Responsive breakpoints */
+@media (max-width: 1200px) {
+  .gallery { column-count: 3; }
+}
+@media (max-width: 768px) {
+  .gallery { column-count: 2; }
+}
+@media (max-width: 480px) {
+  .gallery { column-count: 1; }
+}
+
+/*================================
+   Lightbox Overlay
+================================ */
 .lightbox {
-  display: none;
+  display: none; /* hidden by default */
   position: fixed;
-  z-index: 2000;
-  left: 0;
   top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(0,0,0,0.9);
+  z-index: 1000;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.lightbox img {
+.lightbox-content {
+  max-width: 90%;
+  max-height: 85%;
   display: block;
   margin: auto;
-  max-width: 90%;
-  max-height: 90%;
-  border: none;
 }
 
-.lightbox .close,
+/* ================================
+   Lightbox Animations
+================================ */
+.fade-in {
+  animation: fadeIn 0.3s ease forwards;
+}
+.fade-out {
+  animation: fadeOut 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+/* ================================
+   Lightbox Controls
+================================ */
 .lightbox .prev,
-.lightbox .next {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+.lightbox .next,
+.lightbox .close {
+  position: fixed;
+  font-size: 2.5rem;
+  font-weight: bold;
   color: #ccc;
-  font-size: 2rem;
   cursor: pointer;
   user-select: none;
   padding: 10px;
+  background: none;
+  border-radius: 50%;
+  transition: background 0.3s, color 0.3s;
+  z-index: 1001;
+}
+
+.lightbox .prev,
+.lightbox .next,
+.lightbox .close:hover {
+  background: none;
+  color: #fff;
+}
+
+.lightbox .prev {
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+}
+
+.lightbox .next {
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
 }
 
 .lightbox .close {
   top: 20px;
-  right: 30px;
-  font-size: 2.5rem;
-  transform: none;
-}
-
-.lightbox .prev {
-  left: 20px;
-}
-
-.lightbox .next {
   right: 20px;
+  transform: none;
+  border-radius: 0; /* square button */
 }
 
-.lightbox .prev:hover,
-.lightbox .next:hover,
-.lightbox .close:hover {
+/* Prevent background scroll when lightbox is open */
+body.no-scroll {
+  overflow: hidden;
+}
+
+/* ==== About Page Split Layout ==== */
+.about-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 16px;
+  color: #eee;
+  background: #111;
+}
+
+.about-container {
+  display: flex;
+  flex-wrap: wrap;           /* stacks on smaller screens */
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.about-image {
+  flex: 1 1 300px;           /* image column grows but not too small */
+  max-width: 400px;
+}
+
+.about-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  display: block;
+}
+
+.about-text {
+  flex: 2 1 500px;           /* text column wider */
+}
+
+.about-text h1 {
+  font-size: 2.5rem;
+  margin-bottom: 24px;
+  text-align: left;          /* left-aligned heading */
+}
+
+.about-text p {
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+
+/* ================================
+   Contact Page
+================================ */
+.contact {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* full screen height */
+  padding: 40px 20px;
+  box-sizing: border-box;
+}
+
+.contact-container {
+  background: #1a1a1a;
+  padding: 40px;
+  border-radius: 8px;
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+}
+
+.contact h1 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  margin-bottom: 20px;
   color: #fff;
+}
+
+.contact form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.contact input,
+.contact textarea {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  padding: 12px;
+  border: none;
+  border-radius: 4px;
+  background: #2a2a2a;
+  color: #eee;
+  outline: none;
+}
+
+.contact input:focus,
+.contact textarea:focus {
+  border: 1px solid #555;
+}
+
+.contact textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.contact button {
+  background: #fff;
+  color: #111;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+}
+
+.contact button:hover {
+  background: #555;
+  color: #fff;
+}
+
+/* ================================
+   Hero Section
+================================ */
+.hero {
+  width: 100%;
+  height: 100vh;          /* full screen height */
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;      /* fills screen, crops gracefully */
+  display: block;
+}
+
+/* ================================
+   Fullscreen Slideshow
+================================ */
+.hero-slideshow {
+  position: relative;
+  width: 100%;
+  height: 100vh;         /* full screen height */
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.hero-slideshow .slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;     /* fills screen, crops gracefully */
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+}
+
+.hero-slideshow .slide.active {
+  opacity: 1;
+  z-index: 1;
+}
+
+/* Logo */
+.logo {
+  text-align: left; /* ensures left alignment */
+  margin-bottom: 20px;
+}
+
+.logo a {
+  display: inline-block; /* keeps the link tight around the image */
+}
+
+.logo-img {
+  max-width: 160px; /* adjust size */
+  height: auto;
+  display: block;
+  margin: 0; /* remove centering margin */
+  cursor: pointer;
 }
