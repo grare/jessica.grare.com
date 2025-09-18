@@ -1,16 +1,60 @@
 <!DOCTYPE html>
-<html>
+<script>
+document.addEventListener('contextmenu', function(e) {
+  if (e.target.tagName === 'IMG') {
+    e.preventDefault();
+    // Optional: alert("Right-click disabled on images.");
+  }
+});
+</script>
+
+
+<html lang="en">
 <head>
-<title>Welcome to Jessica Grare's Webpage!</title>
-<style>
-    body {
-        width: 35em;
-        margin: 0 auto;
-        font-family: Tahoma, Verdana, Arial, sans-serif;
-    }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Portfolio</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script src="js/menu.js" defer></script>
 </head>
 <body>
-<h1>Welcome to Jessica Grare's Webpage!</h1>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="logo">
+      <a href="home.html" target="content-frame">
+        <img src="images/GrareLogoWhite.png" alt="Logo" class="logo-img">
+      </a>
+    </div>
+    <nav>
+      <a href="NATURE.html" target="content-frame">Nature</a>
+      <a href="FINEART.html" target="content-frame">Fine Art</a>
+      <a href="Music.html" target="content-frame">Music</a>
+      <a href="Travel.html" target="content-frame">Travel</a>
+      <a href="Abstract.html" target="content-frame">Abstract</a>
+		<a href="Events.html" target="content-frame">Events</a>
+		<a href="Weddings.html" target="content-frame">Weddings</a>
+		<a href="about.html" target="content-frame">About</a>
+      <a href="contact.html" target="content-frame">Contact</a>
+    </nav>
+  </div>
+
+  <!-- Hamburger for mobile -->
+  <div id="hamburger" class="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <!-- Overlay -->
+  <div class="overlay"></div>
+
+  <!-- Content wrapper (iframe + footer) -->
+  <div class="content">
+    <iframe id="content-frame" name="content-frame" src="home.html"></iframe>
+    <div class="footer">© 2025 Jessica Grare</div>
+  </div>
+
 </body>
 </html>
