@@ -33,12 +33,15 @@ document.addEventListener('contextmenu', function(e) {
 
       <!-- Right Column -->
       <div class="contact-form">
-        <form>
-          <input type="text" placeholder="Your Name" required />
-          <input type="email" placeholder="Your Email" required />
-          <textarea placeholder="Your Message" required></textarea>
-          <button type="submit">Send</button>
-        </form>
+       <form action="process_form.php" method="POST">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name"><br>
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email"><br>
+        <label for="message">Message:</label><br>
+        <textarea id="message" name="message"></textarea><br>
+        <input type="submit" value="Submit">
+    </form>
       </div>
     </div>
   </section>
