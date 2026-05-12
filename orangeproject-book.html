@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taylor's Yearbook | The Orange Project</title>
+    <style>
+        :root {
+            --bg-color: white;
+            --accent-color: #eb6c24;
+            --page-bg: #ffffff;
+            --text-color: black;
+            --border-color: #e6e6e6;
+            --aspect-ratio: 1.545 / 1;
+        }
+
+        body {
+            margin: 0; padding: 0 0 80px;
+            background-color: var(--bg-color);
+            display: flex; flex-direction: column;
+            align-items: center;
+            min-height: 100vh; font-family: 'Segoe UI', sans-serif;
+            color: var(--text-color); perspective: 3000px;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        .book-container {
+            width: 95vw;
+            max-width: 1200px;
+            aspect-ratio: var(--aspect-ratio);
+            position: relative;
+            margin: auto auto 30px;
+            transform-style: preserve-3d;
+        }
+
+        @media (max-height: 900px) {
+            .book-container { max-width: 900px; }
+        }
+        @media (max-height: 700px) {
+            .book-container { max-width: 700px; }
+        }
+
+        /* --- SPREADS --- */
+        .spread {
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
+            display: flex; opacity: 0;
+            pointer-events: none;
+            transform: rotateY(15deg) scale(0.95);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1;
+        }
+
+        .spread.active {
+            opacity: 1; pointer-events: auto;
+            transform: rotateY(0deg) scale(1); z-index: 5;
+        }
+
+        /* Single-page spreads (covers) */
+        .spread.single-page {
+            justify-content: center;
+        }
+        .spread.single-page .page {
+            flex: 0 0 auto;
+            width: 50%;
+        }
+
+        /* --- PAGES --- */
+        .page {
+            flex: 1; background: var(--page-bg);
+            position: relative; overflow: hidden;
+            box-shadow: inset 0 0 40px rgba(0,0,0,0.15);
+            border: 3px solid var(--border-color);
+        }
+
+        .page img {
+            width: 100%; height: 100%;
+            object-fit: fill;
+            display: block;
+            image-rendering: -webkit-optimize-contrast;
+        }
+
+        /* In-place flip animation for back cover image */
+        #flip-cover-img {
+            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        #flip-cover-img.flipped {
+            transform: rotate(180deg);
+        }
+
+        .spine {
+            position: absolute; left: 50%;
+            width: 2px; height: 100%;
+            background: rgba(0,0,0,0.3);
+            z-index: 10; transform: translateX(-50%);
+            box-shadow: 0 0 15px rgba(0,0,0,0.4);
+        }
+
+        /* --- CONTROLS --- */
+        .controls { display: flex; align-items: center; gap: 30px; z-index: 100; }
+        .btn {
+            background: transparent; color: var(--text-color);
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            padding: 12px 30px; font-size: 0.75rem; font-weight: 600;
+            letter-spacing: 2px; cursor: pointer; border-radius: 4px;
+            text-transform: uppercase; transition: 0.3s;
+        }
+        .btn:hover:not(:disabled) {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+            background: rgba(235, 108, 36, 0.05);
+        }
+        .btn:disabled { opacity: 0.2; cursor: not-allowed; }
+        .info { font-size: 0.7rem; color: rgba(0,0,0,0.4); letter-spacing: 3px; text-align: center; }
+    </style>
+</head>
+<body>
+
+    <div class="book-container" id="bookContainer">
+
+        <!-- === SPREAD 0: Front Cover (single page) === -->
+        <div class="spread single-page active">
+            <div class="page">
+                <img src="images/OrangeProject/madison_highschool_split_pages/Cover.png" loading="eager">
+            </div>
+        </div>
+
+        <!-- === SPREAD 1 === -->
+        <div class="spread">
+            <div class="page"><img src="images/OrangeProject/madison_highschool_split_pages/page_01_left.jpg" decoding="async"></div>
+            <div class="page"><img src="images/OrangeProject/madison_highschool_split_pages/page_01_right.jpg" decoding="async"></div>
+            <div class="spine"></div>
+        </div>
+
+        <!-- === SPREAD 2 === -->
+        <div class="spread">
+            <div class="page"><img src="images/OrangeProject/madison_highschool_split_pages/page_02_left.jpg" decoding="async"></div>
+            <div class="page"><img src="images/OrangeProject/madison_highschool_split_pages/page_02_right.jpg" decoding="async"></div>
+            <div class="spine"></div>
+        </div>
+
+        <!-- === SPREAD 3 === -->
+        <div class="spread">
+            <div class="page"><img src="images/OrangeProject/madison_highschool_split_pages/page_03_left.jpg" decoding="async"></div>
+            <div class="page"><img src="images/OrangeProject/madison_highschool_split_pages/page_03_right.jpg" decoding="async"></div>
+            <div class="spine"></div>
+        </div>
+
+        <!-- === SPREAD 4 === -->
+        <div class="spread">
+            <div class="page"><img src="images/OrangeProject/madison_highschool_split_pages/page_04_left.jpg" decoding="async"></div>
+            <div class="page"><img src="images/OrangeProject/madison_highschool_split_pages/page_04_right.jpg" decoding="async"></div>
+            <div class="spine"></div>
+        </div>
+
+        <!-- === SPREAD 5 === -->
+        <div class="spread">
+            <div class="page"><img src="images/OrangeProject/madison_highschool_split_pages/page_05_left.jpg" decoding="async"></div>
+            <div class="page"><img src="images/OrangeProject/madison_highschool_split_pages/page_05_right.jpg" decoding="async"></div>
+            <div class="spine"></div>
+        </div>
+
+        <!-- === SPREAD 6: Back Cover — 2018 upside down, flips in place (single page) === -->
+        <div class="spread single-page">
+            <div class="page">
+                <img id="flip-cover-img" src="images/OrangeProject/madison_highschool_split_pages/page_05_right_end.png" decoding="async">
+            </div>
+        </div>
+
+        <!-- ============ SPREADS AFTER FLIP (normal transitions) ============ -->
+
+        <!-- === SPREAD 7 === -->
+        <div class="spread">
+            <div class="page"><img src="images/OrangeProject/madison_highschool_split_pages/page_06_left.jpg" decoding="async"></div>
+            <div class="page"><img src="images/OrangeProject/madison_highschool_split_pages/page_06_right.jpg" decoding="async"></div>
+            <div class="spine"></div>
+        </div>
+
+        <!-- === SPREAD 8 === -->
+        <div class="spread">
+            <div class="page"><img src="images/OrangeProject/madison_highschool_split_pages/page_07_left.jpg" decoding="async"></div>
+            <div class="page"><img src="images/OrangeProject/madison_highschool_split_pages/page_07_right.jpg" decoding="async"></div>
+            <div class="spine"></div>
+        </div>
+
+        <!-- === SPREAD 9 === -->
+        <div class="spread">
+            <div class="page"><img src="images/OrangeProject/madison_highschool_split_pages/page_08_left.jpg" decoding="async"></div>
+            <div class="page"><img src="images/OrangeProject/madison_highschool_split_pages/page_08_right.jpg" decoding="async"></div>
+            <div class="spine"></div>
+        </div>
+
+        <!-- === SPREAD 10 === -->
+        <div class="spread">
+            <div class="page"><img src="images/OrangeProject/madison_highschool_split_pages/page_09_left.jpg" decoding="async"></div>
+            <div class="page"><img src="images/OrangeProject/madison_highschool_split_pages/page_09_right.jpg" decoding="async"></div>
+            <div class="spine"></div>
+        </div>
+
+        <!-- === SPREAD 11 === -->
+        <div class="spread">
+            <div class="page"><img src="images/OrangeProject/madison_highschool_split_pages/page_10_left.jpg" decoding="async"></div>
+            <div class="page"><img src="images/OrangeProject/madison_highschool_split_pages/page_10_right.jpg" decoding="async"></div>
+            <div class="spine"></div>
+        </div>
+
+        <!-- === SPREAD 12 === -->
+        <div class="spread">
+            <div class="page"><img src="images/OrangeProject/madison_highschool_split_pages/page_11_left.jpg" decoding="async"></div>
+            <div class="page"><img src="images/OrangeProject/madison_highschool_split_pages/page_11_right.jpg" decoding="async"></div>
+            <div class="spine"></div>
+        </div>
+
+        <!-- === SPREAD 13 === -->
+        <div class="spread">
+            <div class="page"><img src="images/OrangeProject/madison_highschool_split_pages/page_12_left.jpg" decoding="async"></div>
+            <div class="page"><img src="images/OrangeProject/madison_highschool_split_pages/page_12_right.jpg" decoding="async"></div>
+            <div class="spine"></div>
+        </div>
+
+        <!-- === SPREAD 14 === -->
+        <div class="spread">
+            <div class="page"><img src="images/OrangeProject/madison_highschool_split_pages/page_13_left.jpg" decoding="async"></div>
+            <div class="page"><img src="images/OrangeProject/madison_highschool_split_pages/page_13_right.jpg" decoding="async"></div>
+            <div class="spine"></div>
+        </div>
+
+        <!-- === SPREAD 15 === -->
+        <div class="spread">
+            <div class="page"><img src="images/OrangeProject/madison_highschool_split_pages/page_14_left (2).jpg" decoding="async"></div>
+            <div class="page"><img src="images/OrangeProject/madison_highschool_split_pages/page_14_right (2).jpg" decoding="async"></div>
+            <div class="spine"></div>
+        </div>
+
+        <!-- === SPREAD 16 === -->
+        <div class="spread">
+            <div class="page"><img src="images/OrangeProject/madison_highschool_split_pages/page_15_left (2).jpg" decoding="async"></div>
+            <div class="page"><img src="images/OrangeProject/madison_highschool_split_pages/page_15_right (2).jpg" decoding="async"></div>
+            <div class="spine"></div>
+        </div>
+
+        <!-- === SPREAD 17 === -->
+        <div class="spread">
+            <div class="page"><img src="images/OrangeProject/madison_highschool_split_pages/page_16_left (2).jpg" decoding="async"></div>
+            <div class="page"><img src="images/OrangeProject/madison_highschool_split_pages/page_16_right (2).jpg" decoding="async"></div>
+            <div class="spine"></div>
+        </div>
+
+        <!-- === SPREAD 18 === -->
+        <div class="spread">
+            <div class="page"><img src="images/OrangeProject/madison_highschool_split_pages/page_17_left (2).jpg" decoding="async"></div>
+            <div class="page"><img src="images/OrangeProject/madison_highschool_split_pages/page_17_right (2).jpg" decoding="async"></div>
+            <div class="spine"></div>
+        </div>
+
+        <!-- === SPREAD 19 === -->
+        <div class="spread">
+            <div class="page"><img src="images/OrangeProject/madison_highschool_split_pages/page_18_left (2).jpg" decoding="async"></div>
+            <div class="page"><img src="images/OrangeProject/madison_highschool_split_pages/page_18_right (2).jpg" decoding="async"></div>
+            <div class="spine"></div>
+        </div>
+
+        <!-- === SPREAD 20 === -->
+        <div class="spread">
+            <div class="page"><img src="images/OrangeProject/madison_highschool_split_pages/page_19_left.jpg" decoding="async"></div>
+            <div class="page"><img src="images/OrangeProject/madison_highschool_split_pages/page_19_right.jpg" decoding="async"></div>
+            <div class="spine"></div>
+        </div>
+
+        <!-- === SPREAD 21 === -->
+        <div class="spread">
+            <div class="page"><img src="images/OrangeProject/madison_highschool_split_pages/page_20_left.jpg" decoding="async"></div>
+            <div class="page"><img src="images/OrangeProject/madison_highschool_split_pages/page_20_right.jpg" decoding="async"></div>
+            <div class="spine"></div>
+        </div>
+
+        <!-- === SPREAD 22: Back Cover — stallion upside down (single page) === -->
+        <div class="spread single-page">
+            <div class="page">
+                <img src="images/OrangeProject/madison_highschool_split_pages/Cover.png" style="transform: rotate(180deg);" decoding="async">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="controls">
+        <button class="btn" id="prevBtn" onclick="move(-1)" disabled>Prev</button>
+        <span class="info" id="status">Front Cover</span>
+        <button class="btn" id="nextBtn" onclick="move(1)">Next</button>
+    </div>
+
+    <script>
+        let currentIdx = 0;
+        let isAnimating = false;
+        let isFlipped = false;
+        const FLIP_INDEX = 6;
+        const spreads = document.querySelectorAll('.spread');
+        const flipImg = document.getElementById('flip-cover-img');
+        const statusText = document.getElementById('status');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        // Preload all images
+        window.addEventListener('load', () => {
+            document.querySelectorAll('img').forEach(img => {
+                const dummy = new Image();
+                dummy.src = img.src;
+            });
+        });
+
+        function move(direction) {
+            if (isAnimating) return;
+
+            // At back cover, not yet flipped, clicking Next → animate the in-place flip
+            if (currentIdx === FLIP_INDEX && direction === 1 && !isFlipped) {
+                doInPlaceFlip();
+                return;
+            }
+
+            // At back cover, already flipped, clicking Prev → un-flip
+            if (currentIdx === FLIP_INDEX && direction === -1 && isFlipped) {
+                doInPlaceUnflip();
+                return;
+            }
+
+            const nextIdx = currentIdx + direction;
+            if (nextIdx < 0 || nextIdx >= spreads.length) return;
+
+            // Normal page transition
+            spreads[currentIdx].style.transform = direction === 1
+                ? "rotateY(-25deg) scale(0.9) translateX(-100px)"
+                : "rotateY(25deg) scale(0.9) translateX(100px)";
+            spreads[currentIdx].classList.remove('active');
+
+            // If leaving spread 6 while flipped, reset flip instantly (invisible during transition)
+            if (currentIdx === FLIP_INDEX && isFlipped) {
+                flipImg.style.transition = 'none';
+                flipImg.classList.remove('flipped');
+                flipImg.offsetHeight;
+                flipImg.style.transition = '';
+                isFlipped = false;
+            }
+
+            currentIdx = nextIdx;
+
+            spreads[currentIdx].style.transform = "";
+            spreads[currentIdx].classList.add('active');
+
+            updateUI();
+        }
+
+        function doInPlaceFlip() {
+            isAnimating = true;
+            statusText.innerText = "Flipping\u2026";
+            flipImg.classList.add('flipped');
+
+            setTimeout(() => {
+                isFlipped = true;
+                isAnimating = false;
+                updateUI();
+            }, 1250);
+        }
+
+        function doInPlaceUnflip() {
+            isAnimating = true;
+            statusText.innerText = "Flipping\u2026";
+            flipImg.classList.remove('flipped');
+
+            setTimeout(() => {
+                isFlipped = false;
+                isAnimating = false;
+                updateUI();
+            }, 1250);
+        }
+
+        function updateUI() {
+            prevBtn.disabled = (currentIdx === 0);
+            nextBtn.disabled = (currentIdx === spreads.length - 1);
+
+            if (currentIdx === 0) {
+                statusText.innerText = "Front Cover";
+            } else if (currentIdx >= 1 && currentIdx <= 5) {
+                statusText.innerText = "Spread " + currentIdx + " of 5";
+            } else if (currentIdx === FLIP_INDEX && !isFlipped) {
+                statusText.innerText = "Back Cover \u2014 Flip to continue";
+            } else if (currentIdx === FLIP_INDEX && isFlipped) {
+                statusText.innerText = "Cover Flipped";
+            } else if (currentIdx === spreads.length - 1) {
+                statusText.innerText = "Back Cover";
+            } else {
+                statusText.innerText = "Spread " + (currentIdx - FLIP_INDEX) + " of 15";
+            }
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if (isAnimating) return;
+            if (e.key === "ArrowRight" && (currentIdx < spreads.length - 1 || (currentIdx === FLIP_INDEX && !isFlipped))) move(1);
+            if (e.key === "ArrowLeft" && (currentIdx > 0 || (currentIdx === FLIP_INDEX && isFlipped))) move(-1);
+        });
+    </script>
+</body>
+</html>

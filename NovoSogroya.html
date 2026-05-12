@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jessica Grare | Journey the Giraffe</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;900&family=Playfair+Display:ital,wght@0,900;1,900&display=swap" rel="stylesheet">
+<style>
+        body { font-family: 'Poppins', sans-serif; }
+        .serif-italic { font-family: 'Playfair Display', serif; }
+        
+        /* Poppins Black Lockup */
+        .poppins-black { font-weight: 900; letter-spacing: -0.02em; }
+        
+        .reveal { opacity: 0; transform: translateY(20px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        .img-container { overflow: hidden; }
+        .img-container img { transition: transform 1.5s cubic-bezier(0.165, 0.84, 0.44, 1); }
+        .img-container:hover img { transform: scale(1.05); }
+
+        /* Animated nav underline */
+        .link-under { position: relative; text-decoration: none; }
+        .link-under::after {
+            content: ''; position: absolute; width: 100%; height: 1px;
+            bottom: -2px; left: 0; background-color: currentColor;
+            transform: scaleX(0); transform-origin: left; transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .link-under:hover::after { transform: scaleX(1); }
+    </style>
+</head>
+<body class="bg-white text-black antialiased">
+
+	<!--Top Navigator -->
+<nav class="flex justify-between items-center px-4 md:px-6 py-6 sticky top-0 bg-white/80 backdrop-blur-md z-50">
+    <a href="design/" class="block">
+        <img src="images/JG_WithName@4x.png" alt="Jessica Grare" class="h-[80px] w-auto object-contain block">
+    </a>
+    
+    <div class="flex items-center space-x-8 font-medium text-sm uppercase tracking-widest">
+        <a href="design/" class="border-b-2 border-black">Work</a>
+        <a href="AboutDesigner.html" class="link-under">About</a>
+        
+        <a href="https://www.linkedin.com/in/jessicagrare" target="_blank" class="block hover:opacity-50 transition-opacity">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="black" style="display: block;">
+                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+            </svg>
+        </a>
+    </div>
+</nav>
+	
+
+	<header class="relative w-full overflow-hidden">
+    <div class="absolute inset-0 z-0">
+        <img src="images/Sogroya/GiraffeStory_Layout_Cover.jpg" alt="Background" class="w-full h-full object-cover opacity-30 grayscale">
+    </div>
+
+    <div class="relative z-10 max-w-[1400px] mx-auto px-6 md:px-12 pt-24 pb-12">
+        <h1 class="text-5xl md:text-8xl poppins-black uppercase leading-[0.8] mb-12">
+            Journey the Giraffe <br>
+            <span class="serif-italic lowercase font-normal text-gray-400">Helping Children Grow</span>
+        </h1>
+    </div>
+</header> <div class="relative z-20 w-full bg-[#ae97b1] border-t border-black py-12 reveal">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-12">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+            
+            <div>
+                <h4 class="text-[10px] uppercase tracking-[0.2em] font-bold mb-2 text-white">Role</h4>
+                <p class="text-sm text-white/80 font-medium uppercase">Art Director</p>
+            </div>
+
+            <div>
+                <h4 class="text-[10px] uppercase tracking-[0.2em] font-bold mb-2 text-white">Client</h4>
+                <p class="text-sm text-white/80 font-medium uppercase">Novo Nordisk</p>
+                <div class="mt-6">
+                    <h4 class="text-[10px] uppercase tracking-[0.2em] font-bold mb-2 text-white">Collaborators</h4>
+                    <ul class="text-sm text-white/80 font-medium uppercase leading-relaxed">
+                        <li>Jeanna Sweeney (Art Supervisor)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="text-[10px] uppercase tracking-[0.2em] font-bold mb-2 text-white">Services</h4>
+                <p class="text-sm text-white/80 font-medium uppercase">Print Design</p>
+            </div>
+
+            <div>
+                </div>
+
+        </div>
+    </div>
+</div>
+<!--Hero Image -->
+    <main class="pb-32">
+        
+        <section class="max-w-[1400px] mx-auto px-6 md:px-12 py-24 reveal">
+            <div class="img-container">
+                <img src="images/Sogroya/GiraffeStory_Layout_Cover.jpg" alt="Large View" class="w-full hover:grayscale-0 transition-all duration-1000">
+            </div>
+        </section>
+		
+<!--Basic Description and Header -->
+<section class="w-full bg-[#4e2561] py-24 mb-24 reveal">
+    <div class="max-w-[1400px] mx-auto px-4 md:px-10">
+        <div class="flex flex-col max-w-6xl"> 
+            
+            <h2 class="text-3xl md:text-4xl poppins-black uppercase tracking-wide text-[#FFFFFF] leading-tight mb-6">
+                Going from daily injections to weekly injections.
+            </h2>
+
+            <p class="text-base md:text-lg text-white/80 leading-relaxed">
+                Novo Nordisk released Soyroya, a growth hormone injection that a child only has to use once a week. The injection is done via a Sogroya pen. To get children familiar with the product in an age-appropriate way, I designed and illustrated a comic book style booklet, featuring Journey the Giraffe. This is a companion piece to go along with a giraffe plush. The plush has stars on the legs to indicate the injection sites. Journey was later utilized in convention booth graphics and signage.   <br> 
+
+            </p>
+            
+        </div>
+    </div>
+</section>
+		
+		<!--Interactive Book -->
+		<iframe src="book.html" width="100%" height="700px" frameborder="0" scrolling="no"></iframe>
+		
+		<!--Emotions Image -->
+    <main class="pb-32">
+        
+        <section class="max-w-[1000px] mx-auto px-6 md:px-12 py-24 reveal">
+            <div class="img-container">
+                <img src="images/Sogroya/300ppi/GiraffeEmotions_2.jpg" alt="Large View" class="w-full hover:grayscale-0 transition-all duration-1000">
+            </div>
+			<p class="text-[10px] uppercase tracking-[0.2em] text-gray-400 group-hover:text-black transition-colors duration-500">
+                Illustration exercise in Journey's different emotions
+            </p>
+        </section>
+		
+<!--Gallery Images -->
+      <!--  <section class="max-w-[1400px] mx-auto px-6 md:px-12 space-y-8 md:space-y-16">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">
+                <div class="img-container reveal"><img src="detail-1.jpg" class="w-full"></div>
+                <div class="img-container reveal"><img src="detail-2.jpg" class="w-full"></div>
+            </div>
+            <div class="w-full reveal">
+                <div class="img-container"><img src="detail-3.jpg" class="w-full"></div>
+            </div>
+        </section> 
+-->
+		
+<!--Quote -->
+<!-- <section class="w-full bg-[#f8f8f8] py-32 mt-24 mb-24 reveal">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-12">
+        <div class="max-w-4xl">
+            <h3 class="text-xs uppercase tracking-[0.3em] font-black mb-10 text-gray-400">The Process</h3>
+            
+            <p class="text-3xl md:text-[43px] font-black italic leading-[1.1] tracking-tight text-black" style="font-family: 'Playfair Display', serif;">
+                "We stripped away the noise, focusing on the tactile nature of the device's fabric and the precision of its metal finish."
+            </p>
+        </div>
+    </div>
+</section>
+-->
+		
+<!--2 Column Image and Text Descriptor templates -->
+<!--IMAGE LEFT 2 Column Image and Text Descriptor templates -->
+	<!--	<section class="max-w-[1400px] mx-auto px-6 md:px-12 py-20 reveal">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 items-center">
+        <div class="group">
+            <div class="img-container mb-4">
+                <img src="images/your-image-1.jpg" alt="Project Detail" class="w-full h-auto object-cover">
+            </div>
+            <p class="text-[10px] uppercase tracking-[0.2em] text-gray-400 group-hover:text-black transition-colors duration-500">
+                Fig 01. / Initial moodboarding and color theory application.
+            </p>
+        </div>
+        
+        <div class="max-w-md">
+            <h3 class="text-xs uppercase tracking-[0.3em] font-black mb-6 text-[#eb6c24]">The Vision</h3>
+            <p class="text-lg text-gray-800 leading-relaxed">
+                By focusing on the tactile nature of the materials, we created a brand identity that feels both grounded and aspirational.
+            </p>
+        </div>
+    </div>
+</section>
+-->
+<!--IMAGE RIGHT 2 Column Image and Text Descriptor templates -->
+<!--<section class="max-w-[1400px] mx-auto px-6 md:px-12 py-20 reveal">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 items-center">
+        <div class="max-w-md md:order-1 order-2">
+            <h3 class="text-xs uppercase tracking-[0.3em] font-black mb-6 text-[#eb6c24]">The Execution</h3>
+            <p class="text-lg text-gray-800 leading-relaxed">
+                Every touchpoint was meticulously crafted to ensure a cohesive user journey across various lighting conditions.
+            </p>
+        </div>
+
+        <div class="group md:order-2 order-1">
+            <div class="img-container mb-4">
+                <img src="images/your-image-2.jpg" alt="Project Detail" class="w-full h-auto object-cover">
+            </div>
+            <p class="text-[10px] uppercase tracking-[0.2em] text-gray-400 group-hover:text-black transition-colors duration-500 md:text-right">
+                Studio Session / Autumn 2025 / Creative Direction
+            </p>
+        </div>
+    </div>
+</section>
+		-->
+		
+		
+<!--Secondary Gallery -->
+     <!--   <section class="max-w-[1400px] mx-auto px-6 md:px-12">
+            <div class="grid grid-cols-12 gap-4 mb-24">
+                <div class="col-span-12 md:col-span-8 reveal">
+                    <div class="img-container"><img src="final-1.jpg" class="w-full"></div>
+                </div>
+                <div class="col-span-12 md:col-span-4 reveal">
+                    <div class="img-container"><img src="final-2.jpg" class="w-full"></div>
+                </div>
+            </div>
+			
+<!--Next Page -->
+        </section>
+    </main>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+    </script>
+</body>
+</html>

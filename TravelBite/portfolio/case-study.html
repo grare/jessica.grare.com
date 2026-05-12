@@ -1,0 +1,564 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>TravelBite — Case Study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Caveat:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=block" rel="stylesheet" />
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&display=block');
+  /* ─────────────────────────────────────────────────────
+     CASE STUDY TEMPLATE — TravelBite
+     Drop into your portfolio repo. Edit copy in-place.
+     All colors, type, and grid are top of the file so you
+     can re-skin this for future case studies in minutes.
+     ───────────────────────────────────────────────────── */
+
+  :root {
+    --paper:    #f6efe2;
+    --paper-2:  #ede4d0;
+    --ink:      #2a1d12;
+    --ink-2:    #5a4a38;
+    --ink-3:    #9b8870;
+    --rule:     #d8c9a8;
+    --terracotta: #c25a3b;
+    --gold:     #d99a2b;
+    --olive:    #6b7d5b;
+
+    --serif:  'DM Serif Display', Georgia, serif;
+    --sans:   'Inter', system-ui, sans-serif;
+    --mono:   'JetBrains Mono', monospace;
+    --script: 'Caveat', cursive;
+
+    --max:    1240px;
+    --gutter: clamp(20px, 4vw, 56px);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: var(--terracotta); text-decoration: none; border-bottom: 1px solid currentColor; }
+  a:hover { color: var(--ink); }
+
+  /* ── Layout ── */
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+  section { padding: clamp(56px, 9vw, 120px) 0; border-top: 1px solid var(--rule); }
+  section:first-of-type { border-top: 0; }
+
+  /* ── Type ── */
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  h1 {
+    font-family: var(--serif);
+    font-size: clamp(48px, 7vw, 96px);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    margin: 18px 0 0;
+  }
+  h2 {
+    font-family: var(--serif);
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 400;
+    line-height: 1.05;
+    margin: 0 0 22px;
+    letter-spacing: -0.005em;
+  }
+  h3 {
+    font-family: var(--serif);
+    font-size: 24px;
+    font-weight: 400;
+    margin: 0 0 8px;
+  }
+  .script-note {
+    font-family: var(--script);
+    color: var(--terracotta);
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 1.1;
+  }
+
+  /* ── Passport stamp ── */
+  .stamp {
+    display: inline-block;
+    transform: rotate(-8deg);
+    padding: 10px 18px 8px;
+    border: 2px solid var(--terracotta);
+    border-radius: 6px;
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    background: rgba(194,90,59,0.04);
+    position: relative;
+  }
+  .stamp::before {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    border: 1px dashed var(--terracotta);
+    border-radius: 3px;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  .stamp .star { color: var(--gold); margin-right: 6px; }
+
+  .stamp-row {
+    display: flex; flex-wrap: wrap; gap: 22px;
+    margin-top: 28px;
+  }
+  .stamp-row .stamp:nth-child(2) { transform: rotate(4deg); border-color: var(--olive); color: var(--olive); }
+  .stamp-row .stamp:nth-child(2)::before { border-color: var(--olive); }
+  .stamp-row .stamp:nth-child(3) { transform: rotate(-3deg); border-color: var(--gold); color: var(--gold); }
+  .stamp-row .stamp:nth-child(3)::before { border-color: var(--gold); }
+  .stamp-row .stamp:nth-child(4) { transform: rotate(6deg); }
+
+  /* ── Map decoration ── */
+  .map-deco {
+    margin-top: 56px;
+    background: var(--paper-2);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .map-deco svg { display: block; width: 100%; height: auto; max-height: 320px; }
+  .map-deco .pin {
+    fill: var(--terracotta);
+  }
+  .map-deco .land { fill: var(--ink); opacity: 0.12; }
+  .map-deco .grid-line { stroke: var(--ink-3); stroke-width: 0.4; opacity: 0.35; fill: none; }
+  .map-caption {
+    margin-top: 12px;
+    font-family: var(--script);
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.15;
+    color: var(--terracotta);
+    text-align: center;
+  }
+  .lede {
+    font-size: clamp(18px, 1.6vw, 22px);
+    line-height: 1.5;
+    color: var(--ink-2);
+    max-width: 760px;
+  }
+  .pill {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    color: var(--ink-2);
+  }
+
+  /* ── Header strip ── */
+  .nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 22px var(--gutter);
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--ink-2);
+  }
+  .nav .back { color: var(--ink); }
+  .nav .crumbs span + span::before { content: ' / '; color: var(--ink-3); padding: 0 6px; }
+
+  /* ── Hero ── */
+  .hero { padding-top: clamp(64px, 8vw, 120px); }
+  .hero-meta {
+    display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px; margin-top: 56px; padding-top: 22px;
+    border-top: 1px solid var(--rule);
+  }
+  .hero-meta dt {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--ink-3); margin-bottom: 6px;
+  }
+  .hero-meta dd { margin: 0; font-size: 15px; color: var(--ink); }
+  @media (max-width: 720px) { .hero-meta { grid-template-columns: repeat(2, 1fr); } }
+
+  /* ── Hero media tile (video or interactive embed) ── */
+  .hero-media {
+    margin-top: 56px;
+    aspect-ratio: 16 / 10;
+    background: var(--ink);
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+  }
+  .hero-media iframe,
+  .hero-media video,
+  .hero-media img { width: 100%; height: 100%; object-fit: cover; border: 0; display: block; }
+
+  /* ── Two-column prose ── */
+  .two-col { display: grid; grid-template-columns: 280px 1fr; gap: 64px; }
+  .two-col .side { font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-3); padding-top: 8px; }
+  .two-col .body p { font-size: 17px; line-height: 1.65; color: var(--ink); margin: 0 0 18px; max-width: 680px; }
+  .two-col .body p strong { color: var(--ink); }
+  @media (max-width: 800px) { .two-col { grid-template-columns: 1fr; gap: 18px; } }
+
+  /* ── Image grid ── */
+  .img-grid {
+    display: grid; gap: 16px; margin-top: 36px;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+  .img-grid figure { margin: 0; }
+  .img-grid img {
+    display: block; width: 100%; height: auto;
+    background: var(--paper-2);
+    border-radius: 6px;
+  }
+  .img-grid figcaption {
+    margin-top: 8px;
+    font-family: var(--script);
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.15;
+    color: var(--terracotta);
+  }
+
+  /* ── Full-bleed image ── */
+  .full {
+    margin: 48px calc(-1 * var(--gutter)) 0;
+    background: var(--ink);
+  }
+  .full img { width: 100%; display: block; }
+
+  /* ── Embed (live prototype) ── */
+  .embed-shell {
+    margin-top: 36px;
+    background: #2a1d12;
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+  }
+  .embed-shell iframe {
+    width: 100%;
+    height: 900px;
+    max-height: 90vh;
+    border: 0;
+    border-radius: 6px;
+    background: #2a1d12;
+    display: block;
+  }
+  .embed-caption {
+    margin-top: 14px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: #c9b691;
+  }
+  .embed-caption a { color: var(--gold); border-color: var(--gold); }
+
+  /* ── Decision card (callout block) ── */
+  .decision {
+    background: var(--paper-2);
+    border-left: 3px solid var(--terracotta);
+    padding: 22px 28px;
+    margin: 28px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .decision .eyebrow { color: var(--terracotta); }
+  .decision h4 {
+    font-family: var(--serif); font-size: 22px; font-weight: 400;
+    margin: 6px 0 8px;
+  }
+  .decision p { margin: 0; color: var(--ink-2); max-width: 620px; }
+
+  /* ── Footer ── */
+  footer {
+    padding: 56px var(--gutter);
+    border-top: 1px solid var(--rule);
+    display: flex; flex-wrap: wrap; gap: 18px; justify-content: space-between; align-items: baseline;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  footer a { color: var(--ink); }
+
+  /* ── Tiny utilities ── */
+  .mt-0 { margin-top: 0 !important; }
+  .center { text-align: center; }
+  .stack > * + * { margin-top: 14px; }
+
+</style>
+</head>
+<body>
+
+<!-- ─────────────────────── NAV ─────────────────────── -->
+<div class="nav">
+  <a class="back" href="/">← Back to work</a>
+  <div class="crumbs">
+    <span>Case study</span><span>Mobile · concept</span><span>2026</span>
+  </div>
+</div>
+
+<!-- ─────────────────────── HERO ─────────────────────── -->
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">★ Mobile · concept · solo project</div>
+    <h1>TravelBite</h1>
+    <div class="script-note" style="font-size:48px;margin-top:8px;">a passport for your tastebuds.</div>
+    <p class="lede" style="margin-top:28px;">
+      A recipe app that turns every meal you cook into a stamp on a personal food passport.
+      Built around the idea that learning to cook the world is more rewarding than scrolling another infinite feed.
+    </p>
+
+    <dl class="hero-meta">
+      <div><dt>Role</dt><dd>Product design, prototyping, art direction</dd></div>
+      <div><dt>Timeline</dt><dd>4 weeks · self-directed</dd></div>
+      <div><dt>Surface</dt><dd>Native mobile (iOS / Android)</dd></div>
+      <div><dt>Tools</dt><dd>HTML/CSS/React · Figma · Photoshop</dd></div>
+    </dl>
+
+    <!-- HERO MEDIA — drop your walkthrough video here -->
+    <div class="hero-media">
+      <!-- Option A · Self-hosted MP4 (preferred for control)
+      <video autoplay muted loop playsinline poster="screens/01-overview.png">
+        <source src="walkthrough.mp4" type="video/mp4" />
+      </video>
+      -->
+      <!-- Option B · YouTube unlisted
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID?autoplay=1&mute=1&loop=1&playlist=VIDEO_ID&controls=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      -->
+      <!-- Fallback · still hero -->
+      <img src="screens/01-overview.png" alt="TravelBite — all screens at a glance" />
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────── PROBLEM ─────────────────────── -->
+<section>
+  <div class="wrap">
+    <div class="two-col">
+      <div class="side">01 · Problem</div>
+      <div class="body">
+        <h2>Recipe apps treat cooking like search. It's actually a story.</h2>
+        <p>
+          Today's recipe apps are optimized for the moment of intent — <em>"what do I make tonight?"</em> —
+          and stop caring the second you close the tab. Nothing remembers what you've cooked, where it came from,
+          or what you learned about onions last Tuesday.
+        </p>
+        <p>
+          For curious home cooks, that's a missed loop. The dishes that stick are the ones tied to a place,
+          a person, a moment. The app should remember that for you.
+        </p>
+
+        <div class="decision">
+          <div class="eyebrow">The bet</div>
+          <h4>Reframe the recipe app as a logbook, not a search bar.</h4>
+          <p>If every cooked meal becomes a stamp on a passport, the app's job shifts from "answer the query" to "build the collection." That changes everything downstream — home screen, pantry, learn surfaces, even the icon.</p>
+        </div>
+
+        <div class="stamp-row">
+          <span class="stamp"><span class="star">★</span>Tunis</span>
+          <span class="stamp"><span class="star">★</span>Hà Nội</span>
+          <span class="stamp"><span class="star">★</span>Jeonju</span>
+          <span class="stamp"><span class="star">★</span>Amritsar</span>
+        </div>
+        <div class="script-note" style="margin-top:14px;">— four stamps in your first month.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────── PROCESS ─────────────────────── -->
+<section>
+  <div class="wrap">
+    <div class="two-col">
+      <div class="side">02 · Process</div>
+      <div class="body">
+        <h2>From three onboarding wires to a 10-screen prototype.</h2>
+        <p>
+          I started with a one-paragraph product brief, then sketched the smallest possible flow that would prove the loop:
+          onboard → log a meal → see it on the passport. Once the loop felt right, I built it as a working hi-fi prototype
+          in code so I could feel the navigation friction firsthand.
+        </p>
+        <p>
+          Working in code (rather than Figma) forced honest decisions: real type hierarchy, real scroll behavior,
+          real tap targets. Things that look fine static and break the second you try to use them.
+        </p>
+      </div>
+    </div>
+
+    <div class="full">
+      <img src="screens/01-overview.png" alt="All onboarding and product screens, laid out on a design canvas" />
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────── KEY DECISIONS ─────────────────────── -->
+<section>
+  <div class="wrap">
+    <div class="two-col">
+      <div class="side">03 · Decisions</div>
+      <div class="body">
+        <h2>Three calls that defined the product.</h2>
+
+        <h3 style="margin-top:32px;">A passport, not a feed.</h3>
+        <p>
+          The home screen is a logbook — chronological, dense with personal artifacts (stamps, postcards, notes) rather
+          than a Pinterest grid of strangers' food. The app rewards depth, not novelty.
+        </p>
+
+        <h3 style="margin-top:28px;">Spices and sauces as a learning surface.</h3>
+        <p>
+          The Learn tab treats spices and sauces as first-class objects — each gets a card, an origin, a flavor profile.
+          This is the surface that turns a casual cook into a curious one, and it's the surface I had the most fun designing.
+        </p>
+
+        <h3 style="margin-top:28px;">Import from where people already live.</h3>
+        <p style="margin-bottom:32px;">
+          Realistically, recipes come from TikTok, Instagram, Pinterest, and random blogs. The Import flow is a single
+          paste-and-go interaction with clear source-app attribution, designed so it never competes with the source.
+        </p>
+
+        <div class="map-deco">
+          <svg viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse">
+                <circle cx="1" cy="1" r="0.6" fill="#3d2e1f" opacity="0.25" />
+              </pattern>
+            </defs>
+            <g class="grid-line">
+              <line x1="0" y1="80" x2="800" y2="80" /><line x1="0" y1="160" x2="800" y2="160" /><line x1="0" y1="240" x2="800" y2="240" />
+              <line x1="160" y1="0" x2="160" y2="320" /><line x1="320" y1="0" x2="320" y2="320" /><line x1="480" y1="0" x2="480" y2="320" /><line x1="640" y1="0" x2="640" y2="320" />
+            </g>
+            <!-- Loose continent silhouettes (decorative, not geographic) -->
+            <path class="land" d="M70 110 Q120 80 180 100 Q230 120 260 150 Q280 200 230 230 Q170 240 110 220 Q60 200 50 160 Q60 130 70 110 Z" />
+            <path class="land" d="M280 120 Q340 100 400 110 Q450 120 480 150 Q500 200 470 240 Q400 260 340 250 Q290 230 280 190 Z" />
+            <path class="land" d="M500 90 Q570 70 640 90 Q700 110 730 150 Q740 200 690 230 Q620 240 560 220 Q510 190 500 150 Z" />
+            <rect width="800" height="320" fill="url(#dots)" />
+            <!-- Pins -->
+            <g class="pin">
+              <circle cx="320" cy="170" r="5" /><text x="328" y="166" font-family="JetBrains Mono" font-size="10" fill="#c25a3b">TUNIS</text>
+              <circle cx="620" cy="195" r="5" /><text x="628" y="191" font-family="JetBrains Mono" font-size="10" fill="#c25a3b">HÀ NỘI</text>
+              <circle cx="680" cy="170" r="5" /><text x="688" y="166" font-family="JetBrains Mono" font-size="10" fill="#c25a3b">JEONJU</text>
+              <circle cx="540" cy="180" r="5" /><text x="548" y="176" font-family="JetBrains Mono" font-size="10" fill="#c25a3b">AMRITSAR</text>
+              <circle cx="140" cy="230" r="5" /><text x="148" y="226" font-family="JetBrains Mono" font-size="10" fill="#c25a3b">CHILPANCINGO</text>
+              <circle cx="360" cy="140" r="5" /><text x="368" y="136" font-family="JetBrains Mono" font-size="10" fill="#c25a3b">FIRENZE</text>
+            </g>
+          </svg>
+          <div class="map-caption">Atlas of flavor — six stamps · the seed of your passport</div>
+        </div>
+        <p>
+          Realistically, recipes come from TikTok, Instagram, Pinterest, and random blogs. The Import flow is a single
+          paste-and-go interaction with clear source-app attribution, designed so it never competes with the source.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────── LIVE PROTOTYPE ─────────────────────── -->
+<section>
+  <div class="wrap">
+    <div class="two-col">
+      <div class="side">04 · Try it</div>
+      <div class="body">
+        <h2>Click around the live prototype.</h2>
+        <p>
+          Every screen below is real React — onboarding, pantry, recipes, cook mode, the spice and sauce libraries,
+          import flow, and the passport. Drag, scroll, tap. Toggle dark mode in the top-left.
+        </p>
+      </div>
+    </div>
+
+    <div class="embed-shell">
+      <iframe src="embed/travelbite-prototype.html" title="TravelBite — interactive prototype" loading="lazy"></iframe>
+      <div class="embed-caption">
+        Doesn't fit? <a href="embed/travelbite-prototype.html" target="_blank" rel="noopener">Open the prototype full-screen ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────── SCREENS GRID ─────────────────────── -->
+<section>
+  <div class="wrap">
+    <div class="two-col">
+      <div class="side">05 · Screens</div>
+      <div class="body">
+        <h2>The product, screen by screen.</h2>
+        <p>Eight core surfaces. Each one is a real React component in the prototype — capture individual stills from the live prototype above and add them to <code>screens/</code> when you're ready.</p>
+      </div>
+    </div>
+
+    <div class="full">
+      <img src="screens/01-overview.png" alt="All eight product screens laid out on a single canvas" />
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────── ASSET SPEC ─────────────────────── -->
+<section>
+  <div class="wrap">
+    <div class="two-col">
+      <div class="side">06 · System</div>
+      <div class="body">
+        <h2>Every visual slot, specced.</h2>
+        <p>
+          The whole product runs on a tight system: four type families, 12 color tokens, four spice-disc sizes,
+          12 sauce-bottle colorways, and a single grid scale. I documented every one as a hand-off spec — what
+          ships, where it lives, how to export it.
+        </p>
+        <p>
+          <a href="embed/travelbite-asset-spec.html" target="_blank" rel="noopener">Read the full asset spec sheet ↗</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="embed-shell" style="background: var(--paper-2); padding: 0;">
+      <iframe src="embed/travelbite-asset-spec.html" title="TravelBite — asset spec sheet" style="height:1100px;" loading="lazy"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────── REFLECTION ─────────────────────── -->
+<section>
+  <div class="wrap">
+    <div class="two-col">
+      <div class="side">07 · Reflection</div>
+      <div class="body">
+        <h2>What I'd do differently.</h2>
+        <p>
+          Designing in code is faster than I expected for hi-fi, but it tempted me to over-polish before the loop
+          was validated. Next time I'd cap the prototype at three screens until I'd watched five strangers cook with it.
+        </p>
+        <p>
+          The Atlas of Flavor (Learn tab) is the surface I'm most proud of, and the one with the least obvious business
+          model — which is probably the right tradeoff for a passion project, and the wrong one for a startup.
+          Both are useful things to know.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────── FOOTER ─────────────────────── -->
+<footer>
+  <div>© 2026 · TravelBite case study</div>
+  <div><a href="/">Back to work →</a></div>
+</footer>
+
+</body>
+</html>

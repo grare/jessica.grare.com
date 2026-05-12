@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jessica Grare | Horn & Heartbreak</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;900&family=Playfair+Display:ital,wght@0,900;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.typekit.net/smv1eyl.css">
+<style>
+        body { font-family: 'Poppins', sans-serif; }
+        .serif-italic { font-family: 'Playfair Display', serif; }
+        
+        /* Poppins Black Lockup */
+        .poppins-black { font-weight: 900; letter-spacing: -0.02em; }
+        
+        .reveal { opacity: 0; transform: translateY(20px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        .img-container { overflow: hidden; }
+        .img-container img { transition: transform 1.5s cubic-bezier(0.165, 0.84, 0.44, 1); }
+        .img-container:hover img { transform: scale(1.05); }
+
+        /* Lightbox */
+        .lightbox-trigger { cursor: zoom-in; }
+        #lightbox {
+            display: none; position: fixed; inset: 0; z-index: 9999;
+            background: rgba(0,0,0,0.88); align-items: center; justify-content: center;
+        }
+        #lightbox.open { display: flex; }
+        #lightbox img {
+            max-width: 90vw; max-height: 90vh; object-fit: contain;
+            box-shadow: 0 8px 60px rgba(0,0,0,0.6);
+            animation: lb-in 0.25s cubic-bezier(0.165,0.84,0.44,1);
+        }
+        @keyframes lb-in { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        #lightbox-close {
+            position: absolute; top: 1.25rem; right: 1.5rem;
+            color: #fff; font-size: 2rem; line-height: 1; cursor: pointer;
+            background: none; border: none; opacity: 0.7; transition: opacity 0.2s;
+        }
+        #lightbox-close:hover { opacity: 1; }
+
+        /* Phone mockup */
+        .phone-frame {
+            position: relative;
+            width: 360px;
+            background: #1a1a1a;
+            border-radius: 56px;
+            padding: 18px 12px;
+            box-shadow: 0 0 0 2px #3a3a3a, 0 0 0 4px #111, 0 24px 60px rgba(0,0,0,0.45);
+            flex-shrink: 0;
+        }
+        .phone-frame::before {
+            content: '';
+            display: block;
+            width: 114px;
+            height: 35px;
+            background: #1a1a1a;
+            border-radius: 0 0 22px 22px;
+            margin: 0 auto 10px;
+        }
+        .phone-screen {
+            border-radius: 40px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            height: 720px;
+            background: #fff;
+            scrollbar-width: none;
+        }
+        .phone-screen::-webkit-scrollbar { display: none; }
+        .phone-screen img { display: block; width: 100%; }
+        .phone-frame::after {
+            content: '';
+            display: block;
+            width: 76px;
+            height: 6px;
+            background: #444;
+            border-radius: 3px;
+            margin: 12px auto 0;
+        }
+
+        /* Animated nav underline */
+        .link-under { position: relative; text-decoration: none; }
+        .link-under::after {
+            content: ''; position: absolute; width: 100%; height: 1px;
+            bottom: -2px; left: 0; background-color: currentColor;
+            transform: scaleX(0); transform-origin: left; transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .link-under:hover::after { transform: scaleX(1); }
+    </style>
+</head>
+<body class="bg-white text-black antialiased">
+
+	<!--Top Navigator -->
+<nav class="flex justify-between items-center px-4 md:px-6 py-6 sticky top-0 bg-white/80 backdrop-blur-md z-50">
+    <a href="design/" class="block">
+        <img src="images/JG_WithName@4x.png" alt="Jessica Grare" class="h-[80px] w-auto object-contain block">
+    </a>
+    
+    <div class="flex items-center space-x-8 font-medium text-sm uppercase tracking-widest">
+        <a href="design/" class="border-b-2 border-black">Work</a>
+        <a href="AboutDesigner.html" class="link-under">About</a>
+        
+        <a href="https://www.linkedin.com/in/jessicagrare" target="_blank" class="block hover:opacity-50 transition-opacity">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="black" style="display: block;">
+                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+            </svg>
+        </a>
+    </div>
+</nav>
+
+	<!--Project Header -->
+    <header class="relative w-full overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="images/HornHeartbreak/OutdoorSignAndWindowMockup.png" alt="Background" class="w-full h-full object-cover opacity-30 grayscale">
+        </div>
+
+        <div class="relative z-10 max-w-[1400px] mx-auto px-6 md:px-12 pt-24 pb-12">
+            <h1 class="text-5xl md:text-8xl poppins-black uppercase leading-[0.8] mb-12">
+                Horn & Heartbreak <br><span class="serif-italic lowercase font-normal text-black-400">A Haven for Elder Emos</span>
+            </h1>
+        </div>
+		
+<!--Project Info Block -->
+<div class="w-full bg-[#4e90af] border-t border-black py-12 reveal">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-12">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 items-start">
+            
+            <div> 
+                <h4 class="text-[10px] uppercase tracking-[0.2em] font-bold mb-2 text-white">Role</h4>
+                <p class="text-sm text-white/80 font-medium uppercase">Creative<br>Copy</p>
+            </div>
+            
+            <div>
+                <h4 class="text-[10px] uppercase tracking-[0.2em] font-bold mb-2 text-white">Client</h4>
+                <p class="text-sm text-white/80 font-medium uppercase">Elder Emos and Millenials</p>
+            </div>
+
+            <div>
+                <h4 class="text-[10px] text-white uppercase tracking-[0.2em] font-bold mb-2">Services</h4>
+                <p class="text-sm text-white/80 font-medium uppercase">Brand Identity<br>Print<br>Mobile Website Design</p>
+            </div>
+
+            <div>
+                <h4 class="text-[10px] text-white/80 uppercase tracking-[0.2em] font-black mb-2"></h4>
+                <p class="text-sm text-white/80 font-medium uppercase"></p>
+            </div>
+            
+        </div>
+    </div>
+</div>
+    </header>
+
+		
+<!--Basic Description and Header -->
+<section class="w-full bg-[#8152a1] py-24 mb-8 reveal">
+    <div class="max-w-[1400px] mx-auto px-4 md:px-10">
+        <div class="flex flex-col max-w-6xl space-y-6">
+
+            <h2 class="text-3xl md:text-4xl poppins-black uppercase tracking-wide text-[#FFFFFF] leading-tight">
+                I started drawing this tired unicorn...
+            </h2>
+
+            <p class="text-base md:text-lg text-white/80 leading-relaxed">
+                ...with a cup of coffee in his hand. The drawing became a digital illustration of this magical being who really needed a pick-me-up. The colors in the illustration skewed to grays and purples, similar to an emo MySpace page. This created a brain blast: what if he was the mascot of an elder-emo coffee shop called Horn & Heartbreak?
+            </p>
+
+            <p class="text-base md:text-lg text-white/80 leading-relaxed">
+                A majority of Millennials feel nostalgia towards pop-punk and emo music, and it's making a comeback. Bands are reuniting, thousands flock to When We Young in Vegas, and Fall Out Boy and Panic! At the Disco are celebrating the 20th anniversary of their albums "From Under the Cork Tree" and "A Fever You Can't Sweat Out." Their music is not a phase.
+            </p>
+
+            <p class="text-base md:text-lg text-white/80 leading-relaxed">
+                If someone can't afford festival tickets or the super exclusive 20th anniversary gift set, I thought about making the nostalgia accessible. The proposal is to create a haven to enjoy a cup of coffee or tea in an atmosphere filled with pop punk and emo music. A tired drawing of a unicorn became a living, breathing coffee shop brand ready to make some noise.
+            </p>
+            
+        </div>
+    </div>
+</section>
+
+<!--IMAGE RIGHT: 2 Column Image and Text Descriptor templates -->
+<section class="max-w-[1400px] mx-auto px-6 md:px-12 pt-8 pb-20 reveal">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 items-center">
+        <div class="max-w-md md:order-1 order-2">
+            <div class="flex items-baseline gap-4 mb-6 border-b border-black/10 pb-4">
+                <h3 class="text-xs uppercase tracking-[0.3em] font-black text-[#8152a1]">The Starting Unicorn</h3>
+                <span class="text-[10px] uppercase tracking-widest text-black/30">Sketch</span>
+            </div>
+            <p class="text-lg text-gray-800 leading-relaxed">
+                I started with a basic sketch drawn by hand. <br>My goal was to depict a tired unicorn that really needed a cup of coffee to face the day. Pushing the envelope, I experimented with showing different perspectives.
+            </p>
+        </div>
+
+        <div class="group md:order-2 order-1">
+            <div class="img-container mb-4">
+                <img src="images/HornHeartbreak/unicornMascot.png" alt="Project Detail" class="w-1/2 h-auto object-cover mx-auto">
+            </div>
+          
+        </div>
+    </div>
+</section>
+
+  <div class="w-full reveal">
+                <div class="img-container"><img src="images/HornHeartbreak/UnicornAngles.png" class="w-3/4 mx-auto block"></div>
+            </div>
+        </section>
+
+<!--Hero Image -->
+    <main class="pb-32">
+        
+        <section class="max-w-[1400px] mx-auto px-6 md:px-12 py-24 reveal">
+            <div class="flex items-baseline gap-4 mb-12 border-b border-black/10 pb-6">
+                <h3 class="text-xs uppercase tracking-[0.3em] font-black text-[#8152a1]">Logo Design</h3>
+                <span class="text-[10px] uppercase tracking-widest text-black/30">Lockup</span>
+            </div>
+            <p class="text-lg text-gray-800 leading-relaxed mb-12">
+                The goal was to utilize the unicorn in as ways as possible, including the logo. I isolated the head and simplified the colors. For the font, it's reminiscent of pop-punk and emo band logos.
+            </p>
+            <div class="img-container">
+                <img src="images/HornHeartbreak/Logos.png" alt="Logo lockup variations" class="w-full transition-all duration-1000">
+            </div>
+        </section>
+
+<!-- Brand Typography -->
+<section class="max-w-[1400px] mx-auto px-6 md:px-12 py-24 reveal">
+    <div class="flex items-baseline gap-4 mb-12 border-b border-black/10 pb-6">
+        <h3 class="text-xs uppercase tracking-[0.3em] font-black text-[#8152a1]">Brand Typography</h3>
+        <span class="text-[10px] uppercase tracking-widest text-black/30">4 families &middot; 7 roles</span>
+    </div>
+
+    <p class="text-lg text-gray-800 leading-relaxed mb-12">
+        Four fonts are in the lineup, each doing one job. <strong>Brush Up</strong> is the singer that screams &mdash; show-flyer energy, used for the unicorn lockup, menu screens, and the largest hand-lettered moments. <strong>Bad Dog</strong> is the Polaroid scrawl &mdash; handwritten-feeling photo captions tucked under show shots and gallery images. <strong>Davis Sans</strong> is the workhorse &mdash; wayfinding, signage, and all primary brand communications. <strong>Courier New</strong> is the receipt voice &mdash; menus, prices, and body copy that should feel printed on cheap paper at the show.
+    </p>
+
+    <!-- Family overview -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
+
+        <!-- Brush Up -->
+        <div>
+            <div class="w-full aspect-square rounded-sm mb-4 flex items-center justify-center" style="background-color: #F4EFF7; color: #8151A1; font-family: 'brush-up', sans-serif; font-weight: 500; font-size: 8rem; line-height: 1;">Aa</div>
+            <div class="flex items-baseline gap-2 mb-2">
+                <h4 class="text-sm poppins-black uppercase tracking-wider text-black">Brush Up</h4>
+                <span class="text-[9px] uppercase tracking-[0.15em] font-bold text-[#8152a1]">Display</span>
+            </div>
+            <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">Weights</span> 500</p>
+            <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">Source</span> Adobe Fonts</p>
+            <p class="text-xs text-gray-400 leading-relaxed mt-3 normal-case tracking-normal">Expressive headlines, menu boards, lyric callouts, the unicorn lockup.</p>
+        </div>
+
+        <!-- Bad Dog -->
+        <div>
+            <div class="w-full aspect-square rounded-sm mb-4 flex items-center justify-center" style="background-color: #F4EFF7; color: #8151A1; font-family: 'bad-dog', sans-serif; font-weight: 400; font-style: normal; font-size: 7.5rem; line-height: 1;">Aa</div>
+            <div class="flex items-baseline gap-2 mb-2">
+                <h4 class="text-sm poppins-black uppercase tracking-wider text-black">Bad Dog</h4>
+                <span class="text-[9px] uppercase tracking-[0.15em] font-bold text-[#8152a1]">Accent</span>
+            </div>
+            <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">Weights</span> 400</p>
+            <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">Source</span> Adobe Fonts</p>
+            <p class="text-xs text-gray-400 leading-relaxed mt-3 normal-case tracking-normal">Photo captions throughout the brand &mdash; Polaroid-pen scrawls under show shots and gallery images.</p>
+        </div>
+
+        <!-- Davis Sans -->
+        <div>
+            <div class="w-full aspect-square rounded-sm mb-4 flex items-center justify-center" style="background-color: #F4EFF7; color: #252f59; font-family: 'Arial', 'Helvetica Neue', sans-serif; font-weight: 900; font-size: 7rem; line-height: 1;">Aa</div>
+            <div class="flex items-baseline gap-2 mb-2">
+                <h4 class="text-sm poppins-black uppercase tracking-wider text-black">Davis Sans</h4>
+                <span class="text-[9px] uppercase tracking-[0.15em] font-bold text-[#8152a1]">Primary</span>
+            </div>
+            <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">Weights</span> 400 &middot; 700 &middot; 900</p>
+            <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">Source</span> Klim Type Foundry</p>
+            <p class="text-xs text-gray-400 leading-relaxed mt-3 normal-case tracking-normal">Wayfinding, signage, navigation, all primary brand communications.</p>
+        </div>
+
+        <!-- Courier New -->
+        <div>
+            <div class="w-full aspect-square rounded-sm mb-4 flex items-center justify-center" style="background-color: #F4EFF7; color: #252f59; font-family: 'Courier New', Courier, monospace; font-weight: 700; font-size: 7rem; line-height: 1;">Aa</div>
+            <div class="flex items-baseline gap-2 mb-2">
+                <h4 class="text-sm poppins-black uppercase tracking-wider text-black">Courier New</h4>
+                <span class="text-[9px] uppercase tracking-[0.15em] font-bold text-[#8152a1]">Body</span>
+            </div>
+            <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">Weights</span> 400 &middot; 700</p>
+            <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">Source</span> System</p>
+            <p class="text-xs text-gray-400 leading-relaxed mt-3 normal-case tracking-normal">Menus, receipts, prices, body copy &mdash; the typewriter / zine voice.</p>
+        </div>
+
+    </div>
+
+    <!-- Type Scale -->
+    <div class="flex items-baseline gap-4 mb-8 border-b border-black/10 pb-4">
+        <h4 class="text-xs uppercase tracking-[0.3em] font-black text-black/70">Type Scale</h4>
+        <span class="text-[10px] uppercase tracking-widest text-black/30">Semantic roles</span>
+    </div>
+
+    <p class="text-sm text-gray-500 leading-relaxed max-w-3xl mb-10">
+        Every text style on a menu, sign, or screen is one of these. Match the role to the surface; sizes outside the scale are off&#8209;system.
+    </p>
+
+    <div class="divide-y divide-black/5 border-y border-black/5">
+
+        <!-- Display -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 py-6 items-baseline">
+            <div class="md:col-span-7">
+                <div style="font-family: 'brush-up', sans-serif; font-weight: 500; font-size: 56px; line-height: 0.95; color: #252f59;">Coffee-set life</div>
+            </div>
+            <div class="md:col-span-5 grid grid-cols-3 gap-2 text-[11px] uppercase tracking-[0.12em] text-gray-500" style="font-family: 'Courier New', Courier, monospace;">
+                <div><span class="text-black/40">Class</span><br>.display</div>
+                <div><span class="text-black/40">Size / lh</span><br>56 / 53</div>
+                <div><span class="text-black/40">Tracking</span><br>0</div>
+                <div class="col-span-3 normal-case tracking-normal text-gray-400 mt-1">Brush Up 500 &middot; Menu boards, hero headlines, the largest expressive moments</div>
+            </div>
+        </div>
+
+        <!-- Caption / Bad Dog -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 py-6 items-baseline">
+            <div class="md:col-span-7">
+                <div style="font-family: 'bad-dog', sans-serif; font-weight: 400; font-style: normal; font-size: 22px; line-height: 1.3; color: #252f59;">Gerard, after the encore &mdash; 11/04/03</div>
+            </div>
+            <div class="md:col-span-5 grid grid-cols-3 gap-2 text-[11px] uppercase tracking-[0.12em] text-gray-500" style="font-family: 'Courier New', Courier, monospace;">
+                <div><span class="text-black/40">Class</span><br>.caption</div>
+                <div><span class="text-black/40">Size / lh</span><br>18&ndash;24 / 1.3</div>
+                <div><span class="text-black/40">Tracking</span><br>0</div>
+                <div class="col-span-3 normal-case tracking-normal text-gray-400 mt-1">Bad Dog 400 &middot; Photo captions, image notes, Polaroid-pen scrawls</div>
+            </div>
+        </div>
+
+        <!-- Section -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 py-6 items-baseline">
+            <div class="md:col-span-7">
+                <div style="font-family: 'Arial', 'Helvetica Neue', sans-serif; font-weight: 900; font-size: 28px; line-height: 1; letter-spacing: -0.01em; text-transform: uppercase; color: #252f59;">Section heading</div>
+            </div>
+            <div class="md:col-span-5 grid grid-cols-3 gap-2 text-[11px] uppercase tracking-[0.12em] text-gray-500" style="font-family: 'Courier New', Courier, monospace;">
+                <div><span class="text-black/40">Class</span><br>.section</div>
+                <div><span class="text-black/40">Size / lh</span><br>28 / 28</div>
+                <div><span class="text-black/40">Tracking</span><br>&minus;1%</div>
+                <div class="col-span-3 normal-case tracking-normal text-gray-400 mt-1">Davis Sans 900 &middot; Category titles, brand-board chapter heads, signage</div>
+            </div>
+        </div>
+
+        <!-- Body -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 py-6 items-baseline">
+            <div class="md:col-span-7">
+                <div style="font-family: 'Courier New', Courier, monospace; font-size: 14px; line-height: 1.55; color: #252f59;">Body copy &mdash; the running prose of menus, receipts, descriptions, and signage paragraphs. Tight letterforms, clear at small sizes.</div>
+            </div>
+            <div class="md:col-span-5 grid grid-cols-3 gap-2 text-[11px] uppercase tracking-[0.12em] text-gray-500" style="font-family: 'Courier New', Courier, monospace;">
+                <div><span class="text-black/40">Class</span><br>(default)</div>
+                <div><span class="text-black/40">Size / lh</span><br>14 / 22</div>
+                <div><span class="text-black/40">Color</span><br>navy</div>
+                <div class="col-span-3 normal-case tracking-normal text-gray-400 mt-1">Courier New 400 &middot; Descriptions, body paragraphs, menu item rows</div>
+            </div>
+        </div>
+
+        <!-- Eyebrow -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 py-6 items-baseline">
+            <div class="md:col-span-7">
+                <div style="font-family: 'Arial', 'Helvetica Neue', sans-serif; font-size: 10px; font-weight: 900; letter-spacing: 0.3em; text-transform: uppercase; color: #8152a1;">Eyebrow &middot; Category</div>
+            </div>
+            <div class="md:col-span-5 grid grid-cols-3 gap-2 text-[11px] uppercase tracking-[0.12em] text-gray-500" style="font-family: 'Courier New', Courier, monospace;">
+                <div><span class="text-black/40">Class</span><br>.eyebrow</div>
+                <div><span class="text-black/40">Size / lh</span><br>10 / 1.4</div>
+                <div><span class="text-black/40">Tracking</span><br>+30%</div>
+                <div class="col-span-3 normal-case tracking-normal text-gray-400 mt-1">Davis Sans 900 &middot; Section labels, eyebrows, nav links in purple</div>
+            </div>
+        </div>
+
+        <!-- Menu line / Mono -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 py-6 items-baseline">
+            <div class="md:col-span-7">
+                <div style="font-family: 'Courier New', Courier, monospace; font-size: 14px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: #252f59;">CORTADO &middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot; 4.50</div>
+            </div>
+            <div class="md:col-span-5 grid grid-cols-3 gap-2 text-[11px] uppercase tracking-[0.12em] text-gray-500" style="font-family: 'Courier New', Courier, monospace;">
+                <div><span class="text-black/40">Class</span><br>.menu-line</div>
+                <div><span class="text-black/40">Size / lh</span><br>14 / 1.5</div>
+                <div><span class="text-black/40">Tracking</span><br>+4%</div>
+                <div class="col-span-3 normal-case tracking-normal text-gray-400 mt-1">Courier New 700 &middot; Menu items with dot-leader to a price column</div>
+            </div>
+        </div>
+
+        <!-- Accent / Lyric -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 py-6 items-baseline">
+            <div class="md:col-span-7">
+                <div style="font-family: 'brush-up', sans-serif; font-weight: 500; font-size: 32px; line-height: 1; color: #8151A1;">Not a Phase</div>
+            </div>
+            <div class="md:col-span-5 grid grid-cols-3 gap-2 text-[11px] uppercase tracking-[0.12em] text-gray-500" style="font-family: 'Courier New', Courier, monospace;">
+                <div><span class="text-black/40">Class</span><br>.accent</div>
+                <div><span class="text-black/40">Size / lh</span><br>22&ndash;32</div>
+                <div><span class="text-black/40">Color</span><br>unicorn</div>
+                <div class="col-span-3 normal-case tracking-normal text-gray-400 mt-1">Brush Up 500 &middot; Lyric pull-quotes, callouts, expressive accents in purple</div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- Brand Color Guide -->
+<section class="max-w-[1400px] mx-auto px-6 md:px-12 py-24 reveal">
+    <div class="flex items-baseline gap-4 mb-16 border-b border-black/10 pb-6">
+        <h3 class="text-xs uppercase tracking-[0.3em] font-black text-[#8152a1]">Brand Colors</h3>
+        <span class="text-[10px] uppercase tracking-widest text-black/30">Palette</span>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+
+        <!-- Color 1 -->
+        <div>
+            <div class="w-full aspect-square rounded-sm mb-4" style="background-color: #8151A1;"></div>
+            <h4 class="text-sm poppins-black uppercase tracking-wider text-black mb-2">Unicorn's Glow</h4>
+            <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">HEX</span> #8151A1</p>
+            <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">CMYK</span> 20 / 50 / 0 / 37</p>
+            <p class="text-xs text-gray-400 leading-relaxed mt-3 normal-case tracking-normal">Setting the mood.</p>
+        </div>
+
+        <!-- Color 2 -->
+        <div>
+            <div class="w-full aspect-square rounded-sm mb-4" style="background-color: #43ACE1;"></div>
+            <h4 class="text-sm poppins-black uppercase tracking-wider text-black mb-2">Nice and Blue</h4>
+            <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">HEX</span> #43ACE1</p>
+            <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">CMYK</span> 70 / 24 / 0 / 12</p>
+            <p class="text-xs text-gray-400 leading-relaxed mt-3 normal-case tracking-normal">Starting a riot with headlines.</p>
+        </div>
+
+        <!-- Color 3 -->
+        <div>
+            <div class="w-full aspect-square rounded-sm mb-4" style="background-color: #252f59;"></div>
+            <h4 class="text-sm poppins-black uppercase tracking-wider text-black mb-2">The Perfect Shade of Dark Blue</h4>
+            <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">HEX</span> #252f59</p>
+            <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">CMYK</span> 58 / 47 / 0 / 65</p>
+            <p class="text-xs text-gray-400 leading-relaxed mt-3 normal-case tracking-normal">A nice substitute to black.</p>
+        </div>
+
+        <!-- Color 4 -->
+        <div>
+            <div class="w-full aspect-square rounded-sm mb-4" style="background-color: #000000;"></div>
+            <h4 class="text-sm poppins-black uppercase tracking-wider text-black mb-2">Black Parade</h4>
+            <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">HEX</span> #FFFFFF</p>
+            <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">CMYK</span> 00 / 00 / 00 / 100</p>
+            <p class="text-xs text-gray-400 leading-relaxed mt-3 normal-case tracking-normal">The color of almost every band shirt you own.</p>
+        </div>
+
+    </div>
+</section>
+
+<!-- Photo Aesthetic -->
+<section class="max-w-[1400px] mx-auto px-6 md:px-12 py-24 reveal">
+    <div class="flex items-baseline gap-4 mb-12 border-b border-black/10 pb-6">
+        <h3 class="text-xs uppercase tracking-[0.3em] font-black text-[#8152a1]">Photo Aesthetic</h3>
+        <span class="text-[10px] uppercase tracking-widest text-black/30">Mood</span>
+    </div>
+
+    <p class="text-lg text-gray-800 leading-relaxed mb-12">
+        Every image is photographed in low light, with a single light source to provide warmth. The image backgrounds are on wood with instruments, amps, and cables in the background. The end goal to capture the dark, moody, and intimate vibe of an open mic.
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+        <div class="img-container reveal"><img src="images/HornHeartbreak/BrokenHeartLatte.png" class="w-full" alt="Latte with a broken-heart cocoa pattern on the foam, drum kit dimly lit in the background"></div>
+        <div class="img-container reveal"><img src="images/HornHeartbreak/CupOfCoffee.png" class="w-full" alt="Steaming espresso cup beside a white electric guitar and Marshall amp in low light"></div>
+        <div class="img-container reveal"><img src="images/HornHeartbreak/Cookies.png" class="w-full" alt="Assorted cookies arranged on stage-floor wood among tangled cables"></div>
+    </div>
+</section>
+
+			<!--Gallery Images -->
+        <section class="max-w-[1400px] mx-auto px-6 md:px-12 space-y-8 md:space-y-16 pt-16 md:pt-24">
+            <div>
+                <div class="flex items-baseline gap-4 mb-12 border-b border-black/10 pb-6">
+                    <h3 class="text-xs uppercase tracking-[0.3em] font-black text-[#8152a1]">Brick and Mortar</h3>
+                    <span class="text-[10px] uppercase tracking-widest text-black/30">Storefront + Interior</span>
+                </div>
+
+                <p class="text-lg text-gray-800 leading-relaxed mb-6">
+                    The caf&eacute; is an oasis for elder emos, rock music aficionados, and those who want to make getting their coffee a concert experience. Outside, the unicorn lockup sits in the storefront window and on a gritty hanging sign.
+                </p>
+
+                <p class="text-lg text-gray-800 leading-relaxed mb-12">
+                    Inside, the room takes its cues from venue B stages and VIP concert lounges. The brick and purple-painted walls are decked out with concert and festival posters. Low-watt edison bulbs, comfy purple chairs, and a red couch reminiscent of Paramore's &ldquo;All We Know is Falling&rdquo; album fill the space. One of the employees got lucky and has a piece of punk-rock history on display. A B stage is situated in the back corner, used for acoustic sets, open mics, special guests, and public speakers.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">
+                    <div class="img-container reveal"><img src="images/HornHeartbreak/OutdoorSignAndWindowMockup.png" class="w-full" alt="Storefront window with the Horn & Heartbreak unicorn lockup at signage scale"></div>
+                    <div class="img-container reveal"><img src="images/HornHeartbreak/CafeInteriorConcept.png" class="w-full" alt="Cafe interior concept with venue-inspired lighting and seating"></div>
+                </div>
+            </div>
+            
+        </section>
+        
+        
+		<!--Gallery Images -->
+        <section class="max-w-[1400px] mx-auto px-6 md:px-12 space-y-8 md:space-y-16 pt-16 md:pt-24">
+            <div>
+                <div class="flex items-baseline gap-4 mb-12 border-b border-black/10 pb-6">
+                    <h3 class="text-xs uppercase tracking-[0.3em] font-black text-[#8152a1]">Menu Design</h3>
+                    <span class="text-[10px] uppercase tracking-widest text-black/30">Layout</span>
+                </div>
+
+                <p class="text-lg text-gray-800 leading-relaxed mb-6">
+                    The caf&eacute; menu screens utilize Brush Up for category headers, Courier New for products and prices, and Bad Dog for photo captions. Black backgrounds keep the boards on-brand with the room and let Unicorn's Glow purple, Nice and Blue, and the Perfect Shade of Dark Blue read nice and clear. The menu screens function as a brand snapshot.
+                </p>
+
+                <p class="text-lg text-gray-800 leading-relaxed mb-12">
+                    The menu names are a homage to famous pop-punk and emo songs. To make ordering drinks an experience, customers can buy a coffee flight from coffees sourced around the world, aka &ldquo;World Tour.&rdquo; Musicians such as Green Day, Angels and Airwaves, and Coheed and Cambria have dabbled in the coffee industry. Their brews will be on rotation weekly as the &ldquo;Flavor of the Weak.&rdquo;
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">
+                    <div class="img-container reveal"><img src="images/HornHeartbreak/MenuScreenMockup1.png" class="w-full lightbox-trigger" data-lb-src="images/HornHeartbreak/MenuScreenMockup1.png" alt="Cafe menu board showing the full brand type stack on a black background"></div>
+                    <div class="img-container reveal"><img src="images/HornHeartbreak/MenuScreenMockup2.png" class="w-full lightbox-trigger" data-lb-src="images/HornHeartbreak/MenuScreenMockup2.png" alt="Second cafe menu board with daily specials in Brush Up accent type"></div>
+                </div>
+            </div>
+
+            <div>
+                <div class="flex items-baseline gap-4 mb-12 border-b border-black/10 pb-6">
+                    <h3 class="text-xs uppercase tracking-[0.3em] font-black text-[#8152a1]">Mobile Website</h3>
+                    <span class="text-[10px] uppercase tracking-widest text-black/30">Prototype</span>
+                </div>
+
+                <p class="text-lg text-gray-800 leading-relaxed mb-12">
+                    To appeal to the masses that access caf&eacute; sites from phones, three prototype pages are on display. The hero image welcoming guests into the caf&eacute;, dark and moody colors, and the unicorn lockup at the top of every page reflect on the caf&eacute;'s vibe. Tap and scroll inside any of the three phones to explore the live pages.
+                </p>
+
+                <!-- Phone mockups -->
+                <div class="flex flex-col md:flex-row justify-center items-start gap-10 py-8 reveal">
+                    <div class="phone-frame">
+                        <div class="phone-screen">
+                            <img src="images/HornHeartbreak/Mobile1.png" alt="Mobile prototype screen 1 — scrollable page from the Horn & Heartbreak website">
+                        </div>
+                    </div>
+                    <div class="phone-frame">
+                        <div class="phone-screen">
+                            <img src="images/HornHeartbreak/Mobile2.png" alt="Mobile prototype screen 2 — scrollable page from the Horn & Heartbreak website">
+                        </div>
+                    </div>
+                    <div class="phone-frame">
+                        <div class="phone-screen">
+                            <img src="images/HornHeartbreak/Mobile3.png" alt="Mobile prototype screen 3 — scrollable page from the Horn & Heartbreak website">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+<!---->
+<!--IMAGE RIGHT: 2 Column Image and Text Descriptor templates 
+<section class="max-w-[1400px] mx-auto px-6 md:px-12 py-20 reveal">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 items-center">
+        <div class="max-w-md md:order-1 order-2">
+            <h3 class="text-xs uppercase tracking-[0.3em] font-black mb-6 text-[#8152a1]">How did we get here?</h3>
+            <p class="text-lg text-gray-800 leading-relaxed">
+                I started finding inspiration in the music I listened to, Amazon Music playlists, old MySpace and Xanga profiles, and the elder-emo music festivals of yesterday and today.
+            </p>
+        </div>
+
+        <div class="group md:order-2 order-1">
+            <div class="img-container mb-4">
+                <img src="images/your-image-2.jpg" alt="Project Detail" class="w-full h-auto object-cover">
+            </div>
+          
+        </div>
+    </div>
+</section>-->
+		
+		<!--IMAGE LEFT: 2 Column Image and Text Descriptor templates
+		<section class="max-w-[1400px] mx-auto px-6 md:px-12 py-20 reveal">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 items-center">
+        <div class="group">
+            <div class="img-container mb-4">
+                <img src="images/HornHeartbreak/OutdoorSignAndWindowMockup.png" alt="Project Detail" class="w-full h-auto object-cover">
+            </div>
+            <p class="text-[10px] uppercase tracking-[0.2em] text-gray-400 group-hover:text-black transition-colors duration-500">
+                Fig 01. / Main Logo for Horn & Heartbreak
+            </p>
+        </div>
+        
+        <div class="max-w-md">
+            <h3 class="text-xs uppercase tracking-[0.3em] font-black mb-6 text-[#eb6c24]">Devising the Logo</h3>
+            <p class="text-lg text-gray-800 leading-relaxed">
+                I designed a logo that was edgy, gritty, and kept the tired unicorn.
+            </p>
+        </div>
+    </div>
+</section> -->
+
+		
+<!--Quote -->
+<!--<section class="w-full bg-[#f8f8f8] py-32 mt-24 mb-24 reveal">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-12">
+        <div class="max-w-4xl">
+            <h3 class="text-xs uppercase tracking-[0.3em] font-black mb-10 text-gray-400">The Process</h3>
+            
+            <p class="text-3xl md:text-[43px] font-black italic leading-[1.1] tracking-tight text-black" style="font-family: 'Playfair Display', serif;">
+                "We stripped away the noise, focusing on the tactile nature of the device's fabric and the precision of its metal finish."
+            </p>
+        </div>
+    </div>
+</section> -->
+		
+<!--2 Column Image and Text Descriptor templates -->
+
+<!--IMAGE RIGHT 2 Column Image and Text Descriptor templates 
+<section class="max-w-[1400px] mx-auto px-6 md:px-12 py-20 reveal">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 items-center">
+        <div class="max-w-md md:order-1 order-2">
+            <h3 class="text-xs uppercase tracking-[0.3em] font-black mb-6 text-[#eb6c24]">The Aesthetic</h3>
+            <p class="text-lg text-gray-800 leading-relaxed">
+             From my background in band photography, I loved capturing the emotion and grit. The product imagery is to appear as if an event photographer or photo journalist with a specialization in concerts took the shots. The space is a mix of a moody coffee shop and event space, with nods to some famous moments in pop-punk and emo history. The copy is comprised of several references to famous songs from Paramore, Fall Out Boy, and many more. I utilized Gemini to assist in the drink photography and coffee shop concepting. 
+            </p>
+        </div>
+
+        <div class="group md:order-2 order-1">
+            <div class="img-container mb-4">
+                <img src="images/your-image-2.jpg" alt="Project Detail" class="w-full h-auto object-cover">
+            </div>
+            <p class="text-[10px] uppercase tracking-[0.2em] text-gray-400 group-hover:text-black transition-colors duration-500 md:text-right">
+                Drink image concepts / made with Gemini
+            </p>
+        </div>
+    </div>
+</section> -->
+		
+<!--Show Brand space photography, drinks, menus 
+        <section class="max-w-[1400px] mx-auto px-6 md:px-12">
+            <div class="grid grid-cols-12 gap-4 mb-24">
+                <div class="col-span-12 md:col-span-8 reveal">
+                    <div class="img-container"><img src="final-1.jpg" class="w-full"></div>
+                </div>
+                <div class="col-span-12 md:col-span-4 reveal">
+                    <div class="img-container"><img src="final-2.jpg" class="w-full"></div>
+                </div>
+            </div>-->
+			
+			
+		<!--IMAGE LEFT: 2 Column Image and Text Descriptor templates 
+		<section class="max-w-[1400px] mx-auto px-6 md:px-12 py-20 reveal">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 items-center">
+        <div class="group">
+            <div class="img-container mb-4">
+                <img src="images/your-image-1.jpg" alt="Project Detail" class="w-full h-auto object-cover">
+            </div>
+            <p class="text-[10px] uppercase tracking-[0.2em] text-gray-400 group-hover:text-black transition-colors duration-500">
+                Fig 01. / Main Logo for Horn & Heartbreak
+            </p>
+        </div> -->
+        
+        <div class="max-w-md" style="display:none">
+            <h3 class="text-xs uppercase tracking-[0.3em] font-black mb-6 text-[#eb6c24]">The Mobile Site</h3>
+            <p class="text-lg text-gray-800 leading-relaxed">
+                Patrons of the shop can check out Horn & Heartbreak's website. They can check out the menu and see if there are upcoming events.
+            </p>
+        </div>
+    </div>
+</section>
+			
+				<!--Show snapshots of the mobile site -->
+		      <div class="w-full reveal" style="display:none">
+                <div class="img-container"><img src="detail-3.jpg" class="w-full"></div>
+            </div>
+        </section>
+		
+			
+<!--Next Page -->
+        </section>
+    </main>
+
+    <!-- Lightbox overlay -->
+    <div id="lightbox" role="dialog" aria-modal="true" aria-label="Image enlarged view">
+        <button id="lightbox-close" aria-label="Close">&times;</button>
+        <img id="lightbox-img" src="" alt="">
+    </div>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+        // Lightbox
+        const lightbox = document.getElementById('lightbox');
+        const lbImg   = document.getElementById('lightbox-img');
+        const lbClose = document.getElementById('lightbox-close');
+
+        document.querySelectorAll('.lightbox-trigger').forEach(img => {
+            img.addEventListener('click', () => {
+                lbImg.src = img.dataset.lbSrc;
+                lbImg.alt = img.alt;
+                lightbox.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        function closeLightbox() {
+            lightbox.classList.remove('open');
+            lbImg.src = '';
+            document.body.style.overflow = '';
+        }
+
+        lbClose.addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+    </script>
+</body>
+</html>

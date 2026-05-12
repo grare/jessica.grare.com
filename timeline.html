@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --bg: #ffffff;
+            --line-inactive: #d1d5db;
+            --line-active: #000000;
+            --text-main: #111827;
+            --text-muted: #6b7280;
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--bg);
+            font-family: 'Inter', sans-serif; /* Link Google Font Inter in your head if needed */
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .timeline_component {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px 20px;
+        }
+
+        /* The background line */
+        .timeline_line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: var(--line-inactive);
+            transform: translateX(-50%);
+        }
+
+        /* The progress line (the black one) */
+        .timeline_line-progress {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            width: 2px;
+            height: 0%;
+            background-color: var(--line-active);
+            transform: translateX(-50%);
+            /* Smooth easing like Webflow */
+            transition: height 0.3s ease-out; 
+            z-index: 1;
+        }
+
+        .timeline_item {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            width: 100%;
+            margin-bottom: 160px; /* Space between milestones */
+            z-index: 2;
+        }
+
+        /* Reverse every other item */
+        .timeline_item:nth-child(even) { flex-direction: row-reverse; }
+
+        .timeline_left, .timeline_right { width: 42%; }
+
+        /* The Year/Title */
+        .timeline_date-text {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1;
+            color: var(--line-inactive);
+            transition: color 0.4s ease;
+        }
+
+        .timeline_item.is-active .timeline_date-text {
+            color: var(--line-active);
+        }
+
+        .timeline_item:nth-child(odd) .timeline_left { text-align: right; }
+
+        /* The Content Block */
+        .timeline_text-wrapper {
+            opacity: 0.2;
+            transform: translateX(20px);
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .timeline_item:nth-child(even) .timeline_text-wrapper { transform: translateX(-20px); }
+
+        .timeline_item.is-active .timeline_text-wrapper {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .timeline_title {
+            font-size: 1.5rem;
+            margin: 0 0 12px 0;
+            font-weight: 700;
+        }
+
+        .timeline_paragraph {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* The Dot indicator */
+        .timeline_dot {
+            position: absolute;
+            left: 50%;
+            top: 25px;
+            width: 14px;
+            height: 14px;
+            background-color: var(--bg);
+            border: 2px solid var(--line-inactive);
+            border-radius: 50%;
+            transform: translateX(-50%);
+            transition: all 0.3s ease;
+        }
+
+        .timeline_item.is-active .timeline_dot {
+            background-color: var(--line-active);
+            border-color: var(--line-active);
+            box-shadow: 0 0 0 6px rgba(0,0,0,0.05);
+        }
+
+        /* Mobile View (Matches the Jessica site responsive behavior) */
+        @media (max-width: 767px) {
+            .timeline_line, .timeline_line-progress { left: 24px; transform: none; }
+            .timeline_item, .timeline_item:nth-child(even) {
+                flex-direction: column;
+                padding-left: 60px;
+                margin-bottom: 80px;
+            }
+            .timeline_left, .timeline_right { width: 100%; text-align: left !important; }
+            .timeline_date-text { font-size: 2.2rem; margin-bottom: 10px; }
+            .timeline_dot { left: 24px; transform: translateX(-50%); }
+            .timeline_text-wrapper { transform: none !important; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="timeline_component">
+    <div class="timeline_line"></div>
+    <div class="timeline_line-progress" id="progress-bar"></div>
+
+    <div class="timeline_item">
+        <div class="timeline_left"><div class="timeline_date-text">2025</div></div>
+        <div class="timeline_dot"></div>
+        <div class="timeline_right">
+            <div class="timeline_text-wrapper">
+                <h3 class="timeline_title">Founding Director</h3>
+                <p class="timeline_paragraph">Leading the creative vision for new-age digital products at the intersection of AI and human-centric design.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="timeline_item">
+        <div class="timeline_left"><div class="timeline_date-text">2023</div></div>
+        <div class="timeline_dot"></div>
+        <div class="timeline_right">
+            <div class="timeline_text-wrapper">
+                <h3 class="timeline_title">Senior Art Director</h3>
+                <p class="timeline_paragraph">Managed global campaigns for high-impact tech clients, focusing on cohesive brand storytelling across all touchpoints.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="timeline_item">
+        <div class="timeline_left"><div class="timeline_date-text">2021</div></div>
+        <div class="timeline_dot"></div>
+        <div class="timeline_right">
+            <div class="timeline_text-wrapper">
+                <h3 class="timeline_title">Lead Designer</h3>
+                <p class="timeline_paragraph">Established the foundational design systems for emerging startups in the fintech space.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const items = document.querySelectorAll('.timeline_item');
+    const progressBar = document.getElementById('progress-bar');
+    const timelineComp = document.querySelector('.timeline_component');
+
+    function handleScroll() {
+        const triggerPoint = window.innerHeight * 0.5; // Trigger at mid-screen
+        let maxProgressHeight = 0;
+
+        items.forEach((item) => {
+            const itemRect = item.getBoundingClientRect();
+            const dotCenter = itemRect.top + 25; // center of dot
+
+            if (dotCenter < triggerPoint) {
+                item.classList.add('is-active');
+                
+                // Track how far the progress bar should go
+                const progressVal = (item.offsetTop - timelineComp.offsetTop) + 25;
+                if (progressVal > maxProgressHeight) maxProgressHeight = progressVal;
+            } else {
+                item.classList.remove('is-active');
+            }
+        });
+
+        progressBar.style.height = `${maxProgressHeight}px`;
+    }
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Init on load
+</script>
+
+</body>
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journey the Giraffe | XL Portrait Book</title>
+    <style>
+        :root {
+            --bg-color: white;
+            --accent-color: #eb6c24;  /* Mirum orange */
+            --page-bg: #ffffff;
+            --text-color: black;
+            /* 17 / 11 = 1.545 Spread Ratio */
+            --aspect-ratio: 1.545 / 1;
+        }
+
+        body {
+            margin: 0; padding: 0;
+            background-color: var(--bg-color);
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            min-height: 100vh; font-family: 'Segoe UI', sans-serif;
+            color: var(--text-color); perspective: 3000px;
+            overflow: hidden;
+        }
+
+        /* --- ENLARGED BOOK CONTAINER --- */
+        .book-container {
+            width: 95vw; 
+            max-width: 1200px; /* ENLARGED from 800px */
+            aspect-ratio: var(--aspect-ratio);
+            position: relative; 
+            margin-bottom: 30px;
+            transition: max-width 0.5s ease;
+        }
+
+        /* Safety check: if the screen is too short, shrink the book 
+           so the navigation buttons stay on-screen without scrolling */
+        @media (max-height: 900px) {
+            .book-container { max-width: 900px; }
+        }
+        @media (max-height: 700px) {
+            .book-container { max-width: 700px; }
+        }
+
+        .spread {
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
+            display: flex; opacity: 0;
+            pointer-events: none;
+            transform: rotateY(15deg) scale(0.95);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1;
+        }
+
+        .spread.active {
+            opacity: 1; pointer-events: auto;
+            transform: rotateY(0deg) scale(1); z-index: 5;
+        }
+
+        .page {
+            flex: 1; background: var(--page-bg);
+            position: relative; overflow: hidden;
+            box-shadow: inset 0 0 40px rgba(0,0,0,0.15);
+        }
+
+        .page img {
+            width: 100%; height: 100%;
+            object-fit: fill; /* Respects 8.5x11 proportions exactly */
+            display: block;
+            image-rendering: -webkit-optimize-contrast; /* Keeps illustrations sharp */
+        }
+
+        .spine {
+            position: absolute; left: 50%;
+            width: 2px; height: 100%;
+            background: rgba(0,0,0,0.3);
+            z-index: 10; transform: translateX(-50%);
+            box-shadow: 0 0 15px rgba(0,0,0,0.4);
+        }
+
+        .blank-page { background: transparent !important; box-shadow: none !important; }
+        .cover-right { border-radius: 0 8px 8px 0; }
+        .back-left { border-radius: 8px 0 0 8px; }
+
+        /* UI Controls */
+        .controls { display: flex; align-items: center; gap: 30px; z-index: 100; }
+        .btn {
+            background: transparent; color: var(--text-color);
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            padding: 12px 30px; font-size: 0.75rem; font-weight: 600;
+            letter-spacing: 2px; cursor: pointer; border-radius: 4px;
+            text-transform: uppercase; transition: 0.3s;
+        }
+        .btn:hover:not(:disabled) {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+            background: rgba(235, 108, 36, 0.05);
+        }
+        .btn:disabled { opacity: 0.2; cursor: not-allowed; }
+        .info { font-size: 0.7rem; color: rgba(0,0,0,0.4); letter-spacing: 3px; }
+    </style>
+</head>
+<body>
+
+    <div class="book-container">
+        
+        <div class="spread active">
+            <div class="page blank-page"></div>
+            <div class="page cover-right">
+                <img src="images/Mirum/BookFront.png" loading="eager" decoding="async">
+            </div>
+            <div class="spine"></div>
+        </div>
+
+        <div class="spread">
+            <div class="page"><img src="images/Mirum/BookPage1.png" decoding="async"></div>
+            <div class="page"><img src="images/Mirum/BookPage2.png" decoding="async"></div>
+            <div class="spine"></div>
+        </div>
+		
+		 <div class="spread">
+            <div class="page"><img src="images/Mirum/BookPage3.png" decoding="async"></div>
+            <div class="page"><img src="images/Mirum/BookPage4.png" decoding="async"></div>
+            <div class="spine"></div>
+        </div>
+		
+		 <div class="spread">
+            <div class="page"><img src="images/Mirum/BookPage5.png" decoding="async"></div>
+            <div class="page"><img src="images/Mirum/BookPage6.png" decoding="async"></div>
+            <div class="spine"></div>
+        </div>
+		
+		 <div class="spread">
+            <div class="page"><img src="images/Mirum/BookPage7.png" decoding="async"></div>
+            <div class="page"><img src="images/Mirum/BookPage8.png" decoding="async"></div>
+            <div class="spine"></div>
+        </div>
+		
+		 <div class="spread">
+            <div class="page"><img src="images/Mirum/BookPage9.png" decoding="async"></div>
+            <div class="page"><img src="images/Mirum/BookPage10.png" decoding="async"></div>
+            <div class="spine"></div>
+        </div>
+		
+		 <div class="spread">
+            <div class="page"><img src="images/Mirum/BookPage11.png" decoding="async"></div>
+            <div class="page"><img src="images/Mirum/BookPage12.png" decoding="async"></div>
+            <div class="spine"></div>
+        </div>
+		
+		 <div class="spread">
+            <div class="page"><img src="images/Mirum/BookPage13.png" decoding="async"></div>
+            <div class="page"><img src="images/Mirum/BookPage14.png" decoding="async"></div>
+            <div class="spine"></div>
+        </div>
+		
+		 <div class="spread">
+            <div class="page"><img src="images/Mirum/BookPage15.png" decoding="async"></div>
+            <div class="page"><img src="images/Mirum/BookPage16.png" decoding="async"></div>
+            <div class="spine"></div>
+        </div>
+		
+		 <div class="spread">
+            <div class="page"><img src="images/Mirum/BookPage17.png" decoding="async"></div>
+            <div class="page"><img src="images/Mirum/BookPage18.png" decoding="async"></div>
+            <div class="spine"></div>
+        </div>
+		
+		 <div class="spread">
+            <div class="page"><img src="images/Mirum/BookPage19.png" decoding="async"></div>
+            <div class="page"><img src="images/Mirum/BookPage20.png" decoding="async"></div>
+            <div class="spine"></div>
+        </div>
+		
+		 <div class="spread">
+            <div class="page"><img src="images/Mirum/BookPage21.png" decoding="async"></div>
+            <div class="page"><img src="images/Mirum/BookPage22.png" decoding="async"></div>
+            <div class="spine"></div>
+        </div>
+
+        <div class="spread">
+            <div class="page back-left">
+                <img src="images/Mirum/BookBack.png" decoding="async">
+            </div>
+            <div class="page blank-page"></div>
+            <div class="spine"></div>
+        </div>
+
+    </div>
+
+    <div class="controls">
+        <button class="btn" id="prevBtn" onclick="move(-1)" disabled>Prev</button>
+        <span class="info" id="status">Front Cover</span>
+        <button class="btn" id="nextBtn" onclick="move(1)">Next</button>
+    </div>
+
+    <script>
+        let currentIdx = 0;
+        const spreads = document.querySelectorAll('.spread');
+        const statusText = document.getElementById('status');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        // PRELOADER SCRIPT: Forces browser to download images before user clicks
+        window.addEventListener('load', () => {
+            const allImages = document.querySelectorAll('img');
+            allImages.forEach((img) => {
+                const dummy = new Image();
+                dummy.src = img.src;
+            });
+        });
+
+        function move(direction) {
+            spreads[currentIdx].style.transform = direction === 1 
+                ? "rotateY(-25deg) scale(0.9) translateX(-100px)" 
+                : "rotateY(25deg) scale(0.9) translateX(100px)";
+            spreads[currentIdx].classList.remove('active');
+
+            currentIdx += direction;
+
+            spreads[currentIdx].style.transform = "";
+            spreads[currentIdx].classList.add('active');
+
+            updateUI();
+        }
+
+        function updateUI() {
+            prevBtn.disabled = (currentIdx === 0);
+            nextBtn.disabled = (currentIdx === spreads.length - 1);
+
+            if (currentIdx === 0) statusText.innerText = "Front Cover";
+            else if (currentIdx === spreads.length - 1) statusText.innerText = "Back Cover";
+            else statusText.innerText = `Spread ${currentIdx} of ${spreads.length - 2}`;
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === "ArrowRight" && currentIdx < spreads.length - 1) move(1);
+            if (e.key === "ArrowLeft" && currentIdx > 0) move(-1);
+        });
+    </script>
+</body>
+</html>

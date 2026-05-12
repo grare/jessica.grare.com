@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jessica Grare | The Orange Project</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;900&family=Playfair+Display:ital,wght@0,900;1,900&display=swap" rel="stylesheet">
+<style>
+        body { font-family: 'Poppins', sans-serif; }
+        .serif-italic { font-family: 'Playfair Display', serif; }
+        
+        /* Poppins Black Lockup */
+        .poppins-black { font-weight: 900; letter-spacing: -0.02em; }
+        
+        .reveal { opacity: 0; transform: translateY(20px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        .img-container { overflow: hidden; }
+        .img-container img { transition: transform 1.5s cubic-bezier(0.165, 0.84, 0.44, 1); }
+        .img-container:hover img { transform: scale(1.05); }
+
+        /* Animated nav underline */
+        .link-under { position: relative; text-decoration: none; }
+        .link-under::after {
+            content: ''; position: absolute; width: 100%; height: 1px;
+            bottom: -2px; left: 0; background-color: currentColor;
+            transform: scaleX(0); transform-origin: left; transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .link-under:hover::after { transform: scaleX(1); }
+    </style>
+</head>
+<body class="bg-white text-black antialiased">
+
+	<!--Top Navigator -->
+<nav class="flex justify-between items-center px-4 md:px-6 py-6 sticky top-0 bg-white/80 backdrop-blur-md z-50">
+    <a href="design/" class="block">
+        <img src="images/JG_WithName@4x.png" alt="Jessica Grare" class="h-[80px] w-auto object-contain block">
+    </a>
+
+    <div class="flex items-center space-x-8 font-medium text-sm uppercase tracking-widest">
+        <a href="design/" class="border-b-2 border-black">Work</a>
+        <a href="AboutDesigner.html" class="link-under">About</a>
+
+        <a href="https://www.linkedin.com/in/jessicagrare" target="_blank" class="block hover:opacity-50 transition-opacity">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="black" style="display: block;">
+                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+            </svg>
+        </a>
+    </div>
+</nav>
+
+	<!--Project Header -->
+    <header class="relative w-full overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="images/OrangeProject/DSC_4868.JPG" alt="Background" class="w-full h-full object-cover opacity-30 grayscale">
+        </div>
+
+        <div class="relative z-10 max-w-[1400px] mx-auto px-6 md:px-12 pt-24 pb-12">
+            <h1 class="text-5xl md:text-8xl poppins-black uppercase leading-[0.8] mb-12">
+                The Orange Project <br><span class="serif-italic lowercase font-normal text-black">a Mental Health Campaign</span>
+            </h1>
+        </div>
+		
+<!--Project Info Block -->
+        <div class="w-full bg-[#005f99] border-t border-black py-12 reveal">
+            <div class="max-w-[1400px] mx-auto px-6 md:px-12">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                    <div><br>
+<!--Project Info: Roles -->
+                        <h4 class="text-[10px] uppercase tracking-[0.2em] font-bold mb-2 text-white">Role</h4>
+                        <p class="text-sm text-white/80 font-medium uppercase">Art Director</p>
+                    </div>
+					<!--Project Info: Client/Collaborators -->
+                    <div>
+                        <h4 class="text-[10px] uppercase tracking-[0.2em] font-bold mb-2 text-white">Client</h4>
+                        <p class="text-sm text-white/80 font-medium uppercase">The Orange Project</p>
+                        <div class="mt-6">
+                            <h4 class="text-[10px] uppercase tracking-[0.2em] font-bold mb-2 text-white">Collaborators</h4>
+                            <ul class="text-sm text-white/80 font-medium uppercase leading-relaxed">
+                                <li>Marcia Goddard & Katherine Imbro (CD)</li>
+                                <li>Fiana Jackameit (Copy)</li>
+                            </ul>
+                        </div>
+                    </div>
+					<!--Project Info: Services -->
+                    <div>
+                        <h4 class="text-[10px] text-white uppercase tracking-[0.2em] font-bold mb-2 text-white">Services</h4>
+                        <p class="text-sm text-white/80 font-medium uppercase">Social Activism<br>Social</p>
+                    </div>
+					<!--Project Info: Services -->
+                    <div>
+                        <h4 class="text-[10px] text-white/80 uppercase tracking-[0.2em] font-black mb-2 text-white">Awards</h4>
+                        <p class="text-sm text-white/80 font-medium uppercase">Guiness World Record<br>Creative Floor Awards: Social Media<br>Rx Club: Award of Excellence</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+		
+<!--Basic Description and Header -->
+<section class="w-full bg-[#eb6c24] py-24 mb-0 reveal">
+    <div class="max-w-[1400px] mx-auto px-4 md:px-10">
+        <div class="flex flex-col max-w-6xl space-y-6">
+            
+            <h2 class="text-3xl md:text-4xl poppins-black uppercase tracking-wide text-[#FFFFFF] leading-tight mb-6">
+                It All Started with an Orange Sticky Note.
+            </h2>
+
+            <p class="text-base md:text-lg text-white/80 leading-relaxed">
+                According to the American Foundation for Suicide Prevention (AFSP), a 2023 study showed that suicide is the 11th leading cause of death in the United States. McCann Health created a call to action for suicide prevention via The Orange Project (#worthliving). Words of inspiration and positivity were written on orange sticky notes to demonstrate how life is worth living.
+            </p>
+
+            <p class="text-base md:text-lg text-white/80 leading-relaxed">
+                As an art director on the campaign, I designed email campaigns, social media filters, agency promotions, and a physical mock yearbook summarizing The Orange Project. I helped photograph over 34,244 handwritten orange sticky notes that were placed into an online photo album for millions to view. The photo album won a Guinness World Record for the largest online photo album. The yearbook won the Rx Club Award of Excellence in November 2018.
+            </p>
+
+            <p class="text-base md:text-lg text-white/80 leading-relaxed">
+                McCann Health represented the Orange Project by attending suicide walks, the NYC Pride Parade, and a Penn State basketball game. I wore posterboards with the notes at these events for attendees to write on them.
+            </p>
+            
+        </div>
+    </div>
+</section>
+
+<!--Interactive Book -->
+<iframe src="orangeproject-book.html" width="100%" height="950px" frameborder="0" scrolling="no" style="display:block;"></iframe>
+
+<!--Taylor's Yearbook -->
+<section class="max-w-[1400px] mx-auto px-4 md:px-10 pt-6 pb-24 reveal">
+    <div class="max-w-6xl space-y-4">
+        <h3 class="text-lg md:text-xl font-black uppercase tracking-wide" style="color: #eb6c24;">Taylor's Yearbook / The Orange Project</h3>
+
+        <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+            A school yearbook commemorates accomplishments in school and celebrates life beyond high school. To raise sucide awareness and reduce its stigma, a yearbook was designed to depict a teenager lost to suicide and how her death affected the school. When people band together to speak up, stigma—and yearbook—is flipped upside down.
+        </p>
+    </div>
+</section>
+
+<!--Gallery Images -->
+        <section class="max-w-[1400px] mx-auto px-6 md:px-12 space-y-8 md:space-y-16 pb-24 md:pb-32">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">
+                <div class="img-container reveal"><img src="images/OrangeProject/SnapChatSticker.jpg" class="w-full"></div>
+                <div class="img-container reveal"><img src="images/OrangeProject/TOP_PSU_CalendarPost_FBIG_4days.png" class="w-full"></div>
+            </div>
+            <div class="w-full reveal">
+                <div class="img-container"><img src="images/OrangeProject/DSC_5080.JPG" class="w-full"></div>
+            </div>
+        </section>
+	
+        
+
+		
+
+
+    </main>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+    </script>
+</body>
+</html>

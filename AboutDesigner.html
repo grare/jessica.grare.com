@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Senior Art Director</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;900&family=Playfair+Display:ital,wght@1,900&display=swap" rel="stylesheet">
+    <style>
+        /* Sitewide Typography */
+        body { font-family: 'Poppins', sans-serif; }
+        
+        /* Poppins Black: Adjusted tracking by ~10% for better balance (-0.02em) */
+        .poppins-black { 
+            font-weight: 900; 
+            letter-spacing: -0.02em; 
+        }
+
+        /* Playfair bridge style */
+        .serif-italic { 
+            font-family: 'Playfair Display', serif; 
+            font-style: italic;
+            letter-spacing: 0;
+        }
+        
+        /* Animated underline */
+        .link-under { position: relative; text-decoration: none; }
+        .link-under::after {
+            content: ''; position: absolute; width: 100%; height: 1px;
+            bottom: -2px; left: 0; background-color: currentColor;
+            transform: scaleX(0); transform-origin: left; transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .link-under:hover::after { transform: scaleX(1); }
+
+        /* ── Relume-style Career Timeline ── */
+        .timeline_component {
+            position: relative;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 80px 0 40px;
+        }
+
+        .timeline_line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: #d1d5db;
+            transform: translateX(-50%);
+        }
+
+        .timeline_line-progress {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            width: 2px;
+            height: 0;
+            background-color: #000;
+            transform: translateX(-50%);
+            transition: height 0.3s ease-out;
+            z-index: 1;
+        }
+
+        .timeline_item {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            width: 100%;
+            margin-bottom: 120px;
+            z-index: 2;
+        }
+
+        .timeline_item:nth-child(even) { flex-direction: row-reverse; }
+
+        .timeline_left,
+        .timeline_right { width: 43%; }
+
+        .timeline_date-text {
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1;
+            letter-spacing: -0.02em;
+            color: #d1d5db;
+            transition: color 0.4s ease;
+        }
+
+        .timeline_item.is-active .timeline_date-text { color: #000; }
+
+        .timeline_item:nth-child(odd) .timeline_left { text-align: right; }
+
+        .timeline_text-wrapper {
+            opacity: 0.2;
+            transform: translateX(20px);
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .timeline_item:nth-child(even) .timeline_text-wrapper { transform: translateX(-20px); }
+
+        .timeline_item.is-active .timeline_text-wrapper {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .timeline_company {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #9ca3af;
+            margin: 0 0 6px 0;
+        }
+
+        .timeline_title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin: 0 0 10px 0;
+            letter-spacing: -0.01em;
+        }
+
+        .timeline_paragraph {
+            color: #6b7280;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .timeline_dot {
+            position: absolute;
+            left: 50%;
+            top: 25px;
+            width: 14px;
+            height: 14px;
+            background-color: #fafafa;
+            border: 2px solid #d1d5db;
+            border-radius: 50%;
+            transform: translateX(-50%);
+            transition: all 0.3s ease;
+            z-index: 3;
+        }
+
+        .timeline_item.is-active .timeline_dot {
+            background-color: #000;
+            border-color: #000;
+            box-shadow: 0 0 0 6px rgba(0,0,0,0.06);
+        }
+
+        @media (max-width: 767px) {
+            .timeline_component { padding: 40px 0 20px; }
+
+            .timeline_line,
+            .timeline_line-progress { left: 20px; transform: none; }
+
+            .timeline_item,
+            .timeline_item:nth-child(even) {
+                flex-direction: column;
+                padding-left: 52px;
+                margin-bottom: 72px;
+            }
+
+            .timeline_left,
+            .timeline_right { width: 100%; text-align: left !important; }
+
+            .timeline_date-text { font-size: 2.2rem; margin-bottom: 8px; }
+
+            .timeline_dot { left: 20px; top: 8px; transform: translateX(-50%); }
+
+            .timeline_text-wrapper { transform: none !important; opacity: 0.2; }
+        }
+    </style>
+</head>
+	
+	<!-- Top Nav -->
+<body class="bg-[#fafafa] text-black antialiased selection:bg-black selection:text-white">
+
+    <nav class="flex justify-between items-center px-4 md:px-6 py-6 sticky top-0 bg-white/80 backdrop-blur-md z-50">
+        <a href="design/" class="block">
+            <img src="images/JG_WithName@4x.png" alt="Jessica Grare" class="h-[80px] w-auto object-contain block">
+        </a>
+        <div class="flex items-center space-x-8 font-medium text-sm uppercase tracking-widest">
+            <a href="design/" class="link-under">Work</a>
+            <a href="AboutDesigner.html" class="border-b-2 border-black">About</a>
+            <a href="https://www.linkedin.com/in/jessicagrare" target="_blank" class="block hover:opacity-50 transition-opacity">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="black" style="display: block;">
+                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                </svg>
+            </a>
+        </div>
+    </nav>
+
+	<!-- Big Header -->
+    <main class="max-w-[1400px] mx-auto px-6 md:px-12 pt-12 pb-32">
+        
+        <section class="gap-4 mb-24 relative">
+            <img src="images/InkBio.png" alt=""
+                 aria-hidden="true"
+                 class="absolute top-0 right-0 bottom-0 -left-12 md:-left-16 h-full w-[calc(100%+3rem)] md:w-[calc(100%+4rem)] object-cover pointer-events-none select-none -z-10" />
+            <h1 class="leading-[0.9] relative text-[#fafafa]">
+                <span class="block text-[12vw] md:text-[9vw]">
+                    <span class="font-normal">LET'S </span><span class="poppins-black">SPILL</span>
+                </span>
+                <span class="block text-[12vw] md:text-[9vw] uppercase">
+                    <span class="poppins-black">Some </span><span class="font-normal">Ink</span>
+                </span>
+            </h1>
+        </section>
+
+        <section class="grid grid-cols-12 gap-8 md:gap-16">
+            
+            <!-- Photo and Caption Lockup -->
+			<div class="col-span-12 md:col-span-5 relative">
+                <div class="md:sticky md:top-32">
+                    <div class="aspect-[4/5] bg-gray-200 overflow-hidden">
+                        <img src="images/HeadshotOption2.jpg" alt="Portrait" class="w-full h-full object-cover contrast-125">
+                    </div>
+                    <p class="mt-4 text-[10px] uppercase tracking-widest text-gray-400 font-bold">Based in New Jersey</p>
+                </div>
+            </div>
+
+           <!-- About Me Blurb -->
+			<div class="col-span-12 md:col-span-7 space-y-12 md:space-y-16">
+                
+                <div class="max-w-xl">
+                    <h2 class="text-3xl font-bold mb-8 leading-tight tracking-tight">Fine artist turned full-stack creative</h2>
+                    <div class="space-y-6 text-xl text-gray-700 leading-relaxed font-normal">
+                        <p>After over a decade of experience, I’ve worked in the world of pharma and consumer advertising, along with working as a professional photographer. When I am not behind the desk or camera, I manage my own event planning company. No matter the endeavor, my goal remains the same: to turn complex strategies into unforgettable 360° visual narratives. I solve the problem first, then I apply the craft.</p>
+
+<p>Beyond the strategy and the deliverables, I’m a professional multitasker who can pivot from a brand launch to negotiating with preschoolers in record time. <br>In between the chaos, I get my elbows deep in a DIY craft project, try new foods, or see a film that has a 50% rating on Rotten Tomatoes. My life has a diverse soundtrack—and menu—with just enough side quests to keep <br>things interesting. </p>
+
+						<p>Say hello at <a href="mailto:jessica@grare.com?subject=Project Inquiry: [Your Project Name]"
+   class="text-large md:text-large poppins-black uppercase hover:text-[#d57c89] transition-colors">
+   jessica@grare.com
+</a></p>
+                    </div>
+                </div>
+
+				<!-- Specialties and Experience
+                <hr class="border-0 border-t border-black/10">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-12">
+                    <div>
+                        <h4 class="text-[10px] uppercase tracking-[0.2em] font-black mb-6 text-gray-400">Specialities</h4>
+                        <ul class="space-y-3 text-sm font-medium uppercase tracking-wider">
+                            <li>Creative Direction</li>
+                            <li>Experimental Typography</li>
+                            <li>Digital and Print Design</li>
+                            <li>Animation</li>
+                            <li>Convention Design</li>
+                            <li>AI-Augmented Workflows</li>
+                        </ul>
+							<br>
+                    </div>
+                    <div>
+                        <h4 class="text-[10px] uppercase tracking-[0.2em] font-black mb-6 text-gray-400">Experience</h4>
+                        <ul class="space-y-3 text-sm font-medium uppercase tracking-wider">
+                            <li>Love, Rose: Events & Design — 2020-Present</li>
+                            <li>McCann Health NJ — 2017-2023</li>
+                            <li>Freelance — 2017 to Present</li>
+                            <li>The S3 Agency — 2016</li>
+                            <li>Freelance & Photography — 2014-2016</li>
+                        </ul>
+                    </div>
+                </div> -->
+				
+				<!-- View My CV -->
+            <a href="resume.pdf" target="_blank" class="group block border-[1px] border-black p-10 md:p-14 hover:bg-black hover:text-white transition-all duration-500">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <span class="text-[12px] uppercase tracking-[0.3em] font-normal mb-4 block group-hover:text-gray-400">See all the details for yourself</span>
+                        <h3 class="text-4xl md:text-6xl poppins-black uppercase leading-none">VIEW MY CV</h3>
+                    </div>
+                    <div class="text-4xl md:text-7xl group-hover:translate-x-6 transition-transform duration-500">→</div>
+                </div>
+            </a>
+            <hr class="border-0 border-t border-black/10">
+		</section>
+			<!-- Timeline Section (hidden) -->
+			<div class="border-t border-black/10 pt-12 hidden">
+				<h2 class="text-3xl font-bold mb-2 leading-tight tracking-tight">Adaptability is my creative foundation.</h2>
+				<p class="text-sm uppercase tracking-[0.2em] font-bold text-gray-400 mb-0">Career Timeline</p>
+			</div>
+
+			<div class="timeline_component hidden">
+				<div class="timeline_line"></div>
+				<div class="timeline_line-progress" id="timeline-progress"></div>
+
+				<!-- 2020–Present: Love, Rose -->
+				<div class="timeline_item">
+					<div class="timeline_left">
+						<div class="timeline_date-text">2020</div>
+					</div>
+					<div class="timeline_dot"></div>
+					<div class="timeline_right">
+						<div class="timeline_text-wrapper">
+							<p class="timeline_company">Love, Rose: Events &amp; Design</p>
+							<h3 class="timeline_title">Founder &amp; Creative Director</h3>
+							<p class="timeline_paragraph">Built a boutique event planning and design studio from the ground up. Delivering full-service creative production for weddings, private events, and social clients — from concept to visual execution.</p>
+						</div>
+					</div>
+				</div>
+
+				<!-- 2017–2023: McCann Health NJ -->
+				<div class="timeline_item">
+					<div class="timeline_left">
+						<div class="timeline_date-text">2017</div>
+					</div>
+					<div class="timeline_dot"></div>
+					<div class="timeline_right">
+						<div class="timeline_text-wrapper">
+							<p class="timeline_company">McCann Health NJ</p>
+							<h3 class="timeline_title">Senior Art Director</h3>
+							<p class="timeline_paragraph">Led creative on global and local pharmaceutical campaigns under strict regulatory scrutiny. Launched brands across digital, print, convention, and 360° touchpoints for some of the industry's most demanding clients.</p>
+						</div>
+					</div>
+				</div>
+
+				<!-- 2016: The S3 Agency -->
+				<div class="timeline_item">
+					<div class="timeline_left">
+						<div class="timeline_date-text">2016</div>
+					</div>
+					<div class="timeline_dot"></div>
+					<div class="timeline_right">
+						<div class="timeline_text-wrapper">
+							<p class="timeline_company">The S3 Agency</p>
+							<h3 class="timeline_title">Art Director</h3>
+							<p class="timeline_paragraph">Consumer-facing brand advertising across digital and traditional media. Focused on integrated visual storytelling and campaign development for national and regional brands.</p>
+						</div>
+					</div>
+				</div>
+
+				<!-- 2015–2016: Freelance Designer -->
+				<div class="timeline_item">
+					<div class="timeline_left">
+						<div class="timeline_date-text">2015</div>
+					</div>
+					<div class="timeline_dot"></div>
+					<div class="timeline_right">
+						<div class="timeline_text-wrapper">
+							<p class="timeline_company">Freelance</p>
+							<h3 class="timeline_title">Designer &amp; Photographer</h3>
+							<p class="timeline_paragraph">Independent design consulting across brand identity, print, and digital. Simultaneously building a photography practice spanning events, portraiture, and editorial work.</p>
+						</div>
+					</div>
+				</div>
+
+				<!-- 2014: Beginnings -->
+				<div class="timeline_item">
+					<div class="timeline_left">
+						<div class="timeline_date-text">2014</div>
+					</div>
+					<div class="timeline_dot"></div>
+					<div class="timeline_right">
+						<div class="timeline_text-wrapper">
+							<p class="timeline_company">Fine Arts Foundation</p>
+							<h3 class="timeline_title">Where It Started</h3>
+							<p class="timeline_paragraph">A foundation in fine arts — pens, paper, and paint — taught deep observation skills that now inform every creative problem. The beginning of a refusal to stay in one lane.</p>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+
+				<!-- Footer -->
+				<div class="flex flex-wrap gap-x-12 gap-y-2 pt-12">
+                    <a href="mailto:jessica@grare.com" class="link-under font-regular text-xs uppercase tracking-[0.2em] py-3 inline-block">Contact</a>
+                    <a href="https://www.linkedin.com/in/jessicagrare/" class="link-under font-regular text-xs uppercase tracking-[0.2em] py-3 inline-block">LinkedIn</a>
+                    <a href="https://jessica.grare.com" class="link-under font-regular text-xs uppercase tracking-[0.2em] py-3 inline-block">Photography</a>
+                </div>
+            </div>
+			
+					
+        </section>
+    </main>
+
+<script>
+    (function () {
+        var items = document.querySelectorAll('.timeline_item');
+        var progressBar = document.getElementById('timeline-progress');
+        var timelineComp = document.querySelector('.timeline_component');
+
+        function handleScroll() {
+            if (!timelineComp) return;
+            var triggerPoint = window.innerHeight * 0.65;
+            var maxProgressHeight = 0;
+
+            items.forEach(function (item) {
+                var dotTop = item.getBoundingClientRect().top + 25;
+                if (dotTop < triggerPoint) {
+                    item.classList.add('is-active');
+                    var progressVal = (item.offsetTop - timelineComp.offsetTop) + 25;
+                    if (progressVal > maxProgressHeight) maxProgressHeight = progressVal;
+                } else {
+                    item.classList.remove('is-active');
+                }
+            });
+
+            if (progressBar) progressBar.style.height = maxProgressHeight + 'px';
+        }
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        handleScroll();
+    })();
+</script>
+
+</body>
+</html>

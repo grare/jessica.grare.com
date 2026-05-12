@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>TravelBite — Dark Mode Hex Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Caveat:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    /* Dark mode tokens — exact values from styles.css [data-theme="dark"] */
+    --paper:        #1c1610;
+    --paper-2:      #251c14;
+    --paper-3:      #2f2419;
+    --ink:          #f0e3cc;
+    --ink-2:        #c9b691;
+    --ink-3:        #d0b591;
+    --rule:         #4a3a26;
+    --terracotta:   #e07a5a;
+    --terracotta-2: #c25a3b;
+    --turmeric:     #e3b34a;
+    --saffron:      #f0c970;
+    --sage:         #8a9c79;
+    --plum:         #c889a4;
+    --stamp-red:    #e07a6a;
+    --stamp-blue:   #6b9bc9;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background-color: var(--paper);
+    background-image:
+      repeating-linear-gradient(90deg, rgba(208,181,145,0.04) 0 1px, transparent 1px 4px),
+      repeating-linear-gradient(0deg,  rgba(208,181,145,0.04) 0 1px, transparent 1px 4px);
+    color: var(--ink);
+    font-family: 'Inter', system-ui, sans-serif;
+    padding: 56px 28px 80px;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; }
+
+  .h1 { font-family: 'DM Serif Display', serif; font-size: 56px; line-height: 1; letter-spacing: -0.02em; margin: 0; }
+  .h2 { font-family: 'DM Serif Display', serif; font-size: 28px; line-height: 1.05; margin: 0; }
+  .h3 { font-family: 'DM Serif Display', serif; font-size: 20px; line-height: 1.1; margin: 0; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 40px; padding-bottom: 28px;
+    border-bottom: 1px dashed var(--rule);
+    margin-bottom: 44px;
+    flex-wrap: wrap;
+  }
+  header .meta {
+    text-align: right;
+    color: var(--ink-2);
+    font-size: 12px;
+    line-height: 1.6;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .lede {
+    margin-top: 18px;
+    font-size: 18px;
+    line-height: 1.5;
+    color: var(--ink-2);
+    max-width: 780px;
+  }
+  .lede em {
+    font-family: 'Caveat', cursive;
+    font-style: normal;
+    font-size: 22px;
+    color: var(--terracotta);
+  }
+
+  .section { margin-top: 56px; }
+  .section-head {
+    display: flex; align-items: baseline; gap: 18px;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 10px; margin-bottom: 24px;
+  }
+  .section-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 36px; color: var(--terracotta);
+    line-height: 1;
+  }
+  .section-head h2 { flex: 1; }
+  .section-head .count {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.18em;
+    color: var(--ink-3);
+  }
+
+  /* Swatch */
+  .swatch-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 18px;
+  }
+  .swatch {
+    background: var(--paper-2);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.04) inset, 0 4px 14px rgba(0,0,0,0.25);
+  }
+  .swatch .chip {
+    height: 110px;
+    display: flex; align-items: flex-end;
+    padding: 12px 14px;
+  }
+  .swatch .chip .role {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.9;
+  }
+  .swatch .body {
+    padding: 12px 14px 14px;
+    border-top: 1px dashed var(--rule);
+  }
+  .swatch .name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+  .swatch .var {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-3);
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+  .swatch .hex {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: 0.06em;
+  }
+  .swatch .pair {
+    margin-top: 8px;
+    display: flex; gap: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-2);
+  }
+  .swatch .pair span.lbl {
+    color: var(--ink-3);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-size: 8.5px;
+    align-self: center;
+  }
+
+  /* Token table */
+  .tokens {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--paper-2);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    overflow: hidden;
+    font-size: 13px;
+  }
+  .tokens th, .tokens td {
+    text-align: left;
+    padding: 12px 14px;
+    border-bottom: 1px dashed var(--rule);
+    vertical-align: middle;
+  }
+  .tokens th {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    background: var(--paper-3);
+    font-weight: 600;
+  }
+  .tokens tr:last-child td { border-bottom: none; }
+  .tokens td.tk {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+  .tokens td.hex {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+  .tokens td.role {
+    color: var(--ink-2);
+    font-size: 12.5px;
+  }
+  .tokens td.dot { width: 28px; padding-right: 0; }
+  .dotchip {
+    width: 22px; height: 22px;
+    border-radius: 6px;
+    display: inline-block;
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.3) inset;
+    vertical-align: middle;
+  }
+
+  /* Surface preview */
+  .surface-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 18px;
+  }
+  .surface {
+    border-radius: 14px;
+    padding: 18px 16px;
+    border: 1px solid var(--rule);
+    position: relative;
+    overflow: hidden;
+    min-height: 220px;
+  }
+  .surface .eb {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .surface .ttl {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    line-height: 1.05;
+    margin-bottom: 8px;
+  }
+  .surface .body-t {
+    font-size: 12.5px;
+    line-height: 1.5;
+  }
+  .surface .stamp {
+    position: absolute;
+    right: 14px; top: 14px;
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    border: 2px solid currentColor;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    transform: rotate(-6deg);
+  }
+
+  /* Notes */
+  .notes {
+    margin-top: 28px;
+    background: var(--paper-2);
+    border: 1px dashed var(--ink-3);
+    border-radius: 10px;
+    padding: 22px 26px;
+  }
+  .notes h3 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin: 0 0 10px;
+  }
+  .notes ul {
+    margin: 0; padding-left: 18px;
+    font-size: 13px; line-height: 1.7;
+    color: var(--ink-2);
+  }
+  .notes ul li::marker { color: var(--terracotta); }
+
+  pre.code {
+    background: #14100b;
+    border: 1px dashed var(--rule);
+    border-radius: 8px;
+    padding: 16px 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--ink-2);
+    overflow-x: auto;
+    margin: 0;
+  }
+  pre.code .k { color: var(--terracotta); }
+  pre.code .v { color: var(--turmeric); }
+  pre.code .c { color: var(--ink-3); }
+  pre.code .s { color: var(--sage); }
+
+  /* Style guide tab bar */
+  .guide-tabs {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+    padding: 12px 0;
+    margin-bottom: 24px;
+  }
+  .guide-tabs-inner {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .guide-tabs .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-right: 14px;
+  }
+  .guide-tabs a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    transition: all 120ms ease;
+  }
+  .guide-tabs a:hover {
+    color: var(--ink);
+    border-color: var(--rule);
+  }
+  .guide-tabs a.active {
+    color: var(--terracotta);
+    background: var(--paper-2);
+    border-color: var(--rule);
+  }
+  @media print {
+    .guide-tabs { display: none; }
+  }
+</style>
+</head>
+<body>
+<nav class="guide-tabs">
+  <div class="guide-tabs-inner">
+    <span class="label">TravelBite · Style Guides</span>
+    <a href="Asset Spec.html">Asset Spec</a>
+    <a href="Dark Mode Palette.html" class="active">Dark Mode Palette</a>
+  </div>
+</nav>
+<div class="wrap">
+
+  <header>
+    <div>
+      <div class="eyebrow">TravelBite · Dark Mode Color Tokens</div>
+      <h1 class="h1" style="margin-top:10px">Hex code guide — <em>after dark</em></h1>
+      <p class="lede">
+        The dark theme as defined in <span class="mono" style="color:var(--ink);">styles.css</span> under
+        <span class="mono" style="color:var(--ink);">[data-theme="dark"]</span> — the same warm passport feel
+        translated into deep coffee, leather and lamp-glow tones.
+      </p>
+    </div>
+    <div class="meta">
+      v1 · 2026-04<br />
+      mode · dark<br />
+      source · styles.css<br />
+      base bg · #1c1610
+    </div>
+  </header>
+
+  <!-- ───────────────── 1. Surfaces & ink ───────────────── -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-num">01</div>
+      <h2 class="h2">Surfaces &amp; ink</h2>
+      <div class="count">7 tokens · paper + ink</div>
+    </div>
+
+    <div class="swatch-grid">
+
+      <div class="swatch">
+        <div class="chip" style="background:#1c1610;color:#f0e3cc;"><div class="role">Base · App background</div></div>
+        <div class="body">
+          <div class="name">Paper</div>
+          <div class="var">--paper</div>
+          <div class="hex">#1C1610</div>
+          <div class="pair"><span class="lbl">Light pair</span> #F3E9D7</div>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="chip" style="background:#251c14;color:#f0e3cc;"><div class="role">Cards · Sheets · Tiles</div></div>
+        <div class="body">
+          <div class="name">Paper 2</div>
+          <div class="var">--paper-2</div>
+          <div class="hex">#251C14</div>
+          <div class="pair"><span class="lbl">Light pair</span> #ECE0C8</div>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="chip" style="background:#2f2419;color:#f0e3cc;"><div class="role">Inset · Preview · Header</div></div>
+        <div class="body">
+          <div class="name">Paper 3</div>
+          <div class="var">--paper-3</div>
+          <div class="hex">#2F2419</div>
+          <div class="pair"><span class="lbl">Light pair</span> #E3D3B3</div>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="chip" style="background:#4a3a26;color:#f0e3cc;"><div class="role">Rules · Borders · Dashes</div></div>
+        <div class="body">
+          <div class="name">Rule</div>
+          <div class="var">--rule</div>
+          <div class="hex">#4A3A26</div>
+          <div class="pair"><span class="lbl">Light pair</span> #C9B691</div>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="chip" style="background:#1c1610;color:#f0e3cc;"><div class="role" style="color:#f0e3cc;">Primary text</div></div>
+        <div class="body">
+          <div class="name">Ink</div>
+          <div class="var">--ink</div>
+          <div class="hex">#F0E3CC</div>
+          <div class="pair"><span class="lbl">Light pair</span> #2A1D12</div>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="chip" style="background:#1c1610;color:#c9b691;"><div class="role" style="color:#c9b691;">Body · Secondary</div></div>
+        <div class="body">
+          <div class="name">Ink 2</div>
+          <div class="var">--ink-2</div>
+          <div class="hex">#C9B691</div>
+          <div class="pair"><span class="lbl">Light pair</span> #5A4632</div>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="chip" style="background:#1c1610;color:#d0b591;"><div class="role" style="color:#d0b591;">Eyebrows · Mono labels</div></div>
+        <div class="body">
+          <div class="name">Ink 3</div>
+          <div class="var">--ink-3</div>
+          <div class="hex">#D0B591</div>
+          <div class="pair"><span class="lbl">Light pair</span> #8B7253</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ───────────────── 2. Accents ───────────────── -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-num">02</div>
+      <h2 class="h2">Accents · spice + stamp colors</h2>
+      <div class="count">8 tokens · brightened for dark</div>
+    </div>
+
+    <p style="max-width:780px;color:var(--ink-2);font-size:14px;line-height:1.6;margin:0 0 22px 0;">
+      Each accent is lifted in lightness from its light-mode counterpart so it remains
+      legible on the dark paper without losing its identity.
+    </p>
+
+    <div class="swatch-grid">
+
+      <div class="swatch">
+        <div class="chip" style="background:#e07a5a;color:#1c1610;"><div class="role">Primary accent · CTAs</div></div>
+        <div class="body">
+          <div class="name">Terracotta</div>
+          <div class="var">--terracotta</div>
+          <div class="hex">#E07A5A</div>
+          <div class="pair"><span class="lbl">Light pair</span> #C25A3B</div>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="chip" style="background:#c25a3b;color:#f0e3cc;"><div class="role">Terracotta — deep</div></div>
+        <div class="body">
+          <div class="name">Terracotta 2</div>
+          <div class="var">--terracotta-2</div>
+          <div class="hex">#C25A3B</div>
+          <div class="pair"><span class="lbl">Light pair</span> #A64627</div>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="chip" style="background:#e3b34a;color:#1c1610;"><div class="role">Highlight · Streaks</div></div>
+        <div class="body">
+          <div class="name">Turmeric</div>
+          <div class="var">--turmeric</div>
+          <div class="hex">#E3B34A</div>
+          <div class="pair"><span class="lbl">Light pair</span> #D99A2B</div>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="chip" style="background:#f0c970;color:#1c1610;"><div class="role">Saffron · Glow accent</div></div>
+        <div class="body">
+          <div class="name">Saffron</div>
+          <div class="var">--saffron</div>
+          <div class="hex">#F0C970</div>
+          <div class="pair"><span class="lbl">Light pair</span> #E3B34A</div>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="chip" style="background:#8a9c79;color:#1c1610;"><div class="role">Cuisine · Mediterranean</div></div>
+        <div class="body">
+          <div class="name">Sage</div>
+          <div class="var">--sage</div>
+          <div class="hex">#8A9C79</div>
+          <div class="pair"><span class="lbl">Light pair</span> #6B7D5B</div>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="chip" style="background:#c889a4;color:#1c1610;"><div class="role">Cuisine · East-Asian</div></div>
+        <div class="body">
+          <div class="name">Plum</div>
+          <div class="var">--plum</div>
+          <div class="hex">#C889A4</div>
+          <div class="pair"><span class="lbl">Light pair</span> #6B3A4F</div>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="chip" style="background:#e07a6a;color:#1c1610;"><div class="role">Stamp ink · Red</div></div>
+        <div class="body">
+          <div class="name">Stamp Red</div>
+          <div class="var">--stamp-red</div>
+          <div class="hex">#E07A6A</div>
+          <div class="pair"><span class="lbl">Light pair</span> #B03A2E</div>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="chip" style="background:#6b9bc9;color:#1c1610;"><div class="role">Stamp ink · Blue</div></div>
+        <div class="body">
+          <div class="name">Stamp Blue</div>
+          <div class="var">--stamp-blue</div>
+          <div class="hex">#6B9BC9</div>
+          <div class="pair"><span class="lbl">Light pair</span> #2C4A6B</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ───────────────── 3. Light ↔ Dark token table ───────────────── -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-num">03</div>
+      <h2 class="h2">Light ↔ dark token map</h2>
+      <div class="count">drop-in replacement</div>
+    </div>
+
+    <p style="max-width:780px;color:var(--ink-2);font-size:14px;line-height:1.6;margin:0 0 18px 0;">
+      Variable names don't change. The phone frame triggers dark mode by setting
+      <span class="mono" style="color:var(--ink);">data-theme="dark"</span> on the paper container.
+    </p>
+
+    <table class="tokens">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Token</th>
+          <th>Light hex</th>
+          <th></th>
+          <th>Dark hex</th>
+          <th>Role</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="dot"><span class="dotchip" style="background:#1c1610"></span></td><td class="tk">--paper</td><td class="hex">#F3E9D7</td><td>→</td><td class="hex">#1C1610</td><td class="role">App background</td></tr>
+        <tr><td class="dot"><span class="dotchip" style="background:#251c14"></span></td><td class="tk">--paper-2</td><td class="hex">#ECE0C8</td><td>→</td><td class="hex">#251C14</td><td class="role">Card / sheet surface</td></tr>
+        <tr><td class="dot"><span class="dotchip" style="background:#2f2419"></span></td><td class="tk">--paper-3</td><td class="hex">#E3D3B3</td><td>→</td><td class="hex">#2F2419</td><td class="role">Inset / preview / header strip</td></tr>
+        <tr><td class="dot"><span class="dotchip" style="background:#4a3a26"></span></td><td class="tk">--rule</td><td class="hex">#C9B691</td><td>→</td><td class="hex">#4A3A26</td><td class="role">Borders, dashed rules, dividers</td></tr>
+        <tr><td class="dot"><span class="dotchip" style="background:#f0e3cc"></span></td><td class="tk">--ink</td><td class="hex">#2A1D12</td><td>→</td><td class="hex">#F0E3CC</td><td class="role">Headlines, primary text</td></tr>
+        <tr><td class="dot"><span class="dotchip" style="background:#c9b691"></span></td><td class="tk">--ink-2</td><td class="hex">#5A4632</td><td>→</td><td class="hex">#C9B691</td><td class="role">Body, descriptions, prose</td></tr>
+        <tr><td class="dot"><span class="dotchip" style="background:#d0b591"></span></td><td class="tk">--ink-3</td><td class="hex">#8B7253</td><td>→</td><td class="hex">#D0B591</td><td class="role">Eyebrows, mono labels</td></tr>
+        <tr><td class="dot"><span class="dotchip" style="background:#e07a5a"></span></td><td class="tk">--terracotta</td><td class="hex">#C25A3B</td><td>→</td><td class="hex">#E07A5A</td><td class="role">Primary CTA, script, section nums</td></tr>
+        <tr><td class="dot"><span class="dotchip" style="background:#c25a3b"></span></td><td class="tk">--terracotta-2</td><td class="hex">#A64627</td><td>→</td><td class="hex">#C25A3B</td><td class="role">Pressed / deeper terracotta</td></tr>
+        <tr><td class="dot"><span class="dotchip" style="background:#e3b34a"></span></td><td class="tk">--turmeric</td><td class="hex">#D99A2B</td><td>→</td><td class="hex">#E3B34A</td><td class="role">Streaks, badges, warm highlights</td></tr>
+        <tr><td class="dot"><span class="dotchip" style="background:#f0c970"></span></td><td class="tk">--saffron</td><td class="hex">#E3B34A</td><td>→</td><td class="hex">#F0C970</td><td class="role">Glow accent, lit numerals</td></tr>
+        <tr><td class="dot"><span class="dotchip" style="background:#8a9c79"></span></td><td class="tk">--sage</td><td class="hex">#6B7D5B</td><td>→</td><td class="hex">#8A9C79</td><td class="role">Mediterranean cuisine, success</td></tr>
+        <tr><td class="dot"><span class="dotchip" style="background:#c889a4"></span></td><td class="tk">--plum</td><td class="hex">#6B3A4F</td><td>→</td><td class="hex">#C889A4</td><td class="role">East-Asian cuisine, spice discs</td></tr>
+        <tr><td class="dot"><span class="dotchip" style="background:#e07a6a"></span></td><td class="tk">--stamp-red</td><td class="hex">#B03A2E</td><td>→</td><td class="hex">#E07A6A</td><td class="role">Passport stamp ink (red)</td></tr>
+        <tr><td class="dot"><span class="dotchip" style="background:#6b9bc9"></span></td><td class="tk">--stamp-blue</td><td class="hex">#2C4A6B</td><td>→</td><td class="hex">#6B9BC9</td><td class="role">Passport stamp ink (blue)</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ───────────────── 4. Surfaces in context ───────────────── -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-num">04</div>
+      <h2 class="h2">Surfaces in context</h2>
+      <div class="count">card · spice · stats</div>
+    </div>
+
+    <div class="surface-grid">
+
+      <div class="surface" style="background:#251c14;">
+        <div class="eb" style="color:#d0b591;">RECIPE · TUNISIAN</div>
+        <div class="ttl" style="color:#f0e3cc;">Harissa-rubbed lamb</div>
+        <div class="body-t" style="color:#c9b691;">Slow-roasted with cumin and rose petals — 45 minutes.</div>
+        <div class="stamp" style="color:#e07a6a;">TUNIS</div>
+      </div>
+
+      <div class="surface" style="background:#1c1610;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+        <div style="width:96px;height:96px;border-radius:50%;background:#c889a4;display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;color:#1c1610;font-size:38px;box-shadow:inset 0 -4px 10px rgba(0,0,0,0.3),0 6px 18px rgba(0,0,0,0.4);">八</div>
+        <div class="eb" style="color:#d0b591;margin-top:14px;">SPICE · STAR ANISE</div>
+        <div style="font-family:'DM Serif Display',serif;color:#f0e3cc;font-size:18px;margin-top:2px;">Bā jiǎo</div>
+      </div>
+
+      <div class="surface" style="background:#251c14;padding:14px;">
+        <div class="eb" style="color:#d0b591;">YOUR PASSPORT</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px;">
+          <div style="background:#2f2419;border:1px solid #4a3a26;border-radius:8px;padding:10px 8px;text-align:center;">
+            <div style="font-family:'DM Serif Display',serif;color:#e07a5a;font-size:22px;">12</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:#d0b591;letter-spacing:0.14em;text-transform:uppercase;margin-top:2px;">stamps</div>
+          </div>
+          <div style="background:#2f2419;border:1px solid #4a3a26;border-radius:8px;padding:10px 8px;text-align:center;">
+            <div style="font-family:'DM Serif Display',serif;color:#f0c970;font-size:22px;">47</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:#d0b591;letter-spacing:0.14em;text-transform:uppercase;margin-top:2px;">streak</div>
+          </div>
+          <div style="background:#2f2419;border:1px solid #4a3a26;border-radius:8px;padding:10px 8px;text-align:center;">
+            <div style="font-family:'DM Serif Display',serif;color:#8a9c79;font-size:22px;">31</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:#d0b591;letter-spacing:0.14em;text-transform:uppercase;margin-top:2px;">spices</div>
+          </div>
+        </div>
+        <div style="font-family:'Caveat',cursive;color:#e07a5a;font-size:18px;margin-top:14px;">Halfway around the world…</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ───────────────── 5. CSS snippet ───────────────── -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-num">05</div>
+      <h2 class="h2">Drop-in CSS</h2>
+      <div class="count">straight from styles.css</div>
+    </div>
+
+<pre class="code"><span class="s">[data-theme="dark"]</span> {
+  <span class="k">--paper</span>:        <span class="v">#1c1610</span>;
+  <span class="k">--paper-2</span>:      <span class="v">#251c14</span>;
+  <span class="k">--paper-3</span>:      <span class="v">#2f2419</span>;
+  <span class="k">--ink</span>:          <span class="v">#f0e3cc</span>;
+  <span class="k">--ink-2</span>:        <span class="v">#c9b691</span>;
+  <span class="k">--ink-3</span>:        <span class="v">#d0b591</span>;
+  <span class="k">--rule</span>:         <span class="v">#4a3a26</span>;
+  <span class="k">--terracotta</span>:   <span class="v">#e07a5a</span>;
+  <span class="k">--terracotta-2</span>: <span class="v">#c25a3b</span>;
+  <span class="k">--turmeric</span>:     <span class="v">#e3b34a</span>;
+  <span class="k">--saffron</span>:      <span class="v">#f0c970</span>;
+  <span class="k">--sage</span>:         <span class="v">#8a9c79</span>;
+  <span class="k">--plum</span>:         <span class="v">#c889a4</span>;
+  <span class="k">--stamp-red</span>:    <span class="v">#e07a6a</span>;
+  <span class="k">--stamp-blue</span>:   <span class="v">#6b9bc9</span>;
+  <span class="k">--shadow-paper</span>: <span class="v">0 1px 0 rgba(255,255,255,0.04) inset, 0 8px 24px rgba(0,0,0,0.4)</span>;
+}</pre>
+
+  </section>
+
+  <!-- ───────────────── 6. Notes ───────────────── -->
+  <section class="section">
+    <div class="notes">
+      <h3>Rules of thumb</h3>
+      <ul>
+        <li><strong>Ink-3 lifts</strong> from <span class="mono" style="color:var(--ink);">#8B7253</span> in light mode to <span class="mono" style="color:var(--ink);">#D0B591</span> in dark — eyebrows must stay readable on coffee paper.</li>
+        <li><strong>Never use pure white</strong> for text. Top out at <span class="mono" style="color:var(--ink);">#F0E3CC</span> — pure white reads cold against the warm browns.</li>
+        <li><strong>Never use pure black</strong> for surfaces. Bottom out at <span class="mono" style="color:var(--ink);">#1C1610</span> — keeps the leather/passport feel.</li>
+        <li><strong>Stamps</strong> shift to the brightened red <span class="mono" style="color:var(--ink);">#E07A6A</span> and blue <span class="mono" style="color:var(--ink);">#6B9BC9</span>; rotation and dashed inner ring stay the same.</li>
+        <li><strong>Spice discs</strong> use the <em>brightened</em> dark accents (e.g. plum becomes <span class="mono" style="color:var(--ink);">#C889A4</span>) so glyphs stay readable. The disc-glyph color flips to <span class="mono" style="color:var(--ink);">#1C1610</span> on light-saturation discs.</li>
+        <li><strong>Saffron</strong> (<span class="mono" style="color:var(--ink);">#F0C970</span>) is the brightest accent — reserve it for streak counts and lit numerals, not large surfaces.</li>
+        <li><strong>Shadows</strong> shift from warm brown <span class="mono" style="color:var(--ink);">rgba(80,50,20,.12)</span> to deep <span class="mono" style="color:var(--ink);">rgba(0,0,0,.40)</span>. Layer is what reads, not lift.</li>
+        <li><strong>Caveat script</strong> stays terracotta — it's the hand-written warmth, and it pops harder on dark paper.</li>
+      </ul>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

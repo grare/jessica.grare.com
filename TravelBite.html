@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jessica Grare | TravelBite</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;900&family=Playfair+Display:ital,wght@0,900;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Caveat:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.typekit.net/smv1eyl.css">
+<style>
+        body { font-family: 'Poppins', sans-serif; }
+        .serif-italic { font-family: 'Playfair Display', serif; }
+        
+        /* Poppins Black Lockup */
+        .poppins-black { font-weight: 900; letter-spacing: -0.02em; }
+        
+        .reveal { opacity: 0; transform: translateY(20px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        .img-container { overflow: hidden; }
+        .img-container img { transition: transform 1.5s cubic-bezier(0.165, 0.84, 0.44, 1); }
+        .img-container:hover img { transform: scale(1.05); }
+
+        /* App-screen tiles: rounded crop + slight scale to clip the dark frame
+           baked into the source PNGs. Hover layers an additional zoom on top. */
+        .phone-crop { border-radius: 22px; }
+        .phone-crop img { transform: scale(1.07); transform-origin: center; }
+        .phone-crop:hover img { transform: scale(1.12); }
+
+        /* Lightbox */
+        .lightbox-trigger { cursor: zoom-in; }
+        #lightbox {
+            display: none; position: fixed; inset: 0; z-index: 9999;
+            background: rgba(0,0,0,0.88); align-items: center; justify-content: center;
+        }
+        #lightbox.open { display: flex; }
+        #lightbox img {
+            max-width: 90vw; max-height: 90vh; object-fit: contain;
+            box-shadow: 0 8px 60px rgba(0,0,0,0.6);
+            animation: lb-in 0.25s cubic-bezier(0.165,0.84,0.44,1);
+        }
+        @keyframes lb-in { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        #lightbox-close {
+            position: absolute; top: 1.25rem; right: 1.5rem;
+            color: #fff; font-size: 2rem; line-height: 1; cursor: pointer;
+            background: none; border: none; opacity: 0.7; transition: opacity 0.2s;
+        }
+        #lightbox-close:hover { opacity: 1; }
+
+        /* Phone mockup */
+        .phone-frame {
+            position: relative;
+            width: 286px;
+            background: #1a1a1a;
+            border-radius: 44px;
+            padding: 14px 10px;
+            box-shadow: 0 0 0 2px #3a3a3a, 0 0 0 4px #111, 0 24px 60px rgba(0,0,0,0.45);
+            flex-shrink: 0;
+        }
+        .phone-frame::before {
+            content: '';
+            display: block;
+            width: 90px;
+            height: 28px;
+            background: #1a1a1a;
+            border-radius: 0 0 18px 18px;
+            margin: 0 auto 8px;
+        }
+        .phone-screen {
+            border-radius: 32px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            height: 572px;
+            background: #fff;
+            scrollbar-width: none;
+        }
+        .phone-screen::-webkit-scrollbar { display: none; }
+        .phone-screen img { display: block; width: 100%; }
+        .phone-screen iframe { display: block; width: 100%; height: 100%; }
+        .phone-frame::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 5px;
+            background: #444;
+            border-radius: 3px;
+            margin: 10px auto 0;
+        }
+
+        /* Animated nav underline */
+        .link-under { position: relative; text-decoration: none; }
+        .link-under::after {
+            content: ''; position: absolute; width: 100%; height: 1px;
+            bottom: -2px; left: 0; background-color: currentColor;
+            transform: scaleX(0); transform-origin: left; transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .link-under:hover::after { transform: scaleX(1); }
+    </style>
+</head>
+<body class="bg-white text-black antialiased">
+
+	<!--Top Navigator -->
+<nav class="flex justify-between items-center px-4 md:px-6 py-6 sticky top-0 bg-white/80 backdrop-blur-md z-50">
+    <a href="design/" class="block">
+        <img src="images/JG_WithName@4x.png" alt="Jessica Grare" class="h-[80px] w-auto object-contain block">
+    </a>
+    
+    <div class="flex items-center space-x-8 font-medium text-sm uppercase tracking-widest">
+        <a href="design/" class="border-b-2 border-black">Work</a>
+        <a href="AboutDesigner.html" class="link-under">About</a>
+        
+        <a href="https://www.linkedin.com/in/jessicagrare" target="_blank" class="block hover:opacity-50 transition-opacity">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="black" style="display: block;">
+                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+            </svg>
+        </a>
+    </div>
+</nav>
+
+	<!--Project Header -->
+    <header class="relative w-full overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="images/TravelBite/AppBannerImage.png" alt="Background" class="w-full h-full object-cover opacity-30 grayscale">
+        </div>
+
+        <div class="relative z-10 max-w-[1400px] mx-auto px-6 md:px-12 pt-24 pb-12">
+            <h1 class="text-5xl md:text-8xl poppins-black uppercase leading-[0.8] mb-12">
+                TravelBite <br><span class="serif-italic lowercase font-normal text-black-400">The World is Your Kitchen</span>
+            </h1>
+        </div>
+		
+<!--Project Info Block -->
+<div class="w-full bg-[#5a4632] border-t border-black py-12 reveal">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-12">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 items-start">
+            
+            <div> 
+                <h4 class="text-[10px] uppercase tracking-[0.2em] font-bold mb-2 text-white">Role</h4>
+                <p class="text-sm text-white/80 font-medium uppercase">Creative<br>App Design</p>
+            </div>
+            
+            <div>
+                <h4 class="text-[10px] uppercase tracking-[0.2em] font-bold mb-2 text-white">Client</h4>
+                <p class="text-sm text-white/80 font-medium uppercase">Home Cooks interested in cooking international foods</p>
+            </div>
+
+            <div>
+                <h4 class="text-[10px] text-white uppercase tracking-[0.2em] font-bold mb-2">Services</h4>
+                <p class="text-sm text-white/80 font-medium uppercase">Product Design<br>Prototyping<br>Art Direction</p>
+            </div>
+
+            <div>
+                <h4 class="text-[10px] uppercase tracking-[0.2em] font-bold mb-2 text-white"></h4>
+                <p class="text-sm text-white/80 font-medium uppercase"></p>
+            </div>
+            
+        </div>
+    </div>
+</div>
+    </header>
+
+		
+<!--Basic Description and Header -->
+<section class="w-full bg-[#c25a3b] py-24 mb-8 reveal">
+    <div class="max-w-[1400px] mx-auto px-4 md:px-10">
+        <div class="flex flex-col max-w-6xl space-y-6">
+
+            <h2 class="text-3xl md:text-4xl poppins-black uppercase tracking-wide text-[#FFFFFF] leading-tight">
+                An Homage to Home Cooks with Wanderlust
+            </h2>
+
+            <p class="text-base md:text-lg text-white/80 leading-relaxed">
+                TravelBite is a recipe app that teaches curious cooks how to cook international dishes from inside and beyond their pantry. Traditional recipe apps are based on logging search results and creating a shopping list. TravelBite’s foundation is having the recipes be a logbook, not a search bar. The question, “What shall we cook?” transforms into “Where shall we cook?” Every meal served turns into a stamp on a personal food passport, having users log their culinary journey around the world, from the comforts of their kitchen. 
+            </p>
+            
+        </div>
+    </div>
+</section>
+
+<!--IMAGE RIGHT: 2 Column Image and Text Descriptor templates -->
+<section class="max-w-[1400px] mx-auto px-6 md:px-12 pt-8 pb-20 reveal">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 items-center">
+        <div class="max-w-md md:order-1 order-2">
+            <h3 class="text-xs uppercase tracking-[0.3em] font-black mb-6 text-[#c25a3b]">The Concept</h3>
+            <p class="text-lg text-gray-800 leading-relaxed">
+                Most recipe apps treat cooking like a transaction — search, scroll, shop. TravelBite reframes it as a journey. Every dish becomes a destination, every meal a stamp on a personal food passport. The brand mark draws from vintage travel postage and well-worn cookbooks: warm, tactile, and a little bit handmade.
+            </p>
+        </div>
+
+        <div class="group md:order-2 order-1">
+            <div class="img-container mb-4">
+                <img src="images/TravelBite/LogoVertical@4x.png" alt="TravelBite logo lockup" class="w-1/2 h-auto object-cover mx-auto">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--Hero Image -->
+    <main class="pb-32">
+        
+        <section class="max-w-[1400px] mx-auto px-6 md:px-12 py-24 reveal">
+            <div class="img-container">
+                <img src="images/TravelBite/LogoHorizontal@4x.png" alt="TravelBite horizontal logo" class="w-full transition-all duration-1000">
+            </div>
+            <h3 class="text-xs uppercase tracking-[0.3em] font-black mb-6 mt-8 text-[#c25a3b]">Logo Design</h3>
+            <p class="text-lg text-gray-800 leading-relaxed">
+                Passport meets pantry is the goal of the illustration, signaling both travel and home cooking. Earth tones keep it grounded and warm.
+            </p>
+        </section>
+
+<!-- Brand Typography -->
+<section class="max-w-[1400px] mx-auto px-6 md:px-12 py-24 reveal">
+    <div class="flex items-baseline gap-4 mb-12 border-b border-black/10 pb-6">
+        <h3 class="text-xs uppercase tracking-[0.3em] font-black text-[#c25a3b]">Brand Typography</h3>
+        <span class="text-[10px] uppercase tracking-widest text-black/30">4 families &middot; 10 roles</span>
+    </div>
+
+    <p class="text-base md:text-lg text-gray-700 leading-relaxed max-w-3xl mb-12">
+        Four typefaces carry the entire app, each doing one job. <strong>DM Serif Display</strong> is the headline voice &mdash; warm, slightly bookish, used for dish names and screen titles. <strong>Inter</strong> handles all running UI text and body copy. <strong>JetBrains Mono</strong> is the &ldquo;stamped&rdquo; voice for eyebrows and metadata, with the authority of a passport entry. <strong>Caveat</strong> is the script note &mdash; used sparingly to give a recipe or postcard the hand-written feel of a travel journal.
+    </p>
+
+    <!-- Family overview -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
+
+        <!-- DM Serif Display -->
+        <div>
+            <div class="w-full aspect-square rounded-sm mb-4 flex items-center justify-center" style="background-color: #F6EFE2; color: #2A1D12; font-family: 'DM Serif Display', serif; font-size: 7rem; line-height: 1; letter-spacing: -0.02em;">Aa</div>
+            <div class="flex items-baseline gap-2 mb-2">
+                <h4 class="text-sm poppins-black uppercase tracking-wider text-black">DM Serif Display</h4>
+                <span class="text-[9px] uppercase tracking-[0.15em] font-bold text-[#c25a3b]">Display</span>
+            </div>
+            <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">Weights</span> 400</p>
+            <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">Source</span> Google Fonts</p>
+            <p class="text-xs text-gray-400 leading-relaxed mt-3 normal-case tracking-normal">Headlines, dish names, recipe titles, large numerals.</p>
+        </div>
+
+        <!-- Inter -->
+        <div>
+            <div class="w-full aspect-square rounded-sm mb-4 flex items-center justify-center" style="background-color: #F6EFE2; color: #2A1D12; font-family: 'Inter', sans-serif; font-size: 7rem; line-height: 1; font-weight: 500;">Aa</div>
+            <div class="flex items-baseline gap-2 mb-2">
+                <h4 class="text-sm poppins-black uppercase tracking-wider text-black">Inter</h4>
+                <span class="text-[9px] uppercase tracking-[0.15em] font-bold text-[#c25a3b]">Body</span>
+            </div>
+            <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">Weights</span> 400 &middot; 500 &middot; 600 &middot; 700</p>
+            <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">Source</span> Google Fonts</p>
+            <p class="text-xs text-gray-400 leading-relaxed mt-3 normal-case tracking-normal">UI body, buttons, descriptions, all running prose.</p>
+        </div>
+
+        <!-- JetBrains Mono -->
+        <div>
+            <div class="w-full aspect-square rounded-sm mb-4 flex items-center justify-center" style="background-color: #F6EFE2; color: #2A1D12; font-family: 'JetBrains Mono', monospace; font-size: 6rem; line-height: 1; font-weight: 600;">Aa</div>
+            <div class="flex items-baseline gap-2 mb-2">
+                <h4 class="text-sm poppins-black uppercase tracking-wider text-black">JetBrains Mono</h4>
+                <span class="text-[9px] uppercase tracking-[0.15em] font-bold text-[#c25a3b]">Stamped</span>
+            </div>
+            <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">Weights</span> 400 &middot; 500 &middot; 700</p>
+            <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">Source</span> Google Fonts</p>
+            <p class="text-xs text-gray-400 leading-relaxed mt-3 normal-case tracking-normal">Eyebrows, metadata labels, stamps, mono numerals.</p>
+        </div>
+
+        <!-- Caveat -->
+        <div>
+            <div class="w-full aspect-square rounded-sm mb-4 flex items-center justify-center" style="background-color: #F6EFE2; color: #C25A3B; font-family: 'Caveat', cursive; font-size: 8rem; line-height: 1; font-weight: 600;">Aa</div>
+            <div class="flex items-baseline gap-2 mb-2">
+                <h4 class="text-sm poppins-black uppercase tracking-wider text-black">Caveat</h4>
+                <span class="text-[9px] uppercase tracking-[0.15em] font-bold text-[#c25a3b]">Script</span>
+            </div>
+            <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">Weights</span> 500 &middot; 600 &middot; 700</p>
+            <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">Source</span> Google Fonts</p>
+            <p class="text-xs text-gray-400 leading-relaxed mt-3 normal-case tracking-normal">Travel-journal scribbles, postcards, terracotta script notes.</p>
+        </div>
+
+    </div>
+
+    <!-- Type Scale -->
+    <div class="flex items-baseline gap-4 mb-12 border-b border-black/10 pb-6">
+        <h3 class="text-xs uppercase tracking-[0.3em] font-black text-[#c25a3b]">Type Scale</h3>
+        <span class="text-[10px] uppercase tracking-widest text-black/30">Semantic roles</span>
+    </div>
+
+    <p class="text-base md:text-lg text-gray-700 leading-relaxed max-w-3xl mb-12">
+        Every text style in the prototype is one of these. Match the role to the surface; sizes outside the scale are off-system.
+    </p>
+
+    <div class="divide-y divide-black/5 border-y border-black/5">
+
+        <!-- H1 / Display -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12 py-8 items-start">
+            <div class="md:col-span-7">
+                <div style="font-family: 'DM Serif Display', serif; font-size: 40px; line-height: 0.95; letter-spacing: -0.02em; color: #2A1D12;">Display headline</div>
+            </div>
+            <div class="md:col-span-5">
+                <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">Class</span> .h1</p>
+                <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">Size / lh</span> 40 / 38</p>
+                <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">Tracking</span> &minus;2%</p>
+                <p class="text-xs text-gray-400 leading-relaxed mt-3 normal-case tracking-normal">DM Serif Display 400 &mdash; Hero greeting on Home, recipe-title overlay on detail hero.</p>
+            </div>
+        </div>
+
+        <!-- H2 / Section -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12 py-8 items-start">
+            <div class="md:col-span-7">
+                <div style="font-family: 'DM Serif Display', serif; font-size: 28px; line-height: 1; letter-spacing: -0.01em; color: #2A1D12;">Section title</div>
+            </div>
+            <div class="md:col-span-5">
+                <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">Class</span> .h2</p>
+                <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">Size / lh</span> 28 / 28</p>
+                <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">Tracking</span> &minus;1%</p>
+                <p class="text-xs text-gray-400 leading-relaxed mt-3 normal-case tracking-normal">DM Serif Display 400 &mdash; Recipe, spice, and cuisine names; big card titles.</p>
+            </div>
+        </div>
+
+        <!-- H3 / Card heading -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12 py-8 items-start">
+            <div class="md:col-span-7">
+                <div style="font-family: 'DM Serif Display', serif; font-size: 20px; line-height: 1.1; color: #2A1D12;">Card heading</div>
+            </div>
+            <div class="md:col-span-5">
+                <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">Class</span> .h3</p>
+                <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">Size / lh</span> 20 / 22</p>
+                <p class="text-xs text-gray-400 leading-relaxed mt-3 normal-case tracking-normal">DM Serif Display 400 &mdash; Recipe row titles, list cards, sub-cards.</p>
+            </div>
+        </div>
+
+        <!-- Body -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12 py-8 items-start">
+            <div class="md:col-span-7">
+                <div style="font-family: 'Inter', sans-serif; font-size: 14px; line-height: 1.5; color: #5A4632; max-width: 32rem;">Body text &mdash; the running prose of the app, set in Inter regular at fourteen.</div>
+            </div>
+            <div class="md:col-span-5">
+                <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">Class</span> (default)</p>
+                <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">Size / lh</span> 14 / 21</p>
+                <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">Color</span> Ink&nbsp;2</p>
+                <p class="text-xs text-gray-400 leading-relaxed mt-3 normal-case tracking-normal">Inter 400 &mdash; Recipe steps, descriptions, postcards, all longform.</p>
+            </div>
+        </div>
+
+        <!-- Button -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12 py-8 items-start">
+            <div class="md:col-span-7">
+                <div style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; line-height: 1; color: #2A1D12; letter-spacing: -0.005em;">Button label &mdash; Primary</div>
+            </div>
+            <div class="md:col-span-5">
+                <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">Class</span> .btn-primary</p>
+                <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">Size / lh</span> 14 / 1</p>
+                <p class="text-xs text-gray-400 leading-relaxed mt-3 normal-case tracking-normal">Inter 600 &mdash; All CTAs, sheet actions, segmented controls.</p>
+            </div>
+        </div>
+
+        <!-- Eyebrow -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12 py-8 items-start">
+            <div class="md:col-span-7">
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #8B7253;">Eyebrow &middot; Category</div>
+            </div>
+            <div class="md:col-span-5">
+                <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">Class</span> .eyebrow</p>
+                <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">Size / lh</span> 10 / 1.4</p>
+                <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">Tracking</span> +18%</p>
+                <p class="text-xs text-gray-400 leading-relaxed mt-3 normal-case tracking-normal">JetBrains Mono 600 &mdash; Section labels &mdash; &ldquo;TODAY&rsquo;S CARD,&rdquo; &ldquo;MOST STAMPED.&rdquo;</p>
+            </div>
+        </div>
+
+        <!-- Meta -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12 py-8 items-start">
+            <div class="md:col-span-7">
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: #8B7253;">Meta &middot; 9px</div>
+            </div>
+            <div class="md:col-span-5">
+                <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">Class</span> .mono</p>
+                <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">Size / lh</span> 8&ndash;11 / 1.3</p>
+                <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">Tracking</span> +12&ndash;18%</p>
+                <p class="text-xs text-gray-400 leading-relaxed mt-3 normal-case tracking-normal">JetBrains Mono 400 / 500 &mdash; Stat labels, region tags, pin counts.</p>
+            </div>
+        </div>
+
+        <!-- Script note -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12 py-8 items-start">
+            <div class="md:col-span-7">
+                <div style="font-family: 'Caveat', cursive; font-size: 28px; font-weight: 600; line-height: 1; color: #C25A3B;">A whisper of warmth</div>
+            </div>
+            <div class="md:col-span-5">
+                <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">Class</span> .script-note</p>
+                <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">Size / lh</span> 17&ndash;22</p>
+                <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">Color</span> Terracotta</p>
+                <p class="text-xs text-gray-400 leading-relaxed mt-3 normal-case tracking-normal">Caveat 600 &mdash; Postcards, Today&rsquo;s Card descriptions, cooking-tip callouts.</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- Brand Color Guide -->
+<section class="max-w-[1400px] mx-auto px-6 md:px-12 py-24 reveal">
+    <div class="flex items-baseline gap-4 mb-16 border-b border-black/10 pb-6">
+        <h3 class="text-xs uppercase tracking-[0.3em] font-black text-[#c25a3b]">Brand Colors</h3>
+        <span class="text-[10px] uppercase tracking-widest text-black/30">Palette</span>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+
+        <!-- Color 1 -->
+        <div>
+            <div class="w-full aspect-square rounded-sm mb-4" style="background-color: #C25A3B;"></div>
+            <h4 class="text-sm poppins-black uppercase tracking-wider text-black mb-2">Terra Cotta</h4>
+            <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">HEX</span> #C25A3B</p>
+            <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">CMYK</span> 0 / 67 / 76 / 24</p>
+            <p class="text-xs text-gray-400 leading-relaxed mt-3 normal-case tracking-normal">The signature stamp — used for the logo mark and primary CTAs.</p>
+        </div>
+
+        <!-- Color 2 -->
+        <div>
+            <div class="w-full aspect-square rounded-sm mb-4" style="background-color: #D99A2B;"></div>
+            <h4 class="text-sm poppins-black uppercase tracking-wider text-black mb-2">Mustard Seed</h4>
+            <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">HEX</span> #D99A2B</p>
+            <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">CMYK</span> 0 / 29 / 80 / 15</p>
+            <p class="text-xs text-gray-400 leading-relaxed mt-3 normal-case tracking-normal">A warm accent for highlights, badges, and earned passport stamps.</p>
+        </div>
+
+        <!-- Color 3 -->
+        <div>
+            <div class="w-full aspect-square rounded-sm mb-4" style="background-color: #5A4632;"></div>
+            <h4 class="text-sm poppins-black uppercase tracking-wider text-black mb-2">Cocoa Brown</h4>
+            <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">HEX</span> #5A4632</p>
+            <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">CMYK</span> 0 / 22 / 45 / 65</p>
+            <p class="text-xs text-gray-400 leading-relaxed mt-3 normal-case tracking-normal">The grounding neutral — used in place of black for body text and surfaces.</p>
+        </div>
+
+        <!-- Color 4 -->
+        <div>
+            <div class="w-full aspect-square rounded-sm mb-4 border border-black/10" style="background-color: #F6EFE2;"></div>
+            <h4 class="text-sm poppins-black uppercase tracking-wider text-black mb-2">Parchment</h4>
+            <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">HEX</span> #F6EFE2</p>
+            <p class="text-xs text-gray-500 uppercase tracking-widest mb-1"><span class="font-bold">CMYK</span> 0 / 3 / 8 / 4</p>
+            <p class="text-xs text-gray-400 leading-relaxed mt-3 normal-case tracking-normal">The page beneath every recipe — warmer than white, like a well-loved cookbook.</p>
+        </div>
+
+    </div>
+</section>
+
+		<!--Gallery Images -->
+        <section class="max-w-[1400px] mx-auto px-6 md:px-12 space-y-8 md:space-y-16 pt-16 md:pt-24">
+
+            <div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-10">
+                    <div class="img-container phone-crop reveal"><img src="images/TravelBite/Home.png" class="w-full lightbox-trigger" data-lb-src="images/TravelBite/Home.png" alt="TravelBite Home screen"></div>
+                    <div class="img-container phone-crop reveal"><img src="images/TravelBite/Pantry.png" class="w-full lightbox-trigger" data-lb-src="images/TravelBite/Pantry.png" alt="TravelBite Pantry screen"></div>
+                    <div class="img-container phone-crop reveal"><img src="images/TravelBite/Learn.png" class="w-full lightbox-trigger" data-lb-src="images/TravelBite/Learn.png" alt="TravelBite Learn screen"></div>
+                    <div class="img-container phone-crop reveal"><img src="images/TravelBite/Profile.png" class="w-full lightbox-trigger" data-lb-src="images/TravelBite/Profile.png" alt="TravelBite Profile screen"></div>
+                </div>
+                <p class="text-sm text-gray-500 uppercase tracking-widest text-center mt-4">Home, Pantry, Learn &amp; Profile — the four anchor screens</p>
+            </div>
+
+            <!-- Embedded interactive prototype -->
+            <div class="py-16 reveal">
+                
+                <h3 class="text-lg md:text-xl font-black uppercase tracking-wide">The Full Prototype</h3>
+                 <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+            Scroll around and see what you find! Click on individual screens to see them up close and interact. Press ESCAPE to see all of the screens.
+        </p>
+        <br>
+                <iframe id="prototype-frame" src="TravelBite1-embed/travelbite-prototype.html" title="TravelBite Prototype" style="width: 100%; height: 800px; border: none; border-radius: 12px;"></iframe>
+            </div>
+            
+
+
+<!---->
+<!--IMAGE RIGHT: 2 Column Image and Text Descriptor templates 
+<section class="max-w-[1400px] mx-auto px-6 md:px-12 py-20 reveal">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 items-center">
+        <div class="max-w-md md:order-1 order-2">
+            <h3 class="text-xs uppercase tracking-[0.3em] font-black mb-6 text-[#8152a1]">How did we get here?</h3>
+            <p class="text-lg text-gray-800 leading-relaxed">
+                I started finding inspiration in the music I listened to, Amazon Music playlists, old MySpace and Xanga profiles, and the elder-emo music festivals of yesterday and today.
+            </p>
+        </div>
+
+        <div class="group md:order-2 order-1">
+            <div class="img-container mb-4">
+                <img src="images/your-image-2.jpg" alt="Project Detail" class="w-full h-auto object-cover">
+            </div>
+          
+        </div>
+    </div>
+</section>-->
+		
+		<!--IMAGE LEFT: 2 Column Image and Text Descriptor templates
+		<section class="max-w-[1400px] mx-auto px-6 md:px-12 py-20 reveal">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 items-center">
+        <div class="group">
+            <div class="img-container mb-4">
+                <img src="images/HornHeartbreak/OutdoorSignAndWindowMockup.png" alt="Project Detail" class="w-full h-auto object-cover">
+            </div>
+            <p class="text-[10px] uppercase tracking-[0.2em] text-gray-400 group-hover:text-black transition-colors duration-500">
+                Fig 01. / Main Logo for Horn & Heartbreak
+            </p>
+        </div>
+        
+        <div class="max-w-md">
+            <h3 class="text-xs uppercase tracking-[0.3em] font-black mb-6 text-[#eb6c24]">Devising the Logo</h3>
+            <p class="text-lg text-gray-800 leading-relaxed">
+                I designed a logo that was edgy, gritty, and kept the tired unicorn.
+            </p>
+        </div>
+    </div>
+</section> -->
+
+		
+<!--Quote -->
+<!--<section class="w-full bg-[#f8f8f8] py-32 mt-24 mb-24 reveal">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-12">
+        <div class="max-w-4xl">
+            <h3 class="text-xs uppercase tracking-[0.3em] font-black mb-10 text-gray-400">The Process</h3>
+            
+            <p class="text-3xl md:text-[43px] font-black italic leading-[1.1] tracking-tight text-black" style="font-family: 'Playfair Display', serif;">
+                "We stripped away the noise, focusing on the tactile nature of the device's fabric and the precision of its metal finish."
+            </p>
+        </div>
+    </div>
+</section> -->
+		
+<!--2 Column Image and Text Descriptor templates -->
+
+<!--IMAGE RIGHT 2 Column Image and Text Descriptor templates 
+<section class="max-w-[1400px] mx-auto px-6 md:px-12 py-20 reveal">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 items-center">
+        <div class="max-w-md md:order-1 order-2">
+            <h3 class="text-xs uppercase tracking-[0.3em] font-black mb-6 text-[#eb6c24]">The Aesthetic</h3>
+            <p class="text-lg text-gray-800 leading-relaxed">
+             From my background in band photography, I loved capturing the emotion and grit. The product imagery is to appear as if an event photographer or photo journalist with a specialization in concerts took the shots. The space is a mix of a moody coffee shop and event space, with nods to some famous moments in pop-punk and emo history. The copy is comprised of several references to famous songs from Paramore, Fall Out Boy, and many more. I utilized Gemini to assist in the drink photography and coffee shop concepting. 
+            </p>
+        </div>
+
+        <div class="group md:order-2 order-1">
+            <div class="img-container mb-4">
+                <img src="images/your-image-2.jpg" alt="Project Detail" class="w-full h-auto object-cover">
+            </div>
+            <p class="text-[10px] uppercase tracking-[0.2em] text-gray-400 group-hover:text-black transition-colors duration-500 md:text-right">
+                Drink image concepts / made with Gemini
+            </p>
+        </div>
+    </div>
+</section> -->
+		
+<!--Show Brand space photography, drinks, menus 
+        <section class="max-w-[1400px] mx-auto px-6 md:px-12">
+            <div class="grid grid-cols-12 gap-4 mb-24">
+                <div class="col-span-12 md:col-span-8 reveal">
+                    <div class="img-container"><img src="final-1.jpg" class="w-full"></div>
+                </div>
+                <div class="col-span-12 md:col-span-4 reveal">
+                    <div class="img-container"><img src="final-2.jpg" class="w-full"></div>
+                </div>
+            </div>-->
+			
+			
+		<!--IMAGE LEFT: 2 Column Image and Text Descriptor templates 
+		<section class="max-w-[1400px] mx-auto px-6 md:px-12 py-20 reveal">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 items-center">
+        <div class="group">
+            <div class="img-container mb-4">
+                <img src="images/your-image-1.jpg" alt="Project Detail" class="w-full h-auto object-cover">
+            </div>
+            <p class="text-[10px] uppercase tracking-[0.2em] text-gray-400 group-hover:text-black transition-colors duration-500">
+                Fig 01. / Main Logo for Horn & Heartbreak
+            </p>
+        </div> -->
+        
+        <div class="max-w-md" style="display:none">
+            <h3 class="text-xs uppercase tracking-[0.3em] font-black mb-6 text-[#eb6c24]">The Mobile Site</h3>
+            <p class="text-lg text-gray-800 leading-relaxed">
+                Patrons of the shop can check out Horn & Heartbreak's website. They can check out the menu and see if there are upcoming events.
+            </p>
+        </div>
+    </div>
+</section>
+			
+				<!--Show snapshots of the mobile site -->
+		      <div class="w-full reveal" style="display:none">
+                <div class="img-container"><img src="detail-3.jpg" class="w-full"></div>
+            </div>
+        </section>
+		
+			
+<!--Next Page -->
+        </section>
+    </main>
+
+    <!-- Lightbox overlay -->
+    <div id="lightbox" role="dialog" aria-modal="true" aria-label="Image enlarged view">
+        <button id="lightbox-close" aria-label="Close">&times;</button>
+        <img id="lightbox-img" src="" alt="">
+    </div>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+        // Lightbox
+        const lightbox = document.getElementById('lightbox');
+        const lbImg   = document.getElementById('lightbox-img');
+        const lbClose = document.getElementById('lightbox-close');
+
+        document.querySelectorAll('.lightbox-trigger').forEach(img => {
+            img.addEventListener('click', () => {
+                lbImg.src = img.dataset.lbSrc;
+                lbImg.alt = img.alt;
+                lightbox.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        function closeLightbox() {
+            lightbox.classList.remove('open');
+            lbImg.src = '';
+            document.body.style.overflow = '';
+        }
+
+        lbClose.addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+
+        // Note: avatar-pill hiding lives inside TravelBite1-embed/travelbite-prototype.html
+        // so it runs in the iframe's own context — no cross-origin guesswork needed.
+    </script>
+</body>
+</html>

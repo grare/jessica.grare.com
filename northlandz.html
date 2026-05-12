@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jessica Grare | NORTHLANDZ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;900&family=Playfair+Display:ital,wght@0,900;1,900&display=swap" rel="stylesheet">
+<style>
+        body { font-family: 'Poppins', sans-serif; }
+        .serif-italic { font-family: 'Playfair Display', serif; }
+        
+        /* Poppins Black Lockup */
+        .poppins-black { font-weight: 900; letter-spacing: -0.02em; }
+        
+        .reveal { opacity: 0; transform: translateY(20px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        .img-container { overflow: hidden; }
+        .img-container img { transition: transform 1.5s cubic-bezier(0.165, 0.84, 0.44, 1); }
+        .img-container:hover img { transform: scale(1.05); }
+
+        /* ── Desktop Monitor Mockup ── */
+        .monitor-body {
+            background: linear-gradient(175deg, #2e2e2e 0%, #1c1c1c 100%);
+            border-radius: 14px;
+            padding: 16px 16px 10px;
+            box-shadow:
+                0 0 0 1px rgba(255,255,255,0.07),
+                inset 0 1px 0 rgba(255,255,255,0.09);
+            width: 100%;
+            max-width: 860px;
+            margin: 0 auto;
+        }
+
+        .monitor-cam {
+            width: 7px;
+            height: 7px;
+            background: #3c3c3c;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            box-shadow: 0 0 0 1px rgba(255,255,255,0.05), inset 0 1px 3px rgba(0,0,0,0.6);
+        }
+
+        .monitor-screen {
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            background: #000;
+            border-radius: 3px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .monitor-neck {
+            width: 60px;
+            height: 48px;
+            background: linear-gradient(180deg, #242424 0%, #2c2c2c 100%);
+            clip-path: polygon(18% 0%, 82% 0%, 100% 100%, 0% 100%);
+            margin: 0 auto;
+        }
+
+        .monitor-base {
+            width: 200px;
+            height: 14px;
+            background: linear-gradient(180deg, #2c2c2c 0%, #1f1f1f 100%);
+            border-radius: 20px;
+            margin: 0 auto;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+        }
+
+        /* ── Scrollable monitor screen ── */
+        .monitor-screen-scroll {
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            background: #000;
+            border-radius: 3px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            position: relative;
+            scrollbar-width: none;
+        }
+        .monitor-screen-scroll::-webkit-scrollbar { display: none; }
+        .monitor-screen-scroll img {
+            display: block;
+            width: 100%;
+        }
+
+        /* ── Before / After Slider ── */
+        .ba-slider {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            cursor: col-resize;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: none;
+        }
+
+        .ba-img {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: auto;          /* natural page height, not clipped to container */
+            display: block;
+            pointer-events: none;
+            transform: translateY(0);
+            transition: transform 0.5s ease-out; /* fast snap back on mouse-leave */
+        }
+
+        /* Slow top-to-bottom scroll on hover */
+        .ba-slider:hover .ba-img {
+            transform: translateY(var(--scroll-dist, -60%));
+            transition: transform 12s linear;
+        }
+
+        .ba-before {
+            clip-path: inset(0 50% 0 0);
+            z-index: 1;
+        }
+
+        .ba-handle {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            height: 100%;
+            transform: translateX(-50%);
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            pointer-events: none;
+        }
+
+        .ba-handle::before,
+        .ba-handle::after {
+            content: '';
+            display: block;
+            flex: 1;
+            width: 2px;
+            background: rgba(255,255,255,0.85);
+        }
+
+        .ba-handle-btn {
+            width: 38px;
+            height: 38px;
+            background: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 2px 14px rgba(0,0,0,0.3);
+            pointer-events: all;
+            cursor: col-resize;
+        }
+
+        .ba-label {
+            position: absolute;
+            bottom: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.55rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #fff;
+            background: rgba(0,0,0,0.5);
+            padding: 3px 8px;
+            border-radius: 3px;
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        .ba-label-before { left: 10px; }
+        .ba-label-after  { right: 10px; }
+
+        /* ── Instagram Phone Mockup ── */
+        .ig-phone {
+            background: linear-gradient(170deg, #2e2e2e 0%, #1a1a1a 100%);
+            border-radius: 44px;
+            padding: 14px;
+            box-shadow:
+                0 0 0 1px rgba(255,255,255,0.06),
+                inset 0 1px 0 rgba(255,255,255,0.08),
+                0 30px 60px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+        .ig-notch {
+            width: 80px; height: 6px;
+            background: #111; border-radius: 4px;
+            margin: 0 auto 10px;
+        }
+        .ig-screen {
+            background: #fff;
+            border-radius: 32px;
+            overflow: hidden;
+        }
+        .ig-post { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+        .ig-post-header {
+            display: flex; align-items: center; gap: 9px;
+            padding: 9px 12px;
+        }
+        .ig-avatar-ring {
+            width: 34px; height: 34px; border-radius: 50%;
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            padding: 2px; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .ig-avatar-inner {
+            width: 100%; height: 100%; border-radius: 50%;
+            background: #fff; padding: 2px; overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .ig-avatar-inner img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block; }
+        .ig-handle { font-size: 0.72rem; font-weight: 700; color: #111; line-height: 1.2; }
+        .ig-sponsored { font-size: 0.6rem; color: #888; }
+        .ig-more-btn { margin-left: auto; font-size: 1.1rem; color: #111; font-weight: 900; line-height: 1; }
+        .ig-post-img {
+            width: 100%; aspect-ratio: 1 / 1; overflow: hidden;
+            background: #f0f0f0; position: relative;
+        }
+        .ig-post-img img,
+        .ig-post-img video { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .ig-placeholder {
+            width: 100%; height: 100%; position: absolute; inset: 0;
+            display: flex; align-items: center; justify-content: center;
+            background: #f3f4f6; color: #9ca3af;
+            font-size: 0.62rem; text-align: center; padding: 16px; line-height: 1.6;
+        }
+        .ig-actions-row {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 9px 12px 4px;
+        }
+        .ig-actions-left { display: flex; gap: 14px; align-items: center; }
+        .ig-likes { padding: 0 12px 4px; font-size: 0.7rem; font-weight: 700; color: #111; }
+        .ig-caption-block { padding: 0 12px 14px; font-size: 0.68rem; line-height: 1.45; color: #333; }
+        .ig-caption-block .ig-handle { display: inline; font-size: 0.68rem; }
+
+        /* Video play/pause toggle */
+        .video-wrap {
+            position: relative;
+            cursor: pointer;
+        }
+        .video-wrap .play-pause-btn {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,0);
+            transition: background 0.3s;
+            z-index: 2;
+            pointer-events: none;
+        }
+        .video-wrap:hover .play-pause-btn {
+            background: rgba(0,0,0,0.15);
+        }
+        .play-pause-btn svg {
+            width: 56px;
+            height: 56px;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 0.25s, transform 0.25s;
+            filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4));
+        }
+        .video-wrap:hover .play-pause-btn svg,
+        .video-wrap.paused .play-pause-btn svg {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .play-pause-btn .icon-pause { display: block; }
+        .play-pause-btn .icon-play  { display: none; }
+        .video-wrap.paused .play-pause-btn .icon-pause { display: none; }
+        .video-wrap.paused .play-pause-btn .icon-play  { display: block; }
+
+        /* Animated nav underline */
+        .link-under { position: relative; text-decoration: none; }
+        .link-under::after {
+            content: ''; position: absolute; width: 100%; height: 1px;
+            bottom: -2px; left: 0; background-color: currentColor;
+            transform: scaleX(0); transform-origin: left; transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .link-under:hover::after { transform: scaleX(1); }
+    </style>
+</head>
+<body class="bg-white text-black antialiased">
+
+	<!--Top Navigator -->
+<nav class="flex justify-between items-center px-4 md:px-6 py-6 sticky top-0 bg-white/80 backdrop-blur-md z-50">
+    <a href="design/" class="block">
+        <img src="images/JG_WithName@4x.png" alt="Jessica Grare" class="h-[80px] w-auto object-contain block">
+    </a>
+    
+    <div class="flex items-center space-x-8 font-medium text-sm uppercase tracking-widest">
+        <a href="design/" class="border-b-2 border-black">Work</a>
+        <a href="AboutDesigner.html" class="link-under">About</a>
+        <a href="https://www.linkedin.com/in/jessicagrare" target="_blank" class="block hover:opacity-50 transition-opacity">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="black" style="display: block;">
+                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+            </svg>
+        </a>
+    </div>
+</nav>
+
+	<!--Project Header -->
+    <header class="relative w-full overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="images/Northlandz/PartySpace.png" alt="Background" class="w-full h-full object-cover opacity-30 grayscale">
+        </div>
+
+        <div class="relative z-10 max-w-[1400px] mx-auto px-6 md:px-12 pt-24 pb-12">
+            <h1 class="text-5xl md:text-8xl poppins-black uppercase leading-[0.8] mb-12">
+                Northlandz <br><span class="serif-italic lowercase font-normal text-red">proposal for a new website <br>and party packages</span>
+            </h1>
+        </div>
+		
+<!--Project Info Block -->
+<div class="w-full bg-[#000000] border-t border-black py-12 reveal">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-12">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 items-start">
+            
+            <div> 
+                <h4 class="text-[10px] uppercase tracking-[0.2em] font-bold mb-2 text-white">Role</h4>
+                <p class="text-sm text-white/80 font-medium uppercase">Creative<br>Copy<br>Event Planning</p>
+            </div>
+            
+            <div>
+                <h4 class="text-[10px] uppercase tracking-[0.2em] font-bold mb-2 text-white">Client</h4>
+                <p class="text-sm text-white/80 font-medium uppercase">NORTHLANDZ</p>
+            </div>
+
+            <div>
+                <h4 class="text-[10px] text-white uppercase tracking-[0.2em] font-bold mb-2">Services</h4>
+                <p class="text-sm text-white/80 font-medium uppercase">Desktop Website Design<br>Social Media<br>Event Planning</p>
+            </div>
+
+            <div>
+                <h4 class="text-[10px] text-white/80 uppercase tracking-[0.2em] font-black mb-2"></h4>
+                <p class="text-sm text-white/80 font-medium uppercase"></p>
+            </div>
+    </header>
+	
+<!--Hero Image -->
+    <main class="pb-32">
+        
+        <section class="max-w-[1400px] mx-auto px-6 md:px-12 py-24 reveal">
+            <div class="img-container">
+                <img src="images/Northlandz/PartySpace.png" alt="Large View" class="w-full  transition-all duration-1000">
+            </div>
+            <p class="text-[10px] uppercase tracking-[0.3em] font-black mt-4 text-gray-400">AI Generated image of a train-themed party concept — Northlandz, Flemington NJ</p>
+        </section>
+		
+<!--Basic Description and Header -->
+<section class="w-full bg-[#d73c3a] py-24 mb-24 reveal">
+    <div class="max-w-[1400px] mx-auto px-4 md:px-10">
+        <div class="flex flex-col max-w-6xl"> 
+            
+            <h2 class="text-3xl md:text-4xl poppins-black uppercase tracking-wide text-[#FFFFFF] leading-tight mb-6">
+                NORTHLANDZ HAS WORLD'S LARGEST MODEL RAILROAD
+            </h2>
+
+            <p class="text-base md:text-lg text-white/80 leading-relaxed">
+                They won a Guinness World Record for that feat. However, many family attractions, such as the Morris Museum, are taking away Northlandz's customers. The competitors' websites are easy to navigate. It's time to modernize the Northlandz website and make it a leading competitor in the party space.  <br><br> To show the potential of what Northlandz can offer, I revitalized key website pages: the home and events webpages. As an event planner, I proposed party packages that make parents excited about booking a party at Northlandz. 
+
+            </p>
+            
+        </div>
+    </div>
+</section>
+		
+<!-- ── Desktop Mockup with Before/After Slider ── -->
+<section class="w-full pt-8 pb-20 reveal">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-12">
+
+        <div class="text-center mb-14">
+            <h3 class="text-[10px] uppercase tracking-[0.3em] font-black mb-3 text-[#d73c3a]">Website Revitalization</h3>
+            <p class="text-sm text-gray-500 uppercase tracking-widest text-center mt-8">← Drag to compare →</p>
+        </div>
+
+        <!-- Monitor body -->
+        <div class="flex flex-col items-center">
+            <div class="monitor-body" style="max-width: 1100px;">
+                <div class="monitor-cam"></div>
+                <div class="monitor-screen">
+                    <div class="ba-slider" id="ba-slider">
+
+                        <!-- After image (right side) -->
+                        <img class="ba-img ba-after"
+                             src="images/Northlandz/WebsiteAfter.jpg"
+                             alt="After: Proposed Northlandz redesign"
+                             draggable="false">
+
+                        <!-- Before image (left side, clipped) -->
+                        <img class="ba-img ba-before" id="ba-before"
+                             src="images/Northlandz/WebsiteBefore.jpg"
+                             alt="Before: Current northlandz.com website"
+                             draggable="false">
+
+                        <!-- Drag handle -->
+                        <div class="ba-handle" id="ba-handle">
+                            <div class="ba-handle-btn">
+                                <svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4.5 1L1 6L4.5 11M11.5 1L15 6L11.5 11" stroke="#111" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <span class="ba-label ba-label-before">Before</span>
+                        <span class="ba-label ba-label-after">After</span>
+
+                    </div>
+                </div>
+            </div>
+            <div class="monitor-neck"></div>
+            <div class="monitor-base"></div>
+        </div>
+
+    </div>
+</section>
+
+<!--<section class="max-w-[1400px] mx-auto px-6 md:px-12 pb-20 reveal" data-video>
+    <div class="img-container video-wrap" id="video-wrap">
+        <video src="Video/WebsiteMockupVideo_HomeLong.mp4" class="w-full" muted playsinline loop preload="metadata"></video>
+        <div class="play-pause-btn">
+            <svg class="icon-pause" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="28" cy="28" r="28" fill="rgba(0,0,0,0.45)"/>
+                <rect x="19" y="16" width="6" height="24" rx="1.5" fill="#fff"/>
+                <rect x="31" y="16" width="6" height="24" rx="1.5" fill="#fff"/>
+            </svg>
+            <svg class="icon-play" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="28" cy="28" r="28" fill="rgba(0,0,0,0.45)"/>
+                <polygon points="22,16 40,28 22,40" fill="#fff"/>
+            </svg>
+        </div>
+    </div>
+</section>
+
+<!-- ── Scrollable Webpage Mockups ── -->
+<section class="w-full pt-8 pb-20 reveal">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-12">
+        <div class="flex flex-col items-center gap-20">
+
+            <!-- Home page monitor -->
+            <div class="flex flex-col items-center w-full">
+                <div class="max-w-6xl mr-auto text-left mb-10 w-full">
+                    <h3 class="text-[10px] uppercase tracking-[0.3em] font-black mb-3 text-[#d73c3a]">Home Page</h3>
+                    <h2 class="text-3xl md:text-4xl poppins-black uppercase leading-tight mb-5">A First Impression That Earns the Visit</h2>
+                    <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                        The current site is cluttered with dated graphics, cluttered navigation, and too much copy. Its redesign is inspired by museum and children's party venue website. The redesigned home page leads with the railroad and exhibits, makes the booking process straightforward, and gives families a clear reason to visit.
+                    </p>
+                    <p class="text-xs text-gray-500 uppercase tracking-widest mt-6">↕ Scroll inside the monitor to view the full page</p>
+                </div>
+                <div class="monitor-body" style="max-width: 1100px;">
+                    <div class="monitor-cam"></div>
+                    <div class="monitor-screen-scroll">
+                        <img src="images/Northlandz/Home_NoNav.png" alt="Northlandz Home page">
+                    </div>
+                </div>
+                <div class="monitor-neck"></div>
+                <div class="monitor-base"></div>
+            </div>
+
+            <!-- Events page monitor -->
+            <div class="flex flex-col items-center w-full">
+                <div class="max-w-6xl mr-auto text-left mb-10 w-full">
+                    <h3 class="text-[10px] uppercase tracking-[0.3em] font-black mb-3 text-[#d73c3a]">Events Page</h3>
+                    <h2 class="text-3xl md:text-4xl poppins-black uppercase leading-tight mb-5">A Party Booking Experience Built for Parents</h2>
+                    <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                        The original events page included outdated stock images, inauthentic testimonials, lots of copy, and vague information about the parties themselves. This event dedicates itself to Northlandz's main clientele: families throwing parties for their children. There is a basic description to get parents hooked, followed up a simple run-down of the different party packages offered. Competitors have event designers on retainer, creating themes exclusively for their venues. Northlandz will follow suit and offer themes that compliment the museum. Parents can choose between the "Steam Train" theme to match the train exhibit or the "Vintage Princess Magic" theme to match the vintage doll collection. Photos of the themes in their space gives parents assurance of the party's execution. The multiple buttons and testimonials are replaced with a simple contact form.
+                    </p>
+                    <p class="text-xs text-gray-500 uppercase tracking-widest mt-6">↕ Scroll inside the monitor to view the full page</p>
+                </div>
+                <div class="monitor-body" style="max-width: 1100px;">
+                    <div class="monitor-cam"></div>
+                    <div class="monitor-screen-scroll">
+                        <img src="images/Northlandz/Events.png" alt="Northlandz Events page">
+                    </div>
+                </div>
+                <div class="monitor-neck"></div>
+                <div class="monitor-base"></div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<!-- ── Instagram Ad Comparison 
+<section class="w-full pt-16 pb-24 reveal">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-12">
+
+        <div class="text-center mb-16">
+            <h3 class="text-[10px] uppercase tracking-[0.3em] font-black mb-3 text-[#d73c3a]">Social Media</h3>
+            <p class="text-3xl md:text-5xl poppins-black uppercase">Instagram Ad Comparison</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24 items-start justify-items-center">
+
+            <!-- Before 
+            <div class="w-full max-w-xs">
+                <p class="text-[10px] uppercase tracking-[0.3em] font-black mb-8 text-gray-400 text-center">Before</p>
+                <div class="ig-phone">
+                    <div class="ig-notch"></div>
+                    <div class="ig-screen">
+                        <div class="ig-post">
+                            <div class="ig-post-header">
+                                <div class="ig-avatar-ring">
+                                    <div class="ig-avatar-inner">
+                                        <img src="images/Northlandz/ig-avatar.jpg" alt="" onerror="this.style.display='none'">
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="ig-handle">northlandz</div>
+                                    <div class="ig-sponsored">Sponsored</div>
+                                </div>
+                                <div class="ig-more-btn">···</div>
+                            </div>
+                            <div class="ig-post-img">
+                                <video autoplay loop muted playsinline>
+                                    <source src="images/Northlandz/ig-before.mp4" type="video/mp4">
+                                </video>
+                                <div class="ig-placeholder">
+                                    Drop video here:<br>images/Northlandz/ig-before.mp4
+                                </div>
+                            </div>
+                            <div class="ig-actions-row">
+                                <div class="ig-actions-left">
+                                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#111" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#111" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#111" stroke-width="1.8"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                                </div>
+                                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#111" stroke-width="1.8"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                            </div>
+                            <div class="ig-likes">1,204 likes</div>
+                            <div class="ig-caption-block">
+                                <span class="ig-handle">northlandz</span> Visit the world's largest model railroad! Open daily. 🚂
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>── -->
+
+            <!-- After 
+            <div class="w-full max-w-xs">
+                <p class="text-[10px] uppercase tracking-[0.3em] font-black mb-8 text-[#d73c3a] text-center">After</p>
+                <div class="ig-phone">
+                    <div class="ig-notch"></div>
+                    <div class="ig-screen">
+                        <div class="ig-post">
+                            <div class="ig-post-header">
+                                <div class="ig-avatar-ring">
+                                    <div class="ig-avatar-inner">
+                                        <img src="images/Northlandz/ig-avatar.jpg" alt="" onerror="this.style.display='none'">
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="ig-handle">northlandz</div>
+                                    <div class="ig-sponsored">Sponsored</div>
+                                </div>
+                                <div class="ig-more-btn">···</div>
+                            </div>
+                            <div class="ig-post-img">
+                                <video autoplay loop muted playsinline>
+                                    <source src="images/Northlandz/ig-after.mp4" type="video/mp4">
+                                </video>
+                                <div class="ig-placeholder">
+                                    Drop video here:<br>images/Northlandz/ig-after.mp4
+                                </div>
+                            </div>
+                            <div class="ig-actions-row">
+                                <div class="ig-actions-left">
+                                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#111" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#111" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#111" stroke-width="1.8"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                                </div>
+                                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#111" stroke-width="1.8"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                            </div>
+                            <div class="ig-likes">1,204 likes</div>
+                            <div class="ig-caption-block">
+                                <span class="ig-handle">northlandz</span> World-record model railroad. Book your visit today. 🚂 #Northlandz #NJ #FamilyFun
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>-->
+
+
+		
+<!--2 Column Image and Text Descriptor templates -->
+<!--IMAGE LEFT 2 Column Image and Text Descriptor templates -->
+		<section class="max-w-[1400px] mx-auto px-6 md:px-12 py-20 reveal">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 items-center">
+        <div class="group">
+            <div class="img-container mb-4">
+                <img src="images/Northlandz/CakeTable.png" alt="Project Detail" class="w-full h-auto object-cover">
+            </div>
+            <p class="text-[10px] uppercase tracking-[0.2em] text-gray-400 group-hover:text-black transition-colors duration-500">
+                AI image concept of a food and cake table
+            </p>
+        </div>
+        
+        <div class="max-w-md">
+            <h3 class="text-xs uppercase tracking-[0.3em] font-black mb-6 text-[#d73c3a]">Party Packages</h3>
+            <p class="text-lg text-gray-800 leading-relaxed">
+                For Northlandz to compete in the party space, they need to break down what type of party they can offer and what is included. Packages can begin with a pass to the museum, and clients can add tickets to their ride-on train or make a craft from the gift shop's inventory. Northlandz can also use their gift shop inventory put together the perfect favor bags. Food and desserts from local businesses would be provided. It is important for them to emphasize that they support small businesses from Flemington, NJ.
+            </p>
+        </div>
+    </div>
+</section>
+<!--IMAGE RIGHT 2 Column Image and Text Descriptor templates -->
+<section class="max-w-[1400px] mx-auto px-6 md:px-12 py-20 reveal">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 items-center">
+        <div class="max-w-md md:order-1 order-2">
+            <h3 class="text-xs uppercase tracking-[0.3em] font-black mb-6 text-[#d73c3a]">Getting On Track</h3>
+            <p class="text-lg text-gray-800 leading-relaxed">
+                Top-notch competitors have an event designer on retainer. Northlandz could provide packages exclusive to their location and theme, catering to both boys and girls. One theme could be a homage to their outdoor train. The other could be a vintage princess theme, referencing their antique doll collection. 
+            </p>
+        </div>
+
+        <div class="group md:order-2 order-1">
+            <div class="img-container mb-4">
+                <img src="images/Northlandz/PrincessConcept.jpg" alt="Project Detail" class="w-full h-auto object-cover">
+            </div>
+            <p class="text-[10px] uppercase tracking-[0.2em] text-gray-400 group-hover:text-black transition-colors duration-500 md:text-right">
+                AI image concept of the vintage princess theme
+            </p>
+        </div>
+    </div>
+</section>
+		
+<!--Next Page -->
+        </section>
+    </main>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    const vid = entry.target.querySelector('video');
+                    if (vid) vid.play();
+                } else {
+                    const vid = entry.target.querySelector('video');
+                    if (vid) vid.pause();
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+        // ── Video play / pause toggle ────────────────────────────────────────
+        (function () {
+            var wrap = document.getElementById('video-wrap');
+            if (!wrap) return;
+            var vid = wrap.querySelector('video');
+            if (!vid) return;
+
+            wrap.addEventListener('click', function () {
+                if (vid.paused) {
+                    vid.play();
+                    wrap.classList.remove('paused');
+                } else {
+                    vid.pause();
+                    wrap.classList.add('paused');
+                }
+            });
+        }());
+
+        // ── Before / After Slider ──────────────────────────────────────────
+        (function () {
+            var slider   = document.getElementById('ba-slider');
+            var before   = document.getElementById('ba-before');
+            var handle   = document.getElementById('ba-handle');
+            if (!slider || !before || !handle) return;
+
+            var dragging = false;
+
+            function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+
+            function setPos(clientX) {
+                var rect = slider.getBoundingClientRect();
+                var pct  = clamp(((clientX - rect.left) / rect.width) * 100, 0, 100);
+                before.style.clipPath = 'inset(0 ' + (100 - pct).toFixed(2) + '% 0 0)';
+                handle.style.left     = pct.toFixed(2) + '%';
+            }
+
+            // Mouse
+            slider.addEventListener('mousedown', function (e) {
+                dragging = true;
+                setPos(e.clientX);
+                e.preventDefault();
+            });
+            document.addEventListener('mousemove', function (e) {
+                if (dragging) setPos(e.clientX);
+            });
+            document.addEventListener('mouseup', function () { dragging = false; });
+
+            // Touch
+            slider.addEventListener('touchstart', function (e) {
+                dragging = true;
+                setPos(e.touches[0].clientX);
+                e.preventDefault();
+            }, { passive: false });
+            document.addEventListener('touchmove', function (e) {
+                if (dragging) setPos(e.touches[0].clientX);
+            }, { passive: true });
+            document.addEventListener('touchend', function () { dragging = false; });
+        }());
+
+        // ── Scroll reveal: calculate exact pan distance per image ──────────
+        (function () {
+            var slider = document.getElementById('ba-slider');
+            if (!slider) return;
+            var imgs = slider.querySelectorAll('.ba-img');
+
+            function calcDist(img) {
+                if (!img.naturalWidth || !img.naturalHeight) return;
+                var displayH = (img.naturalHeight / img.naturalWidth) * slider.offsetWidth;
+                var containerH = slider.offsetHeight;
+                var dist = Math.max(0, displayH - containerH);
+                img.style.setProperty('--scroll-dist', '-' + dist.toFixed(0) + 'px');
+            }
+
+            imgs.forEach(function (img) {
+                if (img.complete && img.naturalWidth) { calcDist(img); }
+                else { img.addEventListener('load', function () { calcDist(img); }); }
+            });
+
+            window.addEventListener('resize', function () { imgs.forEach(calcDist); });
+        }());
+    </script>
+</body>
+</html>

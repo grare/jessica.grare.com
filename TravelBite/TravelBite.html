@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>TravelBite — Passport for your tastebuds</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Caveat:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css?v=20260430c" />
+<style>
+  /* Inline fallback for .food-photo cropping (guaranteed to apply even if styles.css cache is stale) */
+  .food-photo {
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+  }
+</style>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<style>
+  /* Stage scene */
+  html, body { height: 100%; }
+  body {
+    background: #2a1d12;
+    background-image:
+      radial-gradient(circle at 25% 15%, rgba(217, 154, 43, 0.15) 0%, transparent 40%),
+      radial-gradient(circle at 75% 85%, rgba(194, 90, 59, 0.18) 0%, transparent 45%),
+      radial-gradient(circle at 50% 50%, rgba(40, 25, 12, 1) 0%, rgba(20, 12, 6, 1) 100%);
+    overflow-x: hidden;
+  }
+  #root { min-height: 100vh; }
+  .stage {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 40px 20px;
+  }
+  .stage-grid {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  .phone-label {
+    text-align: center;
+    margin-top: 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: #c9b691;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+
+  .top-banner {
+    position: fixed;
+    top: 16px; left: 16px; right: 16px;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #f3e9d7;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    pointer-events: none;
+  }
+  .top-banner .brand {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px;
+    text-transform: none;
+    letter-spacing: -0.01em;
+    color: #f3e9d7;
+  }
+  .top-banner .brand .star { color: #e3b34a; }
+
+  .mode-toggle {
+    position: fixed;
+    top: 16px; right: 16px;
+    z-index: 101;
+    display: flex;
+    gap: 0;
+    background: rgba(243, 233, 215, 0.08);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(243, 233, 215, 0.15);
+    border-radius: 100px;
+    padding: 4px;
+    pointer-events: auto;
+  }
+  .mode-toggle button {
+    border: none; background: transparent; cursor: pointer;
+    padding: 6px 14px;
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: #c9b691; border-radius: 100px;
+  }
+  .mode-toggle button.active { background: #c25a3b; color: #fff5e6; }
+
+  /* ── Canvas tabs (top of stage) ───────────────────────── */
+  .canvas-tabs {
+    display: flex;
+    gap: 6px;
+    padding: 6px;
+    background: rgba(243, 233, 215, 0.05);
+    border: 1px solid rgba(243, 233, 215, 0.12);
+    border-radius: 100px;
+    backdrop-filter: blur(6px);
+  }
+  .canvas-tab {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 10px 22px;
+    border-radius: 100px;
+    display: flex; align-items: center; gap: 10px;
+    color: #c9b691;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    transition: background .18s, color .18s;
+  }
+  .canvas-tab:hover { color: #f3e9d7; }
+  .canvas-tab.active { background: #c25a3b; color: #fff5e6; }
+  .canvas-tab-letter {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border-radius: 50%;
+    background: rgba(243, 233, 215, 0.12);
+    font-family: 'DM Serif Display', serif;
+    font-size: 13px;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+  .canvas-tab.active .canvas-tab-letter {
+    background: rgba(255, 245, 230, 0.25);
+  }
+  .canvas-tab-label { font-weight: 600; }
+  .canvas-tab-count {
+    font-size: 9px;
+    opacity: 0.65;
+    border-left: 1px solid currentColor;
+    padding-left: 10px;
+    border-color: rgba(255, 255, 255, 0.18);
+  }
+
+  /* Flow section dividers */
+  .flow-header {
+    width: 100%;
+    max-width: 1600px;
+    display: flex; align-items: center; gap: 18px;
+    padding: 0 20px;
+  }
+  .flow-rule {
+    flex: 1; height: 1px;
+    background: linear-gradient(to right, transparent, rgba(243,233,215,0.25) 30%, rgba(243,233,215,0.25) 70%, transparent);
+  }
+  .flow-title {
+    display: flex; align-items: baseline; gap: 14px;
+    color: #f3e9d7;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .flow-num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 28px; height: 28px; border-radius: 50%;
+    background: #c25a3b; color: #fff5e6;
+    font-family: 'DM Serif Display', serif; font-size: 16px;
+    letter-spacing: 0;
+  }
+  .flow-meta {
+    color: #c9b691; opacity: 0.65; font-size: 9px;
+    border-left: 1px solid rgba(201, 182, 145, 0.3);
+    padding-left: 14px;
+  }
+  .flow-arrow {
+    display: flex; align-items: center; justify-content: center;
+    align-self: center;
+    margin-top: -14px;
+    opacity: 0.55;
+  }
+
+  .focus-overlay {
+    position: fixed; inset: 0; z-index: 50;
+    background: rgba(20, 12, 6, 0.85);
+    backdrop-filter: blur(12px);
+    display: flex; align-items: center; justify-content: center;
+    animation: fadein 0.25s;
+  }
+  .focus-close {
+    position: fixed; top: 20px; right: 20px;
+    background: rgba(243, 233, 215, 0.1);
+    border: 1px solid rgba(243, 233, 215, 0.2);
+    width: 44px; height: 44px; border-radius: 50%;
+    color: #f3e9d7; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 51;
+  }
+  .focus-arrow {
+    position: fixed; top: 50%; transform: translateY(-50%);
+    background: rgba(243, 233, 215, 0.1);
+    border: 1px solid rgba(243, 233, 215, 0.2);
+    width: 48px; height: 48px; border-radius: 50%;
+    color: #f3e9d7; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 51;
+  }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" src="data.jsx"></script>
+<script src="tb-assets.js"></script>
+<script type="text/babel" src="icons.jsx"></script>
+<script type="text/babel" src="phone.jsx"></script>
+<script type="text/babel" src="screens-a.jsx"></script>
+<script type="text/babel" src="screens-b.jsx"></script>
+<script type="text/babel" src="phone-app.jsx"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+
+<script type="text/babel" data-presets="env,react">
+const TWEAK_DEFAULS = /*EDITMODE-BEGIN*/{
+  "dark": true,
+  "showAllScreens": true,
+  "showSpec": true
+}/*EDITMODE-END*/;
+
+// ONBOARDING_FLOW, APP_FLOW, SCREEN_ORDER, PhoneApp now come from phone-app.jsx
+
+function App() {
+  const [tweaks, setTweaks] = useTweaks ? useTweaks(TWEAK_DEFAULS) : [TWEAK_DEFAULS, () => {}];
+  const [dark, setDark] = React.useState(false);
+  const [activeTab, setActiveTab] = React.useState('product'); // 'onboarding' | 'product'
+  const [focusedScreen, setFocusedScreen] = React.useState(null);
+  const showSpec = !!tweaks.showSpec;
+
+  // Focused-screen ← → navigation cycles within the currently-active tab.
+  const activeFlow = activeTab === 'onboarding' ? ONBOARDING_FLOW : APP_FLOW;
+  const focusedIdx = focusedScreen ? activeFlow.findIndex(s => s.id === focusedScreen) : -1;
+
+  React.useEffect(() => {
+    if (!focusedScreen) return;
+    const onKey = (e) => {
+      if (e.key === 'Escape') setFocusedScreen(null);
+      else if (e.key === 'ArrowRight') setFocusedScreen(activeFlow[(focusedIdx + 1) % activeFlow.length].id);
+      else if (e.key === 'ArrowLeft') setFocusedScreen(activeFlow[(focusedIdx - 1 + activeFlow.length) % activeFlow.length].id);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [focusedScreen, focusedIdx, activeFlow]);
+
+  return (
+    <div className="stage">
+      <div className="top-banner">
+        <div className="brand">TravelBite <span className="star">★</span></div>
+        <div>passport for your tastebuds · onboarding wires + 10 product screens</div>
+      </div>
+
+      <div className="mode-toggle">
+        <button className={!dark ? 'active' : ''} onClick={() => setDark(false)}>☀ Light</button>
+        <button className={dark ? 'active' : ''} onClick={() => setDark(true)}>☾ Dark</button>
+      </div>
+
+      {/* ── Tab bar — switch between Onboarding wires and Product hi-fi ── */}
+      <div className="canvas-tabs" style={{ marginTop: 56 }}>
+        <button
+          className={'canvas-tab ' + (activeTab === 'onboarding' ? 'active' : '')}
+          onClick={() => { setActiveTab('onboarding'); setFocusedScreen(null); }}>
+          <span className="canvas-tab-letter">A</span>
+          <span className="canvas-tab-label">Onboarding flow</span>
+          <span className="canvas-tab-count">3 wires</span>
+        </button>
+        <button
+          className={'canvas-tab ' + (activeTab === 'product' ? 'active' : '')}
+          onClick={() => { setActiveTab('product'); setFocusedScreen(null); }}>
+          <span className="canvas-tab-letter">B</span>
+          <span className="canvas-tab-label">Product · hi-fi</span>
+          <span className="canvas-tab-count">8 screens</span>
+        </button>
+      </div>
+
+      {activeTab === 'onboarding' && <>
+      {/* ── Onboarding flow (wireframe phones) ── */}
+      <div className="flow-header" style={{ marginTop: 36 }}>
+        <div className="flow-rule" />
+        <div className="flow-title">
+          <span className="flow-num">A</span>
+          <span>Onboarding flow · FPO wireframes</span>
+          <span className="flow-meta">First-run · 3 screens · swipe / tap "next"</span>
+        </div>
+        <div className="flow-rule" />
+      </div>
+      <div className="stage-grid" style={{ marginTop: 28 }}>
+        {ONBOARDING_FLOW.map((s, i) => (
+          <div key={s.id} data-screen-label={s.label} style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
+            <div>
+              <div onClick={() => setFocusedScreen(s.id)} style={{ cursor: 'zoom-in' }}>
+                <PhoneApp initialScreen={s.id} dark={dark} setDark={setDark} showSpec={showSpec} />
+              </div>
+              <div className="phone-label">{s.label}</div>
+            </div>
+            {i < ONBOARDING_FLOW.length - 1 && (
+              <div className="flow-arrow" aria-hidden="true">
+                <svg viewBox="0 0 60 60" width="60" height="60">
+                  <path d="M8 30 Q 30 14 50 30" stroke="#c9b691" strokeWidth="1.2" fill="none" strokeDasharray="3 3" />
+                  <path d="M44 24 L52 30 L46 36" stroke="#c9b691" strokeWidth="1.2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+
+      </>}
+
+      {activeTab === 'product' && <>
+      {/* ── Main product (live hi-fi screens) ── */}
+      <div className="flow-header" style={{ marginTop: 36 }}>
+        <div className="flow-rule" />
+        <div className="flow-title">
+          <span className="flow-num">B</span>
+          <span>Product · hi-fi screens</span>
+          <span className="flow-meta">Lands here after onboarding · 10 screens</span>
+        </div>
+        <div className="flow-rule" />
+      </div>
+      <div className="stage-grid" style={{ marginTop: 28 }}>
+        {APP_FLOW.map(s => (
+          <div key={s.id} data-screen-label={s.label}>
+            <div onClick={() => setFocusedScreen(s.id)} style={{ cursor: 'zoom-in' }}>
+              <PhoneApp initialScreen={s.id} dark={dark} setDark={setDark} showSpec={showSpec} />
+            </div>
+            <div className="phone-label">{s.label}</div>
+          </div>
+        ))}
+      </div>
+      </>}
+
+      {focusedScreen && (
+        <div className="focus-overlay" onClick={() => setFocusedScreen(null)}>
+          <button className="focus-close" onClick={(e) => { e.stopPropagation(); setFocusedScreen(null); }}>✕</button>
+          <button className="focus-arrow" style={{ left: 24 }} onClick={(e) => { e.stopPropagation(); setFocusedScreen(activeFlow[(focusedIdx - 1 + activeFlow.length) % activeFlow.length].id); }}>‹</button>
+          <button className="focus-arrow" style={{ right: 24 }} onClick={(e) => { e.stopPropagation(); setFocusedScreen(activeFlow[(focusedIdx + 1) % activeFlow.length].id); }}>›</button>
+          <div onClick={(e) => e.stopPropagation()}>
+            <PhoneApp initialScreen={focusedScreen} dark={dark} setDark={setDark} showSpec={showSpec} />
+            <div className="phone-label" style={{ color: '#f3e9d7', marginTop: 18 }}>
+              {activeFlow[focusedIdx]?.label} · click outside or press esc to close · ← → to navigate
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+
+<template id="__bundler_thumbnail">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+    <rect width="400" height="400" fill="#2a1d12"/>
+    <rect x="120" y="60" width="160" height="280" rx="28" fill="#f6efe2" stroke="#3d2e1f" stroke-width="3"/>
+    <circle cx="200" cy="170" r="44" fill="#c25a3b"/>
+    <text x="200" y="184" font-family="serif" font-size="42" fill="#f6efe2" text-anchor="middle">八</text>
+    <rect x="148" y="232" width="104" height="8" rx="4" fill="#3d2e1f"/>
+    <rect x="160" y="252" width="80" height="6" rx="3" fill="#9b8870"/>
+    <rect x="148" y="276" width="104" height="40" rx="6" fill="#d99a2b"/>
+  </svg>
+</template>
+</body>
+</html>

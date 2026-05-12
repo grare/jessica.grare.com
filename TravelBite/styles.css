@@ -1,0 +1,420 @@
+/* TravelBite — Warm cozy hand-drawn passport aesthetic */
+
+:root {
+  /* Light — cream paper */
+  --paper: #f3e9d7;
+  --paper-2: #ece0c8;
+  --paper-3: #e3d3b3;
+  --ink: #2a1d12;
+  --ink-2: #5a4632;
+  --ink-3: #8b7253;
+  --rule: #c9b691;
+  --terracotta: #c25a3b;
+  --terracotta-2: #a64627;
+  --turmeric: #d99a2b;
+  --saffron: #e3b34a;
+  --sage: #6b7d5b;
+  --plum: #6b3a4f;
+  --stamp-red: #b03a2e;
+  --stamp-blue: #2c4a6b;
+  --shadow-paper: 0 1px 0 rgba(255,255,255,0.5) inset, 0 8px 24px rgba(80,50,20,0.12);
+}
+
+[data-theme="dark"] {
+  --paper: #1c1610;
+  --paper-2: #251c14;
+  --paper-3: #2f2419;
+  --ink: #f0e3cc;
+  --ink-2: #c9b691;
+  --ink-3: #d0b591;
+  --rule: #4a3a26;
+  --terracotta: #e07a5a;
+  --terracotta-2: #c25a3b;
+  --turmeric: #e3b34a;
+  --saffron: #f0c970;
+  --sage: #8a9c79;
+  --plum: #c889a4;
+  --stamp-red: #e07a6a;
+  --stamp-blue: #6b9bc9;
+  --shadow-paper: 0 1px 0 rgba(255,255,255,0.04) inset, 0 8px 24px rgba(0,0,0,0.4);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: #2a1d12;
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  color: var(--ink);
+}
+
+/* Paper texture — subtle noise via repeating gradient */
+.paper-bg {
+  background-color: var(--paper);
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(139,114,83,0.06) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(139,114,83,0.05) 0%, transparent 40%),
+    repeating-linear-gradient(
+      45deg,
+      transparent 0px,
+      transparent 2px,
+      rgba(139,114,83,0.015) 2px,
+      rgba(139,114,83,0.015) 3px
+    );
+}
+
+[data-theme="dark"] .paper-bg {
+  background-color: var(--paper);
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(255,200,140,0.03) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(255,200,140,0.02) 0%, transparent 40%);
+}
+
+/* Atlas world map — swaps light/dark image based on theme */
+.atlas-map {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  object-fit: cover;
+  object-position: center 30%;
+  border-radius: 6px;
+  display: block;
+  mix-blend-mode: multiply;
+}
+.atlas-map.atlas-dark { display: none; }
+[data-theme="dark"] .atlas-map.atlas-light { display: none; }
+[data-theme="dark"] .atlas-map.atlas-dark  { display: block; mix-blend-mode: normal; }
+
+/* Type */
+.serif { font-family: 'DM Serif Display', 'Georgia', serif; font-weight: 400; letter-spacing: 0; color: var(--ink); }
+.script { font-family: 'Caveat', 'Comic Sans MS', cursive; color: var(--ink); }
+.mono { font-family: 'JetBrains Mono', 'Courier New', monospace; color: var(--ink-2); }
+
+/* Hand-drawn dashed border */
+.dashed {
+  background-image: repeating-linear-gradient(
+    90deg, var(--ink-3) 0 6px, transparent 6px 12px
+  );
+}
+.dashed-v {
+  background-image: repeating-linear-gradient(
+    0deg, var(--ink-3) 0 6px, transparent 6px 12px
+  );
+}
+
+/* Passport stamp circular seal */
+.stamp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-align: center;
+  position: relative;
+  /* slightly imperfect ink-stamp effect */
+  opacity: 0.85;
+  transform: rotate(-8deg);
+}
+.stamp::before {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+}
+
+/* Tape — masking tape for postcards */
+.tape {
+  position: absolute;
+  background: rgba(227, 179, 74, 0.45);
+  height: 22px;
+  width: 80px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  background-image: repeating-linear-gradient(
+    90deg, transparent 0 2px, rgba(255,255,255,0.15) 2px 4px
+  );
+}
+
+/* Smooth scroll inside artboards */
+.scroll-area {
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+}
+.scroll-area::-webkit-scrollbar { display: none; }
+
+/* Card */
+.card {
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  border-radius: 14px;
+}
+button.card { color: var(--ink); cursor: pointer; }
+button { color: inherit; }
+
+/* Pill chips */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 100px;
+  border: 1px solid var(--rule);
+  background: var(--paper);
+  font-size: 12px;
+  color: var(--ink-2);
+  white-space: nowrap;
+}
+.chip.active {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+/* Buttons */
+.btn-primary {
+  background: var(--terracotta);
+  color: #1c1610;
+  border: none;
+  padding: 14px 22px;
+  border-radius: 100px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  letter-spacing: 0.01em;
+  box-shadow: 0 2px 0 var(--terracotta-2), 0 4px 14px rgba(194,90,59,0.25);
+  transition: transform 0.1s;
+}
+.btn-primary:active { transform: translateY(1px); box-shadow: 0 1px 0 var(--terracotta-2); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  padding: 12px 20px;
+  border-radius: 100px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* Status bar */
+.status-bar {
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px 0 22px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  font-family: 'Inter', sans-serif;
+}
+
+/* Nav pill */
+.nav-pill {
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.nav-pill::after {
+  content: '';
+  width: 110px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--ink);
+  opacity: 0.45;
+}
+
+/* Bottom tab bar */
+.tab-bar {
+  display: flex;
+  background: var(--paper-2);
+  border-top: 1px solid var(--rule);
+  padding: 8px 0 6px;
+}
+.tab {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 0;
+  cursor: pointer;
+  color: var(--ink-3);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-family: 'Inter', sans-serif;
+  border: none;
+  background: transparent;
+}
+.tab.active { color: var(--terracotta); }
+
+/* Hero serif */
+.h1 { font-family: 'DM Serif Display', serif; font-size: 40px; line-height: 0.95; letter-spacing: 0; color: var(--ink); }
+.h2 { font-family: 'DM Serif Display', serif; font-size: 28px; line-height: 1; letter-spacing: 0; color: var(--ink); }
+.h3 { font-family: 'DM Serif Display', serif; font-size: 20px; line-height: 1.1; letter-spacing: 0; color: var(--ink); }
+.eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-3); }
+.script-note { font-family: 'Caveat', cursive; font-size: 22px; color: var(--terracotta); line-height: 1; }
+
+/* Image placeholder — "food shot" */
+.food-ph {
+  position: relative;
+  background: var(--paper-3);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.food-ph::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(139,114,83,0.18) 0 1px,
+    transparent 1px 14px
+  );
+}
+.food-ph::after {
+  content: attr(data-label);
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  opacity: 0.7;
+}
+
+/* Real food photo — same shape as .food-ph but actual image */
+.food-photo {
+  position: relative;
+  background: var(--paper-3);
+  background-size: cover;
+  background-position: center;
+  border-radius: 12px;
+  overflow: hidden;
+}
+[data-theme="dark"] .food-photo {
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
+}
+
+/* Spice circle */
+.spice-disc {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DM Serif Display', serif;
+  font-size: 24px;
+  color: #f3e9d7;
+  position: relative;
+  box-shadow: inset 0 -4px 8px rgba(0,0,0,0.12), 0 2px 6px rgba(0,0,0,0.08);
+}
+
+/* Dotted journey line */
+.dotted-line {
+  background-image: radial-gradient(circle, var(--ink-3) 1px, transparent 1.5px);
+  background-size: 8px 8px;
+  background-repeat: repeat-x;
+}
+
+/* Subtle paper rip */
+.rip-bottom {
+  position: relative;
+}
+.rip-bottom::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: -6px;
+  height: 8px;
+  background:
+    radial-gradient(circle at 4px 0, var(--paper) 4px, transparent 4px) repeat-x;
+  background-size: 8px 8px;
+}
+
+/* Animations */
+@keyframes fadein {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+.fade-in { animation: fadein 0.32s cubic-bezier(0.2, 0.8, 0.2, 1); }
+
+@keyframes tb-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes stamp-in {
+  0% { opacity: 0; transform: rotate(-8deg) scale(2.4); }
+  60% { opacity: 1; transform: rotate(-12deg) scale(0.92); }
+  100% { opacity: 0.85; transform: rotate(-8deg) scale(1); }
+}
+.stamp-in { animation: stamp-in 0.6s cubic-bezier(0.2, 1.4, 0.4, 1) both; }
+
+/* Sheet */
+.sheet-backdrop {
+  position: absolute; inset: 0;
+  background: rgba(20, 12, 6, 0.5);
+  z-index: 30;
+  animation: fadein 0.2s;
+}
+.sheet {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  background: var(--paper);
+  border-radius: 24px 24px 0 0;
+  z-index: 31;
+  border-top: 1px solid var(--rule);
+  animation: slideup 0.32s cubic-bezier(0.2, 0.8, 0.2, 1);
+  max-height: 78%;
+  display: flex;
+  flex-direction: column;
+}
+@keyframes slideup {
+  from { transform: translateY(100%); }
+  to { transform: none; }
+}
+.sheet-handle {
+  width: 40px; height: 4px;
+  background: var(--rule);
+  border-radius: 2px;
+  margin: 10px auto 6px;
+}
+
+/* Checkbox */
+.cb {
+  width: 22px; height: 22px;
+  border: 1.5px solid var(--ink-3);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--paper);
+  flex-shrink: 0;
+  cursor: pointer;
+}
+.cb.on {
+  background: var(--terracotta);
+  border-color: var(--terracotta);
+  color: #fff5e6;
+}
